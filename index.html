@@ -1187,7 +1187,7 @@
         const height =
           flame.baseHeight + Math.sin(time * flame.speed + flame.phase) * 30;
         const width = 25 + flame.layerIndex * 10;
-        const alpha = 0.6 - flame.layerIndex * 0.15;
+        const alpha = 0.3 - flame.layerIndex * 0.075;
 
         // Gradient colors for fire
         const colors = [
@@ -1221,12 +1221,12 @@
         const colors = [0xff4400, 0xff8800, 0xffcc00, 0xffff00];
         const color = colors[Math.floor(Math.random() * colors.length)];
 
-        ember.beginFill(color, 0.8);
+        ember.beginFill(color, 0.4);
         ember.drawCircle(0, 0, size);
         ember.endFill();
 
         // Add glow
-        ember.beginFill(color, 0.3);
+        ember.beginFill(color, 0.15);
         ember.drawCircle(0, 0, size * 2);
         ember.endFill();
 
