@@ -152,7 +152,7 @@ if [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ]; then
     TAILSCALE_AUTH_KEY=$(op read "op://DEV_CLI/Tailscale/auth_key" 2>/dev/null) || true
     if [ -n "$TAILSCALE_AUTH_KEY" ]; then
         log "Configuring Tailscale..."
-        sudo tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock &
+        sudo tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock > /tmp/tailscaled.log 2>&1 &
         sleep 2
         CONTAINER_NAME="${DEVCONTAINER_NAME:-shredder}"
         sudo tailscale up --authkey="$TAILSCALE_AUTH_KEY" --ssh --hostname="devpod-${CONTAINER_NAME}" && log "Tailscale connected!" || warn "Tailscale auth failed"
