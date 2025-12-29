@@ -2,6 +2,12 @@
   "name": "Shredder - PixiJS SPA",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm",
 
+  "runArgs": [
+    "--cap-add=NET_ADMIN",
+    "--cap-add=NET_RAW",
+    "--device=/dev/net/tun"
+  ],
+
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers-extra/features/pre-commit:2": {}
