@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>🎸 SHREDDER - 30 Day Guitar Training</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary: #ff6b35;
+            --secondary: #f7c59f;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --accent: #ff3864;
+            --gold: #ffd700;
+            --xp-green: #00ff88;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--darker);
+            color: white;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #pixi-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .app {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            padding: 20px 16px;
+            padding-top: max(20px, env(safe-area-inset-top));
+            padding-bottom: max(100px, env(safe-area-inset-bottom));
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255,107,53,0.5);
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            font-size: 11px;
+            color: var(--secondary);
+            opacity: 0.8;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 10px 6px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-icon {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 9px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Level Progress */
+        .level-section {
+            background: linear-gradient(145deg, rgba(255,107,53,0.2), rgba(255,56,100,0.1));
+            border: 1px solid rgba(255,107,53,0.3);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .level-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .level-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 900;
+            box-shadow: 0 0 20px rgba(255,107,53,0.5);
+        }
+
+        .level-info h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .level-info span {
+            font-size: 11px;
+            color: var(--xp-green);
+        }
+
+        .xp-text {
+            font-size: 12px;
+            color: var(--secondary);
+        }
+
+        .xp-bar {
+            height: 8px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--xp-green), #00ffcc);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px var(--xp-green);
+        }
+
+        /* Day Card */
+        .day-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .day-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+        }
+
+        .day-info h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .day-info .guitarist {
+            font-size: 13px;
+            color: var(--secondary);
+        }
+
+        .day-date {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 2px;
+        }
+
+        /* Timer */
+        .timer-section {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .timer-display {
+            font-size: 48px;
+            font-weight: 200;
+            font-family: 'SF Mono', monospace;
+            color: var(--gold);
+            text-shadow: 0 0 30px rgba(255,215,0,0.5);
+            margin-bottom: 16px;
+        }
+
+        .timer-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Exercises */
+        .exercises-section h3 {
+            font-size: 14px;
+            color: var(--secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .exercise-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-item.completed {
+            background: rgba(0,255,136,0.1);
+            border-color: rgba(0,255,136,0.3);
+        }
+
+        .exercise-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-item.completed .exercise-checkbox {
+            background: var(--xp-green);
+            border-color: var(--xp-green);
+        }
+
+        .exercise-checkbox::after {
+            content: '✓';
+            color: var(--dark);
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .exercise-item.completed .exercise-checkbox::after {
+            opacity: 1;
+        }
+
+        .exercise-content h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .exercise-content p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+        }
+
+        .exercise-xp {
+            font-size: 11px;
+            color: var(--xp-green);
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        /* Quote */
+        .quote-box {
+            background: linear-gradient(145deg, rgba(255,215,0,0.1), rgba(255,107,53,0.05));
+            border-left: 3px solid var(--gold);
+            border-radius: 0 12px 12px 0;
+            padding: 14px;
+            margin-top: 16px;
+        }
+
+        .quote-text {
+            font-size: 13px;
+            font-style: italic;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .quote-author {
+            font-size: 11px;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .nav-buttons .btn {
+            flex: 1;
+        }
+
+        /* Day Selector Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 350px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal h3 {
+            text-align: center;
+            margin-bottom: 16px;
+            color: var(--secondary);
+        }
+
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .day-btn {
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .day-btn.completed {
+            background: linear-gradient(135deg, var(--xp-green), #00cc66);
+            color: var(--dark);
+        }
+
+        .day-btn.current {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            box-shadow: 0 0 15px rgba(255,107,53,0.5);
+        }
+
+        .day-btn.locked {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .close-modal {
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        /* Achievements Toast */
+        .achievement-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(145deg, var(--dark), rgba(255,107,53,0.2));
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            z-index: 200;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .achievement-toast.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .achievement-icon {
+            font-size: 60px;
+            margin-bottom: 16px;
+        }
+
+        .achievement-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .achievement-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10,10,15,0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 20px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
+            display: flex;
+            justify-content: space-around;
+            z-index: 50;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: rgba(255,255,255,0.5);
+            font-size: 10px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item span:first-child {
+            font-size: 22px;
+        }
+
+        /* Streak Animation */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .streak-fire {
+            animation: pulse 1s infinite;
+        }
+
+        /* Page transitions */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Progress Page */
+        .progress-chart {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .week-row {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .week-label {
+            width: 50px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .day-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .day-dot.done {
+            background: linear-gradient(135deg, var(--xp-green), #00cc66);
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .day-dot.today {
+            border: 2px solid var(--primary);
+        }
+
+        /* Stats List */
+        .stats-list {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .stats-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .stats-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .stats-list-item span:first-child {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .stats-list-item span:last-child {
+            font-weight: 600;
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+    <div id="pixi-container"></div>
+
+    <div class="app">
+        <!-- Training Page -->
+        <div class="page active" id="training-page">
+            <div class="header">
+                <div class="logo">⚡ SHREDDER ⚡</div>
+                <div class="subtitle">30-Dagars Gitarrträning</div>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-box">
+                    <div class="stat-icon streak-fire">🔥</div>
+                    <div class="stat-value" id="streak-count">0</div>
+                    <div class="stat-label">Streak</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-value" id="total-time">0h</div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="days-done">0</div>
+                    <div class="stat-label">Dagar</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-value" id="achievements-count">0</div>
+                    <div class="stat-label">Trofé</div>
+                </div>
+            </div>
+
+            <div class="level-section">
+                <div class="level-header">
+                    <div class="level-badge">
+                        <div class="level-icon" id="level-num">1</div>
+                        <div class="level-info">
+                            <h3 id="level-title">Nybörjare</h3>
+                            <span id="xp-display">0 / 100 XP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="xp-bar">
+                    <div class="xp-fill" id="xp-bar-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header" onclick="openDaySelector()">
+                    <div class="day-number" id="current-day-num">1</div>
+                    <div class="day-info">
+                        <h2 id="current-day-title">Dag 1</h2>
+                        <div class="guitarist" id="current-guitarist">Dave Mustaine (Megadeth)</div>
+                        <div class="day-date" id="current-date">30 Dec 2025</div>
+                    </div>
+                </div>
+
+                <div class="timer-section">
+                    <div class="timer-display" id="timer">00:00</div>
+                    <div class="timer-buttons">
+                        <button class="btn btn-primary" id="timer-btn" onclick="toggleTimer()">▶ Starta</button>
+                        <button class="btn btn-secondary" onclick="resetTimer()">↺ Nollställ</button>
+                    </div>
+                </div>
+
+                <div class="exercises-section">
+                    <h3>📝 Dagens Övningar</h3>
+                    <div id="exercises-list"></div>
+                </div>
+
+                <div class="quote-box">
+                    <div class="quote-text" id="quote-text">"Precision går före tempo."</div>
+                    <div class="quote-author" id="quote-author">— Dave Mustaine</div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" id="prev-day-btn" onclick="prevDay()">← Förra</button>
+                    <button class="btn btn-primary" id="next-day-btn" onclick="nextDay()">Nästa →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Page -->
+        <div class="page" id="progress-page">
+            <div class="header">
+                <div class="logo">📊 Framsteg</div>
+            </div>
+
+            <div class="progress-chart" id="progress-chart"></div>
+
+            <div class="stats-list">
+                <div class="stats-list-item">
+                    <span>Total övningstid</span>
+                    <span id="stat-total-time">0 min</span>
+                </div>
+                <div class="stats-list-item">
+                    <span>Längsta streak</span>
+                    <span id="stat-best-streak">0 dagar</span>
+                </div>
+                <div class="stats-list-item">
+                    <span>Övningar avklarade</span>
+                    <span id="stat-exercises">0</span>
+                </div>
+                <div class="stats-list-item">
+                    <span>Total XP</span>
+                    <span id="stat-total-xp">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day Selector Modal -->
+    <div class="modal-overlay" id="day-modal">
+        <div class="modal">
+            <h3>Välj Dag</h3>
+            <div class="day-grid" id="day-grid"></div>
+            <button class="btn btn-secondary close-modal" onclick="closeDaySelector()">Stäng</button>
+        </div>
+    </div>
+
+    <!-- Achievement Toast -->
+    <div class="achievement-toast" id="achievement-toast">
+        <div class="achievement-icon" id="achievement-icon">🏆</div>
+        <div class="achievement-title" id="achievement-title">Achievement Unlocked!</div>
+        <div class="achievement-desc" id="achievement-desc">Du har gjort något fantastiskt!</div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showPage('training')">
+            <span>🎸</span>
+            <span>Träning</span>
+        </div>
+        <div class="nav-item" onclick="showPage('progress')">
+            <span>📊</span>
+            <span>Framsteg</span>
+        </div>
+    </div>
+
+    <script>
+        // ==================== PROGRAM DATA ====================
+        const PROGRAM_START = new Date('2025-12-30');
+
+        const GUITARISTS = {
+            mustaine: { name: 'Dave Mustaine', band: 'Megadeth', emoji: '🎸' },
+            friedman: { name: 'Marty Friedman', band: 'Megadeth', emoji: '🎵' },
+            smith: { name: 'Adrian Smith', band: 'Iron Maiden', emoji: '⚔️' },
+            murray: { name: 'Dave Murray', band: 'Iron Maiden', emoji: '🦁' },
+            malmsteen: { name: 'Yngwie Malmsteen', band: '', emoji: '👑' },
+            wylde: { name: 'Zakk Wylde', band: 'Black Label Society', emoji: '💀' },
+            johansson: { name: 'Tommy Johansson', band: 'Sabaton', emoji: '🦅' }
+        };
+
+        const LEVELS = [
+            { name: 'Nybörjare', xp: 0 },
+            { name: 'Lärling', xp: 100 },
+            { name: 'Rytmgitarrist', xp: 250 },
+            { name: 'Leadgitarrist', xp: 500 },
+            { name: 'Shredder', xp: 800 },
+            { name: 'Virtuos', xp: 1200 },
+            { name: 'Mästare', xp: 1800 },
+            { name: 'Legend', xp: 2500 },
+            { name: 'Gitarrgud', xp: 3500 }
+        ];
+
+        const DAYS_DATA = [
+            // Week 1 - Grundläggande Teknik
+            {
+                day: 1, guitarist: 'mustaine',
+                title: 'Alternate Picking & Spider Chords',
+                exercises: [
+                    { id: 'w1', title: 'Uppvärmning', desc: 'Kromatisk övning 1-2-3-4, öppen sträng-plockning, powerackord', xp: 20 },
+                    { id: 't1', title: 'Växelplockning', desc: 'E-mollskala med strict alternate picking, börja 80 BPM', xp: 30 },
+                    { id: 't2', title: 'Palm Muting', desc: 'Sextondelar på öppen E med palm mute, ~100 BPM', xp: 25 },
+                    { id: 't3', title: 'Spider Chords', desc: 'Öva snabba powerackordsbyten F#5-B5', xp: 35 },
+                    { id: 'r1', title: 'Thrash-riff', desc: 'Palm-mute E + snabba powerackord på off-beats', xp: 40 }
+                ],
+                quote: { text: 'Precision går före tempo. Öva med metronom och öka hastigheten stegvis.', author: 'Dave Mustaine' }
+            },
+            {
+                day: 2, guitarist: 'friedman',
+                title: 'Legato & Böjningar',
+                exercises: [
+                    { id: 'w1', title: 'Legato-träning', desc: 'Trills mellan två toner, 8-10 reps per fingerkombination', xp: 20 },
+                    { id: 'w2', title: 'Böjningsövning', desc: 'Långsamma, kontrollerade bends på olika strängar', xp: 20 },
+                    { id: 't1', title: 'Legato-frasering', desc: '3-noter-per-sträng skala, plocka bara första tonen', xp: 35 },
+                    { id: 't2', title: 'Expressiva böjningar', desc: 'Förböjning, kvartsböjningar, vibrato på bends', xp: 30 },
+                    { id: 'r1', title: 'Marty-lick', desc: 'Bend B-sträng 15 + legato-sekvens 12-14-15', xp: 45 }
+                ],
+                quote: { text: 'Tonens känsla är viktigare än antalet toner. Låt varje ton sjunga!', author: 'Marty Friedman' }
+            },
+            {
+                day: 3, guitarist: 'smith',
+                title: 'Gallop-komp & Melodi',
+                exercises: [
+                    { id: 'w1', title: 'Gallop-rytm', desc: 'Åttondel + två sextondelar på öppen sträng', xp: 25 },
+                    { id: 'w2', title: 'Diatonisk skala', desc: 'E-moll över två oktaver med alternate picking', xp: 20 },
+                    { id: 't1', title: 'Galloperande komp', desc: 'Palm-muted E5, öka tempo, växla ackord', xp: 35 },
+                    { id: 't2', title: 'Melodislingor', desc: 'Plocka varje ton med alternate picking + vibrato', xp: 30 },
+                    { id: 'r1', title: 'Maiden-riff', desc: 'Gallop på E5 + twin-guitar melodislinga', xp: 40 }
+                ],
+                quote: { text: 'Ett riff ska både driva och lyfta låten. Håll gallopen tajt!', author: 'Adrian Smith' }
+            },
+            {
+                day: 4, guitarist: 'malmsteen',
+                title: 'Snabb Alternate Picking',
+                exercises: [
+                    { id: 'w1', title: 'Skalpositioner', desc: 'A-moll över två oktaver med alternate picking', xp: 20 },
+                    { id: 'w2', title: 'Snabbplocks-pulser', desc: 'Fjärdedelar → åttondelar → trioler → sextondelar', xp: 25 },
+                    { id: 't1', title: 'Strikt alternate picking', desc: '3-noter-per-sträng E naturlig moll, ned-upp-ned', xp: 40 },
+                    { id: 't2', title: 'Positionsskiften', desc: 'Glid mellan positioner mitt i frasen', xp: 35 },
+                    { id: 'r1', title: 'Neoklassisk löpning', desc: 'E-D-C på e-sträng + B-A-G på B-sträng', xp: 50 }
+                ],
+                quote: { text: 'Less is not more – more is more! Öva skoningslöst!', author: 'Yngwie Malmsteen' }
+            },
+            {
+                day: 5, guitarist: 'wylde',
+                title: 'Pentatonik & Pinch Harmonics',
+                exercises: [
+                    { id: 'w1', title: 'Pentatonisk box', desc: 'E-mollpentaskalan i 12:e position', xp: 20 },
+                    { id: 'w2', title: 'Vibrato-kontroll', desc: 'Långsamt, brett vibrato som ökar i hastighet', xp: 25 },
+                    { id: 't1', title: 'Snabba penta-licks', desc: '15-12 på B och e-strängen, repetera i högt tempo', xp: 35 },
+                    { id: 't2', title: 'Pinch harmonics', desc: 'Hitta sweet spots på olika band', xp: 40 },
+                    { id: 'r1', title: 'Zakk squeal & shred', desc: 'Snabb run + pinch harmonic + brett vibrato', xp: 50 }
+                ],
+                quote: { text: 'Få strängarna att S-K-R-I-K-A! Öva tills det sitter i ryggraden!', author: 'Zakk Wylde' }
+            },
+            {
+                day: 6, guitarist: 'johansson',
+                title: 'Hastighet & Precision',
+                exercises: [
+                    { id: 'w1', title: 'Hastighetsuthållighet', desc: 'Sextondelar i 20 sek, vila 10 sek, repetera', xp: 25 },
+                    { id: 'w2', title: 'Skal-sekvens', desc: 'E-F#-G-A på D och G-strängen', xp: 20 },
+                    { id: 't1', title: 'Metronomstegring', desc: 'Öka med ~5 BPM tills det blir slarvigt', xp: 35 },
+                    { id: 't2', title: 'Precision före tempo', desc: 'Dela upp soloslingor, spela perfekt rent', xp: 30 },
+                    { id: 'r1', title: 'Melodisk speed-fras', desc: 'Stigande skala 2 oktaver + vibrato-böj på toppen', xp: 40 }
+                ],
+                quote: { text: 'Njut av musiken du spelar – det hörs i tonen!', author: 'Tommy Johansson' }
+            },
+            // Week 2 - Intensifiering
+            {
+                day: 7, guitarist: 'mustaine',
+                title: 'Synkopering & Kromatik',
+                exercises: [
+                    { id: 'w1', title: 'Downstroke-stamina', desc: '1 minut downstrokes på E, 120 BPM', xp: 30 },
+                    { id: 'w2', title: 'Synkoperingsövning', desc: 'Betona off-beats: "&" efter 2 och 4', xp: 25 },
+                    { id: 't1', title: 'Off-beat-ackord', desc: 'Powerackord på oväntade ställen', xp: 35 },
+                    { id: 't2', title: 'Kromatiska passager', desc: 'A5-A#5-B5 som åttondelstrioler', xp: 40 },
+                    { id: 'r1', title: 'Komplext Mustaine-riff', desc: 'Synkop + kromatisk klättring', xp: 50 }
+                ],
+                quote: { text: 'När du lägger in överraskningar i dina riff, då börjar du komma åt kärnan!', author: 'Dave Mustaine' }
+            },
+            {
+                day: 8, guitarist: 'friedman',
+                title: 'Exotiska Skalor',
+                exercises: [
+                    { id: 'w1', title: 'Exotisk skala', desc: 'F# Phrygisk eller Hirajoshi-skala', xp: 25 },
+                    { id: 'w2', title: 'Förböjningar', desc: 'Pre-bends med mer precision', xp: 20 },
+                    { id: 't1', title: 'Modal interchange', desc: 'Byt skala mitt i frasen', xp: 40 },
+                    { id: 't2', title: 'Avancerade bends', desc: 'Pre-bends med vibrato, microtonala böjningar', xp: 35 },
+                    { id: 'r1', title: 'Kreativ improvisation', desc: '4-8 takter solo med skalbyten', xp: 50 }
+                ],
+                quote: { text: 'Fortsätt utforska och var inte rädd för att låta fel ibland!', author: 'Marty Friedman' }
+            },
+            {
+                day: 9, guitarist: 'murray',
+                title: 'Silkeslent Legato',
+                exercises: [
+                    { id: 'w1', title: 'Trill-uthållighet', desc: 'Trills 20-30 sek per position', xp: 25 },
+                    { id: 'w2', title: 'Legato-skala', desc: 'Hel skala med bara ett anslag', xp: 30 },
+                    { id: 't1', title: 'Långa legatolöpningar', desc: 'Plocka bara första tonen per sträng', xp: 40 },
+                    { id: 't2', title: 'Pull-offs till öppna strängar', desc: 'Flytta position via öppen sträng', xp: 35 },
+                    { id: 'r1', title: 'Flygande Maiden-legato', desc: 'Kaskad från 19:e band ned över alla strängar', xp: 50 }
+                ],
+                quote: { text: 'Lita på din vänsterhand. Håll dig avslappnad och låt fingrarna göra jobbet!', author: 'Dave Murray' }
+            },
+            {
+                day: 10, guitarist: 'malmsteen',
+                title: 'Sweep Picking Intro',
+                exercises: [
+                    { id: 'w1', title: 'Arpeggio-rullning', desc: 'Långsamma arpeggion med svep', xp: 25 },
+                    { id: 'w2', title: 'Ekonomisk plockning', desc: 'Fortsätt sveprörelsen mellan strängar', xp: 30 },
+                    { id: 't1', title: '3-strängs svep ned', desc: 'Am-ackord, lyft finger efter varje ton', xp: 40 },
+                    { id: 't2', title: '3-strängs svep upp', desc: 'Svep uppåt med mjuk handledsrörelse', xp: 40 },
+                    { id: 'r1', title: 'Neoklassisk etyd', desc: 'Svept arpeggio + snabb skalruna', xp: 55 }
+                ],
+                quote: { text: 'Känn kraften i arpeggiorna – som en symfoni på sex strängar!', author: 'Yngwie Malmsteen' }
+            },
+            {
+                day: 11, guitarist: 'wylde',
+                title: 'Dubbelbends & Brutalt Riff',
+                exercises: [
+                    { id: 'w1', title: 'Dubbelsträngs-vibrato', desc: 'G och B samtidigt med brett vibrato', xp: 25 },
+                    { id: 'w2', title: 'Kromatisk pentatonik', desc: 'Lägg in halvtoner mellan penta-toner', xp: 25 },
+                    { id: 't1', title: 'Unison-bends', desc: 'Böj G-sträng upp till unison med B-sträng', xp: 45 },
+                    { id: 't2', title: 'Aggressiv pentatonik', desc: 'Krydda med chromatik + pinch harmonics', xp: 40 },
+                    { id: 'r1', title: 'Berserker solo', desc: 'Snabb run + dubbelbend + squeal', xp: 55 }
+                ],
+                quote: { text: 'Det där var ondska för öronen – på bästa sätt!', author: 'Zakk Wylde' }
+            },
+            {
+                day: 12, guitarist: 'johansson',
+                title: 'Melodi möter Shred',
+                exercises: [
+                    { id: 'w1', title: 'Fingerspann', desc: 'E-molltreklang utspridd längs halsen', xp: 20 },
+                    { id: 'w2', title: 'Burst-picking', desc: 'Snabba burstar av sextondelar', xp: 25 },
+                    { id: 't1', title: 'Temposkift', desc: 'Växla mellan melodiskt och shred i samma fras', xp: 40 },
+                    { id: 't2', title: 'Tapping-grunder', desc: 'A-molltriad med tapping på 12:e band', xp: 45 },
+                    { id: 'r1', title: 'Mini-solo med dynamik', desc: '8 takter med melodi + shred-burst + klimax', xp: 50 }
+                ],
+                quote: { text: 'Melodin är alltid kärnan, tekniken adderar bara extra krydda!', author: 'Tommy Johansson' }
+            },
+            // Week 3 - Avancerad nivå
+            {
+                day: 13, guitarist: 'mustaine',
+                title: 'Lead Teknik',
+                exercises: [
+                    { id: 'w1', title: 'Skal-sekvens', desc: '4 toner upp, backa en, 4 upp igen', xp: 25 },
+                    { id: 'w2', title: 'Muting-övning', desc: 'Staccato med fingertoppar mellan toner', xp: 25 },
+                    { id: 't1', title: 'Repetitiva motiv', desc: 'Repetera 6-toners fras med små variationer', xp: 40 },
+                    { id: 't2', title: 'Kromatiska inslag', desc: 'Lägg in icke-diatoniska toner i solos', xp: 45 },
+                    { id: 'r1', title: 'Mustaine-solo', desc: 'Tema → variation → stegring → crescendo', xp: 60 }
+                ],
+                quote: { text: 'Du är inte bara en gitarrist nu – du är en berättare på instrumentet!', author: 'Dave Mustaine' }
+            },
+            {
+                day: 14, guitarist: 'friedman',
+                title: 'Personlig Stil',
+                exercises: [
+                    { id: 'w1', title: 'Arpeggio-varianter', desc: 'Sus2-arpeggion och ovanliga tonarter', xp: 25 },
+                    { id: 'w2', title: 'Pekfingervibrato', desc: 'Vibrato med pekfingret på glesa band', xp: 25 },
+                    { id: 't1', title: 'Bryt mönster', desc: 'Starta fraser på off-beats istället för 1', xp: 40 },
+                    { id: 't2', title: 'Lyssna & svara', desc: 'Svara på ackordbakgrund med melodiskt tänk', xp: 40 },
+                    { id: 'r1', title: 'Improvisationsjam', desc: '90 sek solo: tema → intensitet → storslaget', xp: 60 }
+                ],
+                quote: { text: 'Det finns inget rätt eller fel, bara vad som låter coolt!', author: 'Marty Friedman' }
+            },
+            {
+                day: 15, guitarist: 'smith',
+                title: 'Längre Fraser & Harmonier',
+                exercises: [
+                    { id: 'w1', title: 'Position-skift', desc: 'E-mollpenta i 5:e och 12:e läge utan paus', xp: 25 },
+                    { id: 'w2', title: 'Harmoniövning', desc: 'Dubbelgrepp i tredjeintervall', xp: 30 },
+                    { id: 't1', title: 'Långa melodiska löpningar', desc: 'Fras över flera takter utan avbrott', xp: 40 },
+                    { id: 't2', title: 'Tvåstämmiga idéer', desc: 'Spela harmonistämma efter originalfras', xp: 45 },
+                    { id: 'r1', title: 'Cover: Adrian-solo', desc: 'Spela ett helt Adrian Smith-solo', xp: 65 }
+                ],
+                quote: { text: 'Syftet är att skapa egna episka melodier!', author: 'Adrian Smith' }
+            },
+            {
+                day: 16, guitarist: 'malmsteen',
+                title: 'Virtuosa Mönster',
+                exercises: [
+                    { id: 'w1', title: 'Sekvensövning', desc: '4 fram, 2 bak i A-moll', xp: 25 },
+                    { id: 'w2', title: 'Diminished-plockning', desc: 'Brutet dim-ackord med alternate picking', xp: 30 },
+                    { id: 't1', title: 'Diminished-runs', desc: 'Symmetrisk dim-skala i högt tempo', xp: 50 },
+                    { id: 't2', title: 'Sweep+slide', desc: 'Position shift mitt i svepet', xp: 50 },
+                    { id: 'r1', title: 'Arpeggio from Hell', desc: 'Sekvens + arpeggio-kaskad + Yngwie-slinga', xp: 70 }
+                ],
+                quote: { text: 'Du spelar nu i princip på shred-gud-nivå!', author: 'Yngwie Malmsteen' }
+            },
+            {
+                day: 17, guitarist: 'wylde',
+                title: 'Wide-Open Shredding',
+                exercises: [
+                    { id: 'w1', title: 'Box-hopp', desc: 'Växla snabbt mellan penta-positioner', xp: 25 },
+                    { id: 'w2', title: 'Tremolo-picking', desc: '10 sek burstar på en ton', xp: 25 },
+                    { id: 't1', title: 'Länka alla boxar', desc: 'Spela genom alla 5 pentatonikboxar', xp: 50 },
+                    { id: 't2', title: 'Double-stop riffing', desc: 'Tunga dubbelgrepp med palm mute', xp: 40 },
+                    { id: 'r1', title: 'Zakk Attack jam', desc: 'Blues + snabba fragment + wild bends', xp: 60 }
+                ],
+                quote: { text: 'Du river av det som om du stod på scen i MSG!', author: 'Zakk Wylde' }
+            },
+            {
+                day: 18, guitarist: 'johansson',
+                title: 'Tapping & Show',
+                exercises: [
+                    { id: 'w1', title: '3-oktavers skala', desc: 'Durskala över tre oktaver utan paus', xp: 30 },
+                    { id: 'w2', title: 'Tap-hammering', desc: 'Tappa 12, 7, och öppen i sekvens', xp: 30 },
+                    { id: 't1', title: 'Tvåhands-arpeggio', desc: 'E-moll tapping med båda händer', xp: 50 },
+                    { id: 't2', title: 'Scenisk teknik', desc: 'Vibrato med svajarm eller show-moves', xp: 35 },
+                    { id: 'r1', title: 'Gitarrduell', desc: 'Spela in "duell" med dig själv', xp: 65 }
+                ],
+                quote: { text: 'Jag älskar sådana där dueller – man sporrar sig själv!', author: 'Tommy Johansson' }
+            },
+            // Week 4 - Mästerskapsnivå
+            {
+                day: 19, guitarist: 'mustaine',
+                title: 'Mästarklass',
+                exercises: [
+                    { id: 'w1', title: '7/8-riff', desc: 'Palm-mute i udda taktart', xp: 30 },
+                    { id: 'w2', title: 'Accentspridning', desc: 'Betona var 3:e, sen var 5:e slag', xp: 30 },
+                    { id: 't1', title: 'Udda taktart-riff', desc: 'Skriv riff i 5/4 eller 7/8', xp: 50 },
+                    { id: 't2', title: 'Polyrytmik', desc: 'Växla mellan odd och straight grupper', xp: 50 },
+                    { id: 'r1', title: 'Megadeth-komposition', desc: 'Riff A + Riff B + Riff C arrangement', xp: 75 }
+                ],
+                quote: { text: 'Att komponera och spela går hand i hand!', author: 'Dave Mustaine' }
+            },
+            {
+                day: 20, guitarist: 'friedman',
+                title: 'Mästarklass',
+                exercises: [
+                    { id: 'w1', title: 'Improvisationsskalor', desc: 'Jamma fritt med olika moder', xp: 30 },
+                    { id: 'w2', title: 'Teknikcheck', desc: 'Gå igenom favorit-licks från alla dagar', xp: 30 },
+                    { id: 't1', title: 'Känslo-dynamik', desc: 'Samma lick i 4 olika dynamiker', xp: 45 },
+                    { id: 't2', title: 'Förskjutna betoningar', desc: 'Starta fraser på olika ställen i takten', xp: 45 },
+                    { id: 'r1', title: 'Skriv eget solo', desc: '16 takter med alla tekniker och stil', xp: 80 }
+                ],
+                quote: { text: 'Du har fått din egen röst på instrumentet!', author: 'Marty Friedman' }
+            },
+            {
+                day: 21, guitarist: 'murray',
+                title: 'Mästarklass',
+                exercises: [
+                    { id: 'w1', title: 'Legato-maraton', desc: '1 minut non-stop legato', xp: 35 },
+                    { id: 'w2', title: 'Trill-switchar', desc: '10 sek trills per fingerkombination', xp: 30 },
+                    { id: 't1', title: 'Tapping legato', desc: 'Göm tapping i legatoflödet', xp: 50 },
+                    { id: 't2', title: 'Stage moves', desc: 'Eddie-rullning, over-the-neck tricks', xp: 35 },
+                    { id: 'r1', title: 'Live solo 2 min', desc: 'Improvisera 2 minuter i one-take', xp: 80 }
+                ],
+                quote: { text: 'Du kan kalla dig en fullfjädrad leadgitarrist!', author: 'Dave Murray' }
+            },
+            {
+                day: 22, guitarist: 'malmsteen',
+                title: 'Mästarklass',
+                exercises: [
+                    { id: 'w1', title: '24-bands kromatik', desc: 'Kromatisk skala hela halsen', xp: 35 },
+                    { id: 'w2', title: 'Styrkeposering', desc: 'Spela snabbt med show-moves', xp: 25 },
+                    { id: 't1', title: 'Arpeggio+skal-kedjor', desc: 'Länka svep direkt till skalruna', xp: 55 },
+                    { id: 't2', title: 'Max tempo-experiment', desc: 'Pusha 5 BPM över din gräns', xp: 50 },
+                    { id: 'r1', title: 'Yngwie-solo', desc: 'Lär in ett svårt Yngwie-solo', xp: 85 }
+                ],
+                quote: { text: 'Du vågade anta utmaningen – bara det kräver cojones!', author: 'Yngwie Malmsteen' }
+            },
+            {
+                day: 23, guitarist: 'wylde',
+                title: 'Mästarklass',
+                exercises: [
+                    { id: 'w1', title: 'All-technique warmup', desc: '15 sek varje teknik i följd', xp: 30 },
+                    { id: 'w2', title: 'Riff med wah', desc: 'Gunga wah-pedal i takt', xp: 25 },
+                    { id: 't1', title: 'Mixolydisk shred', desc: 'Improvisera i E mixolydisk', xp: 45 },
+                    { id: 't2', title: 'Pinch harmonic control', desc: 'Hitta sweet spots på varje band', xp: 50 },
+                    { id: 'r1', title: 'BLS-komposition', desc: 'Drop D riff + solo i Zakk-stil', xp: 80 }
+                ],
+                quote: { text: 'Du är en riktig Berserker på gitarr nu!', author: 'Zakk Wylde' }
+            },
+            {
+                day: 24, guitarist: 'johansson',
+                title: 'Mästarklass',
+                exercises: [
+                    { id: 'w1', title: 'Maraton-låt', desc: 'Spela hel Sabaton-låt start till mål', xp: 40 },
+                    { id: 'w2', title: 'Stretch & shake', desc: 'Ergonomi och återhämtning', xp: 15 },
+                    { id: 't1', title: 'Setlist-övning', desc: '3-4 solos i rad utan paus', xp: 50 },
+                    { id: 't2', title: 'Mentalt scensnack', desc: 'Presentera låtar framför spegel', xp: 30 },
+                    { id: 'r1', title: 'Konsert!', desc: 'Framför 2-3 stycken för publik', xp: 90 }
+                ],
+                quote: { text: 'Nu är scenen din – fortsätt glänsa!', author: 'Tommy Johansson' }
+            },
+            // Week 5 - Utvärdering & Nästa Steg
+            {
+                day: 25, guitarist: 'mustaine',
+                title: 'Reflektion & Nästa Mål',
+                exercises: [
+                    { id: 't1', title: 'Spider chords check', desc: 'Jämför dag 1 vs nu', xp: 30 },
+                    { id: 't2', title: 'Skriv nytt riff', desc: 'Eget thrash-riff utan att tänka Mustaine', xp: 50 },
+                    { id: 'r1', title: 'Dokumentera framsteg', desc: 'Spela in och jämför', xp: 40 }
+                ],
+                quote: { text: 'Teknik är medlet, inte målet. Använd den för att skapa!', author: 'Dave Mustaine' }
+            },
+            {
+                day: 26, guitarist: 'friedman',
+                title: 'Reflektion & Nästa Mål',
+                exercises: [
+                    { id: 't1', title: 'Hör din utveckling', desc: 'Lyssna på dag 8 vs nu', xp: 30 },
+                    { id: 't2', title: 'Exotisk jam', desc: 'Ny exotisk skala varje vecka hädanefter', xp: 50 },
+                    { id: 'r1', title: 'Planera framåt', desc: 'Sätt nya mål för nästa månad', xp: 40 }
+                ],
+                quote: { text: 'Var inte en klon – var dig själv!', author: 'Marty Friedman' }
+            },
+            {
+                day: 27, guitarist: 'smith',
+                title: 'Reflektion & Nästa Mål',
+                exercises: [
+                    { id: 't1', title: 'Twin-lead projekt', desc: 'Spela in harmonier med dig själv', xp: 50 },
+                    { id: 't2', title: 'Gallop endurance', desc: 'Slå ditt max-tempo-rekord', xp: 40 },
+                    { id: 'r1', title: 'Samspel', desc: 'Jamma med en annan gitarrist', xp: 50 }
+                ],
+                quote: { text: 'Glöm aldrig melodin – det handlar alltid om låten!', author: 'Adrian Smith' }
+            },
+            {
+                day: 28, guitarist: 'malmsteen',
+                title: 'Reflektion & Nästa Mål',
+                exercises: [
+                    { id: 't1', title: 'Metronom-check', desc: 'Skriv upp nya BPM-rekord', xp: 40 },
+                    { id: 't2', title: 'Klassisk utmaning', desc: 'Transkribera Bach eller Paganini', xp: 60 },
+                    { id: 'r1', title: 'Nya mål', desc: '+20 BPM på sextondelar inom 6 månader', xp: 40 }
+                ],
+                quote: { text: 'Glöm inte musiken. Lär dig de gamla mästarna!', author: 'Yngwie Malmsteen' }
+            },
+            {
+                day: 29, guitarist: 'wylde',
+                title: 'Reflektion & Nästa Mål',
+                exercises: [
+                    { id: 't1', title: 'Live-erfarenhet', desc: 'Planera ett framträdande', xp: 50 },
+                    { id: 't2', title: 'Variera genrer', desc: 'Applicera shred i andra stilar', xp: 50 },
+                    { id: 'r1', title: 'Ha kul!', desc: 'Jamma bara för nöjet', xp: 40 }
+                ],
+                quote: { text: 'Practice hard, play harder. Och ha kul på vägen!', author: 'Zakk Wylde' }
+            },
+            {
+                day: 30, guitarist: 'johansson',
+                title: 'GRATULATIONER! 🎉',
+                exercises: [
+                    { id: 't1', title: 'Favorit-licks', desc: 'Spela dina favoriter från alla 30 dagar', xp: 50 },
+                    { id: 't2', title: 'Planera framtiden', desc: 'Skriv 2-3 nya mål', xp: 40 },
+                    { id: 'r1', title: 'FIRA!', desc: 'Du har klarat 30 dagars träning!', xp: 100 }
+                ],
+                quote: { text: 'STORT GRATTIS! Detta är bara början på ditt gitarräventyr!', author: 'Tommy Johansson' }
+            }
+        ];
+
+        const ACHIEVEMENTS = [
+            { id: 'first_day', icon: '🌟', title: 'Första Steget', desc: 'Slutför din första dag', check: (s) => s.daysCompleted.length >= 1 },
+            { id: 'week_1', icon: '🔥', title: 'Vecka 1 Klar', desc: 'Slutför 7 dagar', check: (s) => s.daysCompleted.length >= 7 },
+            { id: 'week_2', icon: '⚡', title: 'Intensifierad', desc: 'Slutför 14 dagar', check: (s) => s.daysCompleted.length >= 14 },
+            { id: 'week_3', icon: '💎', title: 'Avancerad', desc: 'Slutför 21 dagar', check: (s) => s.daysCompleted.length >= 21 },
+            { id: 'complete', icon: '👑', title: 'MÄSTARE', desc: 'Slutför alla 30 dagar', check: (s) => s.daysCompleted.length >= 30 },
+            { id: 'streak_3', icon: '🔥', title: 'På Rulle', desc: '3 dagars streak', check: (s) => s.streak >= 3 },
+            { id: 'streak_7', icon: '🔥🔥', title: 'Vecko-Warrior', desc: '7 dagars streak', check: (s) => s.streak >= 7 },
+            { id: 'streak_14', icon: '🔥🔥🔥', title: 'Ostoppbar', desc: '14 dagars streak', check: (s) => s.streak >= 14 },
+            { id: 'streak_30', icon: '🏆', title: 'LEGENDARISK', desc: '30 dagars streak', check: (s) => s.streak >= 30 },
+            { id: 'hour_1', icon: '⏱️', title: 'Första Timmen', desc: 'Öva 1 timme totalt', check: (s) => s.totalMinutes >= 60 },
+            { id: 'hour_5', icon: '⏱️⏱️', title: 'Dedikerad', desc: 'Öva 5 timmar totalt', check: (s) => s.totalMinutes >= 300 },
+            { id: 'hour_10', icon: '⏱️⏱️⏱️', title: 'Hängiven', desc: 'Öva 10 timmar totalt', check: (s) => s.totalMinutes >= 600 },
+            { id: 'xp_500', icon: '⭐', title: 'XP Samlare', desc: 'Samla 500 XP', check: (s) => s.totalXP >= 500 },
+            { id: 'xp_1500', icon: '⭐⭐', title: 'XP Mästare', desc: 'Samla 1500 XP', check: (s) => s.totalXP >= 1500 },
+            { id: 'xp_3000', icon: '⭐⭐⭐', title: 'XP Legend', desc: 'Samla 3000 XP', check: (s) => s.totalXP >= 3000 }
+        ];
+
+        // ==================== STATE ====================
+        let state = {
+            currentDay: 1,
+            viewingDay: 1,
+            daysCompleted: [],
+            exercisesCompleted: {},
+            totalXP: 0,
+            totalMinutes: 0,
+            dailyMinutes: {},
+            streak: 0,
+            bestStreak: 0,
+            lastPracticeDate: null,
+            achievements: [],
+            timerSeconds: 0,
+            timerRunning: false
+        };
+
+        let timerInterval = null;
+        let pixiApp = null;
+        let particles = [];
+
+        // ==================== PIXI.JS SETUP ====================
+        function initPixi() {
+            const container = document.getElementById('pixi-container');
+            pixiApp = new PIXI.Application({
+                width: window.innerWidth,
+                height: window.innerHeight,
+                backgroundAlpha: 0,
+                antialias: true,
+                resolution: window.devicePixelRatio || 1,
+                autoDensity: true
+            });
+            container.appendChild(pixiApp.view);
+
+            // Create particles
+            for (let i = 0; i < 50; i++) {
+                createParticle();
+            }
+
+            // Animation loop
+            pixiApp.ticker.add(() => {
+                particles.forEach(p => {
+                    p.y -= p.speed;
+                    p.x += Math.sin(p.y * 0.01) * 0.5;
+                    p.alpha = Math.sin(p.y * 0.005) * 0.5 + 0.3;
+
+                    if (p.y < -20) {
+                        p.y = pixiApp.screen.height + 20;
+                        p.x = Math.random() * pixiApp.screen.width;
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                pixiApp.renderer.resize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        function createParticle() {
+            const g = new PIXI.Graphics();
+            const colors = [0xff6b35, 0xff3864, 0xffd700, 0xff8c00];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = Math.random() * 3 + 1;
+
+            g.beginFill(color, 0.6);
+            g.drawCircle(0, 0, size);
+            g.endFill();
+
+            g.x = Math.random() * window.innerWidth;
+            g.y = Math.random() * window.innerHeight;
+            g.speed = Math.random() * 0.5 + 0.2;
+            g.alpha = Math.random() * 0.5 + 0.2;
+
+            pixiApp.stage.addChild(g);
+            particles.push(g);
+        }
+
+        function burstParticles(x, y, color = 0xffd700) {
+            for (let i = 0; i < 20; i++) {
+                const g = new PIXI.Graphics();
+                g.beginFill(color, 1);
+                g.drawCircle(0, 0, Math.random() * 4 + 2);
+                g.endFill();
+
+                g.x = x;
+                g.y = y;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 5 + 2;
+                g.vx = Math.cos(angle) * speed;
+                g.vy = Math.sin(angle) * speed;
+                g.life = 1;
+
+                pixiApp.stage.addChild(g);
+
+                const animate = () => {
+                    g.x += g.vx;
+                    g.y += g.vy;
+                    g.vy += 0.1;
+                    g.life -= 0.02;
+                    g.alpha = g.life;
+
+                    if (g.life <= 0) {
+                        pixiApp.stage.removeChild(g);
+                        pixiApp.ticker.remove(animate);
+                    }
+                };
+                pixiApp.ticker.add(animate);
+            }
+        }
+
+        // ==================== STORAGE ====================
+        function saveState() {
+            localStorage.setItem('shredder_state', JSON.stringify(state));
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('shredder_state');
+            if (saved) {
+                state = { ...state, ...JSON.parse(saved) };
+            }
+            calculateCurrentDay();
+            updateStreak();
+        }
+
+        function calculateCurrentDay() {
+            const today = new Date();
+            const diffTime = today - PROGRAM_START;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            state.currentDay = Math.max(1, Math.min(30, diffDays));
+            if (state.viewingDay === 0) state.viewingDay = state.currentDay;
+        }
+
+        function updateStreak() {
+            if (!state.lastPracticeDate) return;
+
+            const last = new Date(state.lastPracticeDate);
+            const today = new Date();
+            const diffDays = Math.floor((today - last) / (1000 * 60 * 60 * 24));
+
+            if (diffDays > 1) {
+                state.streak = 0;
+            }
+        }
+
+        // ==================== XP & LEVELS ====================
+        function addXP(amount) {
+            state.totalXP += amount;
+            checkAchievements();
+            saveState();
+            updateUI();
+
+            // Burst effect
+            const rect = document.querySelector('.level-section').getBoundingClientRect();
+            burstParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 0x00ff88);
+        }
+
+        function getLevel() {
+            for (let i = LEVELS.length - 1; i >= 0; i--) {
+                if (state.totalXP >= LEVELS[i].xp) {
+                    return { level: i + 1, ...LEVELS[i], nextXP: LEVELS[i + 1]?.xp || LEVELS[i].xp };
+                }
+            }
+            return { level: 1, ...LEVELS[0], nextXP: LEVELS[1].xp };
+        }
+
+        // ==================== ACHIEVEMENTS ====================
+        function checkAchievements() {
+            ACHIEVEMENTS.forEach(a => {
+                if (!state.achievements.includes(a.id) && a.check(state)) {
+                    state.achievements.push(a.id);
+                    showAchievement(a);
+                    saveState();
+                }
+            });
+        }
+
+        function showAchievement(achievement) {
+            const toast = document.getElementById('achievement-toast');
+            document.getElementById('achievement-icon').textContent = achievement.icon;
+            document.getElementById('achievement-title').textContent = achievement.title;
+            document.getElementById('achievement-desc').textContent = achievement.desc;
+
+            toast.classList.add('show');
+            burstParticles(window.innerWidth / 2, window.innerHeight / 2, 0xffd700);
+
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ==================== TIMER ====================
+        function toggleTimer() {
+            if (state.timerRunning) {
+                stopTimer();
+            } else {
+                startTimer();
+            }
+        }
+
+        function startTimer() {
+            state.timerRunning = true;
+            document.getElementById('timer-btn').innerHTML = '⏸ Pausa';
+            document.getElementById('timer-btn').style.background = 'linear-gradient(135deg, #ff3864, #ff6b35)';
+
+            timerInterval = setInterval(() => {
+                state.timerSeconds++;
+                updateTimerDisplay();
+
+                // Every minute, add to total
+                if (state.timerSeconds % 60 === 0) {
+                    state.totalMinutes++;
+                    const today = new Date().toDateString();
+                    state.dailyMinutes[today] = (state.dailyMinutes[today] || 0) + 1;
+                    saveState();
+                    checkAchievements();
+                    updateUI();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            state.timerRunning = false;
+            document.getElementById('timer-btn').innerHTML = '▶ Starta';
+            document.getElementById('timer-btn').style.background = '';
+            clearInterval(timerInterval);
+
+            // Update streak
+            const today = new Date().toDateString();
+            if (state.lastPracticeDate !== today) {
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+
+                if (state.lastPracticeDate === yesterday.toDateString()) {
+                    state.streak++;
+                } else if (state.lastPracticeDate !== today) {
+                    state.streak = 1;
+                }
+
+                state.lastPracticeDate = today;
+                state.bestStreak = Math.max(state.bestStreak, state.streak);
+            }
+
+            saveState();
+            checkAchievements();
+            updateUI();
+        }
+
+        function resetTimer() {
+            stopTimer();
+            state.timerSeconds = 0;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(state.timerSeconds / 60);
+            const secs = state.timerSeconds % 60;
+            document.getElementById('timer').textContent =
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // ==================== EXERCISES ====================
+        function toggleExercise(dayNum, exerciseId) {
+            const key = `${dayNum}-${exerciseId}`;
+            const dayData = DAYS_DATA[dayNum - 1];
+            const exercise = dayData.exercises.find(e => e.id === exerciseId);
+
+            if (state.exercisesCompleted[key]) {
+                delete state.exercisesCompleted[key];
+            } else {
+                state.exercisesCompleted[key] = true;
+                addXP(exercise.xp);
+
+                // Check if all exercises done
+                const allDone = dayData.exercises.every(e => state.exercisesCompleted[`${dayNum}-${e.id}`]);
+                if (allDone && !state.daysCompleted.includes(dayNum)) {
+                    completeDay(dayNum);
+                }
+            }
+
+            saveState();
+            renderExercises();
+        }
+
+        function completeDay(dayNum) {
+            if (!state.daysCompleted.includes(dayNum)) {
+                state.daysCompleted.push(dayNum);
+                addXP(50); // Bonus for completing day
+
+                burstParticles(window.innerWidth / 2, window.innerHeight / 3, 0xff6b35);
+                checkAchievements();
+                saveState();
+                updateUI();
+            }
+        }
+
+        // ==================== NAVIGATION ====================
+        function prevDay() {
+            if (state.viewingDay > 1) {
+                state.viewingDay--;
+                renderDay();
+            }
+        }
+
+        function nextDay() {
+            if (state.viewingDay < 30) {
+                state.viewingDay++;
+                renderDay();
+            }
+        }
+
+        function openDaySelector() {
+            document.getElementById('day-modal').classList.add('active');
+            renderDayGrid();
+        }
+
+        function closeDaySelector() {
+            document.getElementById('day-modal').classList.remove('active');
+        }
+
+        function selectDay(day) {
+            state.viewingDay = day;
+            closeDaySelector();
+            renderDay();
+        }
+
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+            document.getElementById(`${page}-page`).classList.add('active');
+            document.querySelector(`.nav-item:nth-child(${page === 'training' ? 1 : 2})`).classList.add('active');
+
+            if (page === 'progress') renderProgressPage();
+        }
+
+        // ==================== RENDERING ====================
+        function updateUI() {
+            // Stats bar
+            document.getElementById('streak-count').textContent = state.streak;
+            document.getElementById('total-time').textContent =
+                state.totalMinutes >= 60 ? `${Math.floor(state.totalMinutes / 60)}h` : `${state.totalMinutes}m`;
+            document.getElementById('days-done').textContent = state.daysCompleted.length;
+            document.getElementById('achievements-count').textContent = state.achievements.length;
+
+            // Level
+            const lvl = getLevel();
+            document.getElementById('level-num').textContent = lvl.level;
+            document.getElementById('level-title').textContent = lvl.name;
+            document.getElementById('xp-display').textContent = `${state.totalXP} / ${lvl.nextXP} XP`;
+
+            const progress = ((state.totalXP - lvl.xp) / (lvl.nextXP - lvl.xp)) * 100;
+            document.getElementById('xp-bar-fill').style.width = `${Math.min(100, progress)}%`;
+        }
+
+        function renderDay() {
+            const dayData = DAYS_DATA[state.viewingDay - 1];
+            const guitarist = GUITARISTS[dayData.guitarist];
+
+            document.getElementById('current-day-num').textContent = state.viewingDay;
+            document.getElementById('current-day-title').textContent = `Dag ${state.viewingDay}`;
+            document.getElementById('current-guitarist').textContent =
+                `${guitarist.emoji} ${guitarist.name} ${guitarist.band ? `(${guitarist.band})` : ''}`;
+
+            // Calculate date
+            const date = new Date(PROGRAM_START);
+            date.setDate(date.getDate() + state.viewingDay - 1);
+            document.getElementById('current-date').textContent =
+                date.toLocaleDateString('sv-SE', { day: 'numeric', month: 'short', year: 'numeric' });
+
+            document.getElementById('quote-text').textContent = `"${dayData.quote.text}"`;
+            document.getElementById('quote-author').textContent = `— ${dayData.quote.author}`;
+
+            // Nav buttons
+            document.getElementById('prev-day-btn').disabled = state.viewingDay <= 1;
+            document.getElementById('next-day-btn').disabled = state.viewingDay >= 30;
+
+            renderExercises();
+        }
+
+        function renderExercises() {
+            const dayData = DAYS_DATA[state.viewingDay - 1];
+            const container = document.getElementById('exercises-list');
+
+            container.innerHTML = dayData.exercises.map(ex => {
+                const completed = state.exercisesCompleted[`${state.viewingDay}-${ex.id}`];
+                return `
+                    <div class="exercise-item ${completed ? 'completed' : ''}"
+                         onclick="toggleExercise(${state.viewingDay}, '${ex.id}')">
+                        <div class="exercise-checkbox"></div>
+                        <div class="exercise-content">
+                            <h4>${ex.title}</h4>
+                            <p>${ex.desc}</p>
+                            <div class="exercise-xp">+${ex.xp} XP</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderDayGrid() {
+            const grid = document.getElementById('day-grid');
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= 30; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'day-btn';
+                btn.textContent = i;
+
+                if (state.daysCompleted.includes(i)) btn.classList.add('completed');
+                if (i === state.currentDay) btn.classList.add('current');
+
+                btn.onclick = () => selectDay(i);
+                grid.appendChild(btn);
+            }
+        }
+
+        function renderProgressPage() {
+            const chart = document.getElementById('progress-chart');
+            const weeks = ['Vecka 1', 'Vecka 2', 'Vecka 3', 'Vecka 4', 'Vecka 5'];
+
+            let html = '';
+            for (let w = 0; w < 5; w++) {
+                html += `<div class="week-row"><span class="week-label">${weeks[w]}</span>`;
+                const daysInWeek = w === 4 ? 2 : 7;
+                for (let d = 0; d < daysInWeek; d++) {
+                    const dayNum = w * 7 + d + 1;
+                    if (dayNum > 30) break;
+                    const done = state.daysCompleted.includes(dayNum);
+                    const isToday = dayNum === state.currentDay;
+                    html += `<div class="day-dot ${done ? 'done' : ''} ${isToday ? 'today' : ''}">${dayNum}</div>`;
+                }
+                html += '</div>';
+            }
+            chart.innerHTML = html;
+
+            // Stats
+            document.getElementById('stat-total-time').textContent = `${state.totalMinutes} min`;
+            document.getElementById('stat-best-streak').textContent = `${state.bestStreak} dagar`;
+            document.getElementById('stat-exercises').textContent = Object.keys(state.exercisesCompleted).length;
+            document.getElementById('stat-total-xp').textContent = state.totalXP;
+        }
+
+        // ==================== INIT ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            initPixi();
+            loadState();
+            updateUI();
+            renderDay();
+        });
+    </script>
+</body>
+</html>
