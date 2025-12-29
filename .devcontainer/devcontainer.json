@@ -1,7 +1,8 @@
 {
-  "name": "Shredder - PixiJS SPA",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm",
+  "name": "Python + Node Dev Environment",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
 
+  // Required for Tailscale networking
   "runArgs": [
     "--cap-add=NET_ADMIN",
     "--cap-add=NET_RAW",
@@ -9,28 +10,68 @@
   ],
 
   "features": {
+    // Node.js for frontend/tooling
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    // Docker-in-Docker with Compose v2
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "dockerDashComposeVersion": "v2"
+    },
+    // GitHub CLI for repo operations
     "ghcr.io/devcontainers/features/github-cli:1": {},
+    // Pre-commit for git hooks
     "ghcr.io/devcontainers-extra/features/pre-commit:2": {}
   },
 
-  "forwardPorts": [5173],
+  // Port forwarding
+  "forwardPorts": [3000, 8000],
   "portsAttributes": {
-    "5173": { "label": "Vite Dev Server", "onAutoForward": "notify" }
+    "3000": { "label": "Frontend (Vite/Node)", "onAutoForward": "notify" },
+    "8000": { "label": "API (FastAPI)", "onAutoForward": "notify" }
   },
 
+  // Lifecycle scripts
   "onCreateCommand": "bash .devcontainer/onCreate.sh",
   "postStartCommand": "bash .devcontainer/postStart.sh",
 
   "customizations": {
     "vscode": {
       "extensions": [
+        // Python
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "charliermarsh.ruff",
+        "ms-python.mypy-type-checker",
+        // JavaScript/Node
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
+        // Docker
+        "ms-azuretools.vscode-docker",
+        // Git
         "eamodio.gitlens",
         "mhutchie.git-graph",
+        // Security
+        "snyk-security.snyk-vulnerability-scanner",
+        // General
+        "tamasfe.even-better-toml",
+        "redhat.vscode-yaml",
         "EditorConfig.EditorConfig"
       ],
       "settings": {
+        // Python
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.testing.pytestEnabled": true,
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          }
+        },
+        "ruff.lint.run": "onSave",
+        // JavaScript
         "[javascript]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode",
           "editor.formatOnSave": true
@@ -40,24 +81,28 @@
           "editor.formatOnSave": true
         },
         "[json]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
-          "editor.formatOnSave": true
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
-        "[html]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
-          "editor.formatOnSave": true
-        },
-        "[css]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
-          "editor.formatOnSave": true
-        },
+        // General
         "files.trimTrailingWhitespace": true,
         "files.insertFinalNewline": true,
-        "editor.rulers": [100],
-        "terminal.integrated.defaultProfile.linux": "zsh"
+        "editor.rulers": [88, 120],
+        "terminal.integrated.defaultProfile.linux": "bash"
       }
     }
   },
 
-  "remoteUser": "node"
+  "containerEnv": {
+    "PYTHONPATH": "${containerWorkspaceFolder}",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PIP_DISABLE_PIP_VERSION_CHECK": "1"
+  },
+
+  // Docker volume for DinD persistence
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}-docker-data,target=/var/lib/docker,type=volume"
+  ],
+
+  // Security: run as non-root
+  "remoteUser": "vscode"
 }

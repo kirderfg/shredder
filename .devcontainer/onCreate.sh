@@ -3,7 +3,7 @@
 set -e
 
 echo "========================================"
-echo "  Shredder DevContainer Setup"
+echo "  DevContainer Setup"
 echo "========================================"
 
 GREEN='\033[0;32m'
@@ -117,6 +117,8 @@ else
 fi
 
 # Run shell-bootstrap for terminal tools (zsh, starship, atuin, yazi, glow, etc.)
+# shell-bootstrap handles: op CLI install, 1Password setup, secrets loading
+# SHELL_BOOTSTRAP_NONINTERACTIVE=1 is required for DevPod/CI environments
 log "Running shell-bootstrap..."
 curl -fsSL https://raw.githubusercontent.com/kirderfg/shell-bootstrap/main/install.sh -o /tmp/shell-bootstrap-install.sh
 SHELL_BOOTSTRAP_NONINTERACTIVE=1 bash /tmp/shell-bootstrap-install.sh || warn "shell-bootstrap failed (non-fatal)"
@@ -134,11 +136,28 @@ if [ -n "$ATUIN_USERNAME" ] && [ -n "$ATUIN_PASSWORD" ] && [ -n "$ATUIN_KEY" ]; 
     fi
 fi
 
+# Install security scanning tools
+log "Installing security tools..."
+pip install --quiet safety bandit
+
 # Install gitleaks for secret detection
 if ! command -v gitleaks &> /dev/null; then
     log "Installing gitleaks..."
     curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz | tar -xz -C /tmp
     sudo mv /tmp/gitleaks /usr/local/bin/
+fi
+
+# Install trivy for vulnerability scanning
+if ! command -v trivy &> /dev/null; then
+    log "Installing trivy..."
+    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
+fi
+
+# Install Snyk CLI
+if ! command -v snyk &> /dev/null; then
+    log "Installing Snyk CLI..."
+    npm install -g snyk
+    warn "Run 'snyk auth' to authenticate with Snyk"
 fi
 
 # Install Tailscale for remote SSH access
@@ -152,9 +171,11 @@ if [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ]; then
     TAILSCALE_AUTH_KEY=$(op read "op://DEV_CLI/Tailscale/auth_key" 2>/dev/null) || true
     if [ -n "$TAILSCALE_AUTH_KEY" ]; then
         log "Configuring Tailscale..."
+        # Start tailscaled in userspace mode (works in containers without root)
         sudo tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock > /tmp/tailscaled.log 2>&1 &
         sleep 2
-        CONTAINER_NAME="${DEVCONTAINER_NAME:-shredder}"
+        # Get container/workspace name for hostname
+        CONTAINER_NAME="${DEVCONTAINER_NAME:-$(basename $(pwd))}"
         sudo tailscale up --authkey="$TAILSCALE_AUTH_KEY" --ssh --hostname="devpod-${CONTAINER_NAME}" && log "Tailscale connected!" || warn "Tailscale auth failed"
         if tailscale status &> /dev/null; then
             TS_IP=$(tailscale ip -4 2>/dev/null || echo "pending")
@@ -165,6 +186,13 @@ if [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ]; then
     fi
 else
     warn "Tailscale not configured (no 1Password token)"
+fi
+
+# Install Python dependencies if pyproject.toml exists
+if [ -f "pyproject.toml" ]; then
+    log "Installing Python dependencies..."
+    pip install --upgrade pip
+    pip install -e ".[dev]" 2>/dev/null || pip install -e "." 2>/dev/null || true
 fi
 
 # Install Node dependencies if package.json exists
