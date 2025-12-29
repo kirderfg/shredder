@@ -21,7 +21,8 @@ if ! command -v op &> /dev/null; then
     sudo apt-get update && sudo apt-get install -y 1password-cli
 fi
 
-# Save 1Password token for persistent access
+# Save 1Password token FIRST (before any op commands that might fail)
+# This ensures the token persists for shell sessions even if setup fails
 if [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ]; then
     log "Saving 1Password token for persistent access..."
     mkdir -p ~/.config/dev_env
@@ -30,11 +31,12 @@ if [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ]; then
     chmod 600 ~/.config/dev_env/op_token
 fi
 
-# Load secrets from 1Password
+# Load secrets from 1Password for shell-bootstrap and later use
 if [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ]; then
     if op whoami &> /dev/null; then
         log "1Password CLI authenticated via service account"
 
+        # Load secrets from 1Password
         log "Loading secrets from 1Password..."
         export ATUIN_USERNAME=$(op read "op://DEV_CLI/Atuin/username" 2>/dev/null) || true
         export ATUIN_PASSWORD=$(op read "op://DEV_CLI/Atuin/password" 2>/dev/null) || true
@@ -49,18 +51,25 @@ if [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ]; then
             log "Loaded GitHub token"
         fi
 
-        # Create 1Password secrets loader for shell sessions
+        # Create op-secrets.sh for persistent secret loading in shell sessions
         log "Creating 1Password secrets loader..."
         cat > ~/.config/dev_env/op-secrets.sh << 'OPSECRETS'
 #!/bin/bash
+# 1Password secrets loader - source this file to load secrets on-demand
+
+# Auto-load token from file if not in environment
 if [ -z "$OP_SERVICE_ACCOUNT_TOKEN" ] && [ -f ~/.config/dev_env/op_token ]; then
     export OP_SERVICE_ACCOUNT_TOKEN="$(cat ~/.config/dev_env/op_token)"
 fi
 
+op-check() {
+    command -v op &>/dev/null && [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ]
+}
+
 op-load-secret() {
     local var_name="$1"
     local secret_ref="$2"
-    if ! command -v op &>/dev/null || [ -z "$OP_SERVICE_ACCOUNT_TOKEN" ]; then return 1; fi
+    if ! op-check 2>/dev/null; then return 1; fi
     local value=$(op read "$secret_ref" 2>/dev/null)
     if [ $? -eq 0 ] && [ -n "$value" ]; then
         export "$var_name"="$value"
@@ -70,6 +79,7 @@ op-load-secret() {
 }
 
 op-load-all-secrets() {
+    if ! op-check; then return 1; fi
     local loaded=0
     op-load-secret GITHUB_TOKEN "op://DEV_CLI/GitHub/PAT" && loaded=$((loaded + 1))
     op-load-secret GH_TOKEN "op://DEV_CLI/GitHub/PAT" && loaded=$((loaded + 1))
@@ -79,14 +89,17 @@ op-load-all-secrets() {
     echo "[op-secrets] Loaded ${loaded} secrets" >&2
 }
 
+# Auto-load on source
 if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
     op-load-all-secrets
 fi
 OPSECRETS
         chmod +x ~/.config/dev_env/op-secrets.sh
 
+        # Create init.sh for shell startup
         cat > ~/.config/dev_env/init.sh << 'INITSH'
 #!/bin/bash
+# Source this in shell startup to load 1Password secrets
 if [ -f ~/.config/dev_env/op_token ]; then
     export OP_SERVICE_ACCOUNT_TOKEN="$(cat ~/.config/dev_env/op_token)"
 fi
@@ -100,18 +113,19 @@ INITSH
     fi
 else
     warn "OP_SERVICE_ACCOUNT_TOKEN not set - secrets won't be loaded automatically"
+    warn "Pass it via: --workspace-env OP_SERVICE_ACCOUNT_TOKEN=\$(cat ~/.config/dev_env/op_token)"
 fi
 
-# Run shell-bootstrap for terminal tools (zsh, starship, atuin, yazi, etc.)
+# Run shell-bootstrap for terminal tools (zsh, starship, atuin, yazi, glow, etc.)
 log "Running shell-bootstrap..."
 curl -fsSL https://raw.githubusercontent.com/kirderfg/shell-bootstrap/main/install.sh -o /tmp/shell-bootstrap-install.sh
 SHELL_BOOTSTRAP_NONINTERACTIVE=1 bash /tmp/shell-bootstrap-install.sh || warn "shell-bootstrap failed (non-fatal)"
 rm -f /tmp/shell-bootstrap-install.sh
 
-# Ensure PATH includes local bins
+# Ensure PATH includes local bins (for atuin, pet, etc.)
 export PATH="$HOME/.local/bin:$HOME/.atuin/bin:$PATH"
 
-# Configure Atuin if credentials available
+# Post shell-bootstrap: Configure Atuin login if credentials available
 if [ -n "$ATUIN_USERNAME" ] && [ -n "$ATUIN_PASSWORD" ] && [ -n "$ATUIN_KEY" ]; then
     if command -v atuin &> /dev/null; then
         log "Logging into Atuin..."
@@ -120,7 +134,7 @@ if [ -n "$ATUIN_USERNAME" ] && [ -n "$ATUIN_PASSWORD" ] && [ -n "$ATUIN_KEY" ]; 
     fi
 fi
 
-# Install gitleaks for secret detection in pre-commit
+# Install gitleaks for secret detection
 if ! command -v gitleaks &> /dev/null; then
     log "Installing gitleaks..."
     curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz | tar -xz -C /tmp
@@ -163,6 +177,7 @@ fi
 if [ -f ".pre-commit-config.yaml" ]; then
     log "Installing pre-commit hooks..."
     pre-commit install
+    pre-commit install --hook-type commit-msg 2>/dev/null || true
 fi
 
 # Configure git
@@ -176,6 +191,12 @@ if [ -n "$GITHUB_TOKEN" ]; then
     if command -v gh &> /dev/null; then
         log "Configuring GitHub CLI..."
         echo "$GITHUB_TOKEN" | gh auth login --with-token 2>/dev/null && log "GitHub CLI authenticated" || warn "GitHub CLI auth failed"
+    fi
+else
+    if command -v gh &> /dev/null; then
+        if ! gh auth status &> /dev/null; then
+            warn "GitHub CLI not authenticated. Run: gh auth login"
+        fi
     fi
 fi
 
