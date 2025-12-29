@@ -477,16 +477,37 @@
         -webkit-backdrop-filter: blur(2px);
       }
 
+      .timer-metronome-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+      }
+
+      .timer-half,
+      .metronome-half {
+        flex: 1;
+        text-align: center;
+        padding: 0 10px;
+      }
+
+      .timer-divider {
+        width: 1px;
+        height: 80px;
+        background: var(--blood-red);
+        opacity: 0.5;
+      }
+
       .timer-display {
         font-family: "Metal", Impact, sans-serif;
-        font-size: 48px;
+        font-size: 36px;
         color: var(--fire-orange);
         text-shadow: 0 0 20px rgba(255, 136, 0, 0.5);
-        margin: 16px 0;
+        margin: 8px 0;
       }
 
       .timer-label {
-        font-size: 12px;
+        font-size: 10px;
         color: var(--chrome);
         text-transform: uppercase;
         letter-spacing: 2px;
@@ -494,15 +515,15 @@
 
       .timer-buttons {
         display: flex;
-        gap: 12px;
+        gap: 8px;
         justify-content: center;
-        margin-top: 16px;
+        margin-top: 10px;
       }
 
       .timer-btn {
-        padding: 12px 24px;
+        padding: 10px 16px;
         border: none;
-        border-radius: 25px;
+        border-radius: 20px;
         font-family: "Metal", Impact, sans-serif;
         font-size: 14px;
         cursor: pointer;
@@ -526,6 +547,48 @@
 
       .timer-btn:active {
         transform: scale(0.95);
+      }
+
+      /* Metronome styles */
+      .metronome-bpm {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin: 8px 0 4px;
+      }
+
+      .bpm-display {
+        font-family: "Metal", Impact, sans-serif;
+        font-size: 32px;
+        color: var(--fire-orange);
+        min-width: 60px;
+        text-shadow: 0 0 20px rgba(255, 136, 0, 0.5);
+      }
+
+      .bpm-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid var(--blood-red);
+        background: var(--metal-dark);
+        color: var(--skull-white);
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .bpm-btn:active {
+        transform: scale(0.9);
+        background: var(--fire-red);
+      }
+
+      .bpm-label {
+        font-size: 9px;
+        color: var(--chrome);
+        text-transform: uppercase;
+        letter-spacing: 1px;
       }
 
       /* Achievements */
@@ -892,13 +955,33 @@
       </div>
 
       <div class="timer-section">
-        <div class="timer-label">Övningstid idag</div>
-        <div class="timer-display" id="timer-display">00:00</div>
-        <div class="timer-buttons">
-          <button class="timer-btn primary" id="timer-start">▶ STARTA</button>
-          <button class="timer-btn secondary" id="timer-reset">
-            ↺ NOLLSTÄLL
-          </button>
+        <div class="timer-metronome-container">
+          <!-- Timer Side -->
+          <div class="timer-half">
+            <div class="timer-label">Övningstid</div>
+            <div class="timer-display" id="timer-display">00:00</div>
+            <div class="timer-buttons">
+              <button class="timer-btn primary" id="timer-start">▶</button>
+              <button class="timer-btn secondary" id="timer-reset">↺</button>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="timer-divider"></div>
+
+          <!-- Metronome Side -->
+          <div class="metronome-half">
+            <div class="timer-label">Metronom</div>
+            <div class="metronome-bpm">
+              <button class="bpm-btn" id="bpm-down">-</button>
+              <span class="bpm-display" id="bpm-display">120</span>
+              <button class="bpm-btn" id="bpm-up">+</button>
+            </div>
+            <div class="bpm-label">BPM</div>
+            <div class="timer-buttons">
+              <button class="timer-btn primary" id="metronome-start">▶</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1022,6 +1105,12 @@
       let timerInterval = null;
       let timerSeconds = 0;
       let timerRunning = false;
+
+      // Metronome state
+      let metronomeBPM = 120;
+      let metronomeInterval = null;
+      let metronomeRunning = false;
+      let audioContext = null;
 
       // ============================================
       // PIXI.JS ROARING FLAMES BACKGROUND
@@ -1400,10 +1489,11 @@
       function updateAnimations(delta) {
         animTime += delta * 0.1;
 
-        // Update shred mode intensity
-        if (timerRunning && shredIntensity < 1) {
+        // Update shred mode intensity (active when timer OR metronome is running)
+        const isActive = timerRunning || metronomeRunning;
+        if (isActive && shredIntensity < 1) {
           shredIntensity = Math.min(1, shredIntensity + 0.02);
-        } else if (!timerRunning && shredIntensity > 0) {
+        } else if (!isActive && shredIntensity > 0) {
           shredIntensity = Math.max(0, shredIntensity - 0.02);
         }
         shredMode = shredIntensity > 0.1;
@@ -1511,40 +1601,94 @@
           }
         });
 
-        // Animate skull guitarist - MORE INTENSE in shred mode
+        // Animate skull guitarist
         if (skullGuitarist) {
-          const headbangSpeed = 2 + shredIntensity * 6;
-          const headbangAmount = 5 + shredIntensity * 10;
+          if (shredMode) {
+            // FLYING MODE: Skull flies smoothly around the screen on top of everything
+            // Move skull to front
+            pixiApp.stage.removeChild(skullGuitarist);
+            pixiApp.stage.addChild(skullGuitarist);
 
-          // Intense headbanging
-          skullGuitarist.y =
-            skullGuitarist.baseY +
-            Math.sin(animTime * headbangSpeed) * headbangAmount;
-          skullGuitarist.rotation =
-            Math.sin(animTime * headbangSpeed) * (0.05 + shredIntensity * 0.15);
+            // Smooth flying path using sine waves
+            const flySpeed = 0.3;
+            const screenW = window.innerWidth;
+            const screenH = window.innerHeight;
+            const padding = 60;
 
-          // Crazy eye glow in shred mode
-          const eyeGlow = shredMode
-            ? 1 + Math.sin(animTime * 10) * 0.5
-            : 0.8 + Math.sin(animTime * 3) * 0.2;
-          skullGuitarist.leftEye.alpha = eyeGlow;
-          skullGuitarist.rightEye.alpha = eyeGlow;
+            // Figure-8 flying pattern
+            const flyX =
+              padding +
+              (screenW - padding * 2) *
+                (0.5 + 0.4 * Math.sin(animTime * flySpeed));
+            const flyY =
+              padding +
+              (screenH * 0.4 - padding) *
+                (0.5 + 0.4 * Math.sin(animTime * flySpeed * 2));
 
-          // Scale eyes when shredding
-          const eyeScale = 1 + shredIntensity * 0.3;
-          skullGuitarist.leftEye.scale.set(eyeScale);
-          skullGuitarist.rightEye.scale.set(eyeScale);
+            // Smooth interpolation to flying position
+            skullGuitarist.x += (flyX - skullGuitarist.x) * 0.03;
+            skullGuitarist.y += (flyY - skullGuitarist.y) * 0.03;
 
-          // FAST strumming in shred mode
-          const strumSpeed = 8 + shredIntensity * 20;
-          skullGuitarist.hand.y =
-            55 + Math.sin(animTime * strumSpeed) * (8 + shredIntensity * 5);
-          skullGuitarist.hand.rotation =
-            Math.sin(animTime * strumSpeed) * (0.3 + shredIntensity * 0.4);
+            // Gentle tilt based on movement direction
+            const targetRotation = Math.sin(animTime * flySpeed) * 0.2;
+            skullGuitarist.rotation +=
+              (targetRotation - skullGuitarist.rotation) * 0.05;
 
-          // Fast fret slides
-          const fretSpeed = 1.5 + shredIntensity * 4;
-          skullGuitarist.fretHand.y = 5 + Math.sin(animTime * fretSpeed) * 15;
+            // Larger scale when flying
+            const targetScale = 0.7;
+            skullGuitarist.scale.x +=
+              (targetScale - skullGuitarist.scale.x) * 0.05;
+            skullGuitarist.scale.y +=
+              (targetScale - skullGuitarist.scale.y) * 0.05;
+
+            // Crazy eye glow when flying
+            const eyeGlow = 1 + Math.sin(animTime * 10) * 0.5;
+            skullGuitarist.leftEye.alpha = eyeGlow;
+            skullGuitarist.rightEye.alpha = eyeGlow;
+            skullGuitarist.leftEye.scale.set(1.3);
+            skullGuitarist.rightEye.scale.set(1.3);
+
+            // Fast strumming while flying
+            const strumSpeed = 20;
+            skullGuitarist.hand.y = 55 + Math.sin(animTime * strumSpeed) * 12;
+            skullGuitarist.hand.rotation =
+              Math.sin(animTime * strumSpeed) * 0.6;
+
+            // Fast fret slides
+            skullGuitarist.fretHand.y = 5 + Math.sin(animTime * 5) * 15;
+          } else {
+            // IDLE MODE: Gentle animation in corner
+            // Return to home position smoothly
+            const homeX = 45;
+            const homeY = 35;
+            const homeScale = 0.5;
+
+            skullGuitarist.x += (homeX - skullGuitarist.x) * 0.05;
+            skullGuitarist.y += (homeY - skullGuitarist.y) * 0.05;
+            skullGuitarist.rotation += (0 - skullGuitarist.rotation) * 0.05;
+            skullGuitarist.scale.x +=
+              (homeScale - skullGuitarist.scale.x) * 0.05;
+            skullGuitarist.scale.y +=
+              (homeScale - skullGuitarist.scale.y) * 0.05;
+
+            // Gentle idle bob
+            skullGuitarist.y += Math.sin(animTime * 2) * 3;
+            skullGuitarist.rotation = Math.sin(animTime * 2) * 0.05;
+
+            // Normal eye glow
+            const eyeGlow = 0.8 + Math.sin(animTime * 3) * 0.2;
+            skullGuitarist.leftEye.alpha = eyeGlow;
+            skullGuitarist.rightEye.alpha = eyeGlow;
+            skullGuitarist.leftEye.scale.set(1);
+            skullGuitarist.rightEye.scale.set(1);
+
+            // Slow strumming
+            skullGuitarist.hand.y = 55 + Math.sin(animTime * 2) * 4;
+            skullGuitarist.hand.rotation = Math.sin(animTime * 2) * 0.2;
+
+            // Slow fret movement
+            skullGuitarist.fretHand.y = 5 + Math.sin(animTime * 1.5) * 8;
+          }
         }
       }
 
@@ -1752,7 +1896,7 @@
         }
 
         timerRunning = true;
-        document.getElementById("timer-start").textContent = "⏸ PAUS";
+        document.getElementById("timer-start").textContent = "⏸";
 
         timerInterval = setInterval(() => {
           timerSeconds++;
@@ -1768,7 +1912,7 @@
       function pauseTimer() {
         timerRunning = false;
         clearInterval(timerInterval);
-        document.getElementById("timer-start").textContent = "▶ STARTA";
+        document.getElementById("timer-start").textContent = "▶";
         savePracticeTime();
       }
 
@@ -1821,6 +1965,76 @@
         saveState();
         updateUI();
         checkAchievements();
+      }
+
+      // ============================================
+      // METRONOME
+      // ============================================
+      function initAudio() {
+        if (!audioContext) {
+          audioContext = new (
+            window.AudioContext || window.webkitAudioContext
+          )();
+        }
+        return audioContext;
+      }
+
+      function playClick() {
+        const ctx = initAudio();
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(ctx.destination);
+
+        oscillator.frequency.value = 1000;
+        oscillator.type = "square";
+
+        gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(
+          0.001,
+          ctx.currentTime + 0.05,
+        );
+
+        oscillator.start(ctx.currentTime);
+        oscillator.stop(ctx.currentTime + 0.05);
+      }
+
+      function startMetronome() {
+        if (metronomeRunning) {
+          stopMetronome();
+          return;
+        }
+
+        // Initialize audio context on user interaction
+        initAudio();
+        if (audioContext.state === "suspended") {
+          audioContext.resume();
+        }
+
+        metronomeRunning = true;
+        document.getElementById("metronome-start").textContent = "⏹";
+
+        const intervalMs = 60000 / metronomeBPM;
+        playClick(); // Play first click immediately
+        metronomeInterval = setInterval(playClick, intervalMs);
+      }
+
+      function stopMetronome() {
+        metronomeRunning = false;
+        clearInterval(metronomeInterval);
+        document.getElementById("metronome-start").textContent = "▶";
+      }
+
+      function adjustBPM(delta) {
+        metronomeBPM = Math.max(40, Math.min(240, metronomeBPM + delta));
+        document.getElementById("bpm-display").textContent = metronomeBPM;
+
+        // If metronome is running, restart with new tempo
+        if (metronomeRunning) {
+          stopMetronome();
+          startMetronome();
+        }
       }
 
       // ============================================
@@ -2071,6 +2285,18 @@
         document
           .getElementById("timer-reset")
           .addEventListener("click", resetTimer);
+
+        // Metronome event listeners
+        document
+          .getElementById("metronome-start")
+          .addEventListener("click", startMetronome);
+        document
+          .getElementById("bpm-up")
+          .addEventListener("click", () => adjustBPM(5));
+        document
+          .getElementById("bpm-down")
+          .addEventListener("click", () => adjustBPM(-5));
+
         document
           .getElementById("prev-day-btn")
           .addEventListener("click", prevDay);
