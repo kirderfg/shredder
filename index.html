@@ -1603,9 +1603,14 @@
 
         // Animate skull guitarist
         if (skullGuitarist) {
+          // Bring pixi container to front when shredding so skull is above UI
+          const pixiContainer = document.getElementById("pixi-container");
           if (shredMode) {
+            pixiContainer.style.zIndex = "100";
+            pixiContainer.style.pointerEvents = "none";
+
             // FLYING MODE: Skull flies smoothly around the screen on top of everything
-            // Move skull to front
+            // Move skull to front of stage
             pixiApp.stage.removeChild(skullGuitarist);
             pixiApp.stage.addChild(skullGuitarist);
 
@@ -1634,12 +1639,16 @@
             skullGuitarist.rotation +=
               (targetRotation - skullGuitarist.rotation) * 0.05;
 
-            // Larger scale when flying
-            const targetScale = 0.7;
+            // Pulsing zoom in/out effect while flying
+            const baseScale = 0.7;
+            const pulseAmount = 0.15;
+            const pulseSpeed = 2;
+            const targetScale =
+              baseScale + Math.sin(animTime * pulseSpeed) * pulseAmount;
             skullGuitarist.scale.x +=
-              (targetScale - skullGuitarist.scale.x) * 0.05;
+              (targetScale - skullGuitarist.scale.x) * 0.1;
             skullGuitarist.scale.y +=
-              (targetScale - skullGuitarist.scale.y) * 0.05;
+              (targetScale - skullGuitarist.scale.y) * 0.1;
 
             // Crazy eye glow when flying
             const eyeGlow = 1 + Math.sin(animTime * 10) * 0.5;
@@ -1657,6 +1666,9 @@
             // Fast fret slides
             skullGuitarist.fretHand.y = 5 + Math.sin(animTime * 5) * 15;
           } else {
+            // Reset z-index when not shredding
+            pixiContainer.style.zIndex = "0";
+
             // IDLE MODE: Gentle animation in corner
             // Return to home position smoothly
             const homeX = 45;
