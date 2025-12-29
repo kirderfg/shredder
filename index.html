@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shredder Quest – 30 dagar</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+</head>
+<body>
+  <div class="phone-shell">
+    <header class="hero">
+      <div class="hero-top">
+        <div>
+          <p class="subtitle">Shredder Quest</p>
+          <h1>Guitar Hero Training</h1>
+          <p class="tagline">30 dagar av shred, start 30 dec 2025</p>
+        </div>
+        <div class="chip">XP <span id="xpTotal">0</span></div>
+      </div>
+      <div id="pixi-stage" class="pixi-stage"></div>
+      <div class="hero-stats">
+        <div>
+          <span class="stat-label">Streak</span>
+          <span class="stat-value" id="streakValue">0 dagar</span>
+        </div>
+        <div>
+          <span class="stat-label">Idag</span>
+          <span class="stat-value" id="todayTime">0 min</span>
+        </div>
+        <div>
+          <span class="stat-label">Totalt</span>
+          <span class="stat-value" id="totalTime">0 min</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="quest-panel">
+        <div class="quest-header">
+          <div>
+            <h2 id="dayTitle">Dag 1</h2>
+            <p id="daySubtitle">Välj ett uppdrag för att börja.</p>
+          </div>
+          <button id="completeButton" class="primary">Markera klar</button>
+        </div>
+        <div class="timer-panel">
+          <div>
+            <p class="timer-label">Practice timer</p>
+            <p class="timer-value" id="timerDisplay">00:00</p>
+          </div>
+          <div class="timer-actions">
+            <button id="timerStart" class="primary">Starta</button>
+            <button id="timerStop" class="ghost" disabled>Stoppa</button>
+          </div>
+        </div>
+        <div id="dayContent" class="day-content"></div>
+      </section>
+
+      <section class="day-list">
+        <h3>Alla uppdrag</h3>
+        <div id="dayCards" class="day-cards"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.0/pixi.min.js" integrity="sha512-hXTrAuqXPZj+5t1psnM8yGxh+lwZDpYVv2CpG2Q/xrFQ9MGjqqVp6xS7J+eBdOnVwwiL+kCrV2kFhi9v+DHqRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="days-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
