@@ -307,75 +307,115 @@
         color: var(--skull-white);
       }
 
-      /* Exercises List */
-      .exercises-list {
-        list-style: none;
+      /* Training Sections */
+      .training-section {
+        margin-bottom: 16px;
       }
 
-      .exercise-item {
+      .training-section-title {
+        font-family: "Metal", Impact, sans-serif;
+        font-size: 12px;
+        color: var(--fire-orange);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
         display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 10px 0;
-        border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+        align-items: center;
+        gap: 6px;
       }
 
-      .exercise-item:last-child {
-        border-bottom: none;
-      }
-
-      .exercise-checkbox {
-        width: 24px;
-        height: 24px;
-        border: 2px solid var(--blood-red);
-        border-radius: 6px;
+      .training-list {
+        list-style: none;
         background: var(--metal-dark);
+        border-radius: 8px;
+        padding: 12px;
+      }
+
+      .training-list li {
+        font-size: 13px;
+        line-height: 1.5;
+        padding: 6px 0;
+        border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+        padding-left: 16px;
+        position: relative;
+      }
+
+      .training-list li:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .training-list li:first-child {
+        padding-top: 0;
+      }
+
+      .training-list li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--fire-orange);
+      }
+
+      /* Guitar Tab Section */
+      .lick-section {
+        background: var(--metal-dark);
+        border: 1px solid var(--blood-red);
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 16px;
+      }
+
+      .lick-tab {
+        font-family: "Courier New", monospace;
+        font-size: 11px;
+        line-height: 1.4;
+        color: var(--fire-yellow);
+        white-space: pre;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* Complete Day Button */
+      .complete-day-btn {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-family: "Metal", Impact, sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-shrink: 0;
-        cursor: pointer;
-        transition: all 0.2s;
+        gap: 8px;
       }
 
-      .exercise-checkbox.checked {
-        background: linear-gradient(145deg, var(--fire-red), var(--blood-red));
-        border-color: var(--fire-orange);
-      }
-
-      .exercise-checkbox.checked::after {
-        content: "\\2713";
-        color: var(--skull-white);
-        font-weight: bold;
-      }
-
-      .exercise-content {
-        flex: 1;
-      }
-
-      .exercise-title {
-        font-size: 13px;
-        font-weight: 600;
-        margin-bottom: 4px;
-      }
-
-      .exercise-desc {
-        font-size: 11px;
-        color: var(--chrome);
-        line-height: 1.4;
-      }
-
-      .exercise-xp {
+      .complete-day-btn.incomplete {
         background: linear-gradient(
           145deg,
           var(--fire-orange),
           var(--fire-red)
         );
-        padding: 4px 8px;
+        color: var(--skull-white);
+      }
+
+      .complete-day-btn.completed {
+        background: linear-gradient(145deg, #2d5a27, #1a3d15);
+        color: var(--skull-white);
+        border: 2px solid #4a9e42;
+      }
+
+      .complete-day-btn:active {
+        transform: scale(0.98);
+      }
+
+      .xp-badge {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 4px 10px;
         border-radius: 12px;
-        font-size: 10px;
-        font-weight: bold;
-        flex-shrink: 0;
+        font-size: 12px;
       }
 
       /* Quote Section */
@@ -1276,33 +1316,26 @@
       }
 
       // ============================================
-      // EXERCISES
+      // DAY COMPLETION
       // ============================================
-      function toggleExercise(dayIndex, exerciseIndex) {
-        const key = `${dayIndex}-${exerciseIndex}`;
-        const day = TRAINING_DAYS[dayIndex];
-        const exercise = day.exercises[exerciseIndex];
+      const DAY_XP = 100; // XP per completed day
+
+      function toggleDayComplete(dayIndex) {
+        const key = `day-${dayIndex}`;
 
         if (!state.completedExercises[key]) {
           state.completedExercises[key] = true;
-          addXP(exercise.xp);
-
-          // Check if day completed
-          const dayExercises = day.exercises.length;
-          const completedCount = day.exercises.filter(
-            (_, i) => state.completedExercises[`${dayIndex}-${i}`],
-          ).length;
-
-          if (completedCount === dayExercises) {
-            state.daysCompleted++;
-            checkAchievements();
-          }
-        } else {
-          state.completedExercises[key] = false;
+          state.daysCompleted++;
+          addXP(DAY_XP);
+          checkAchievements();
         }
 
         saveState();
         renderDayCard();
+      }
+
+      function isDayCompleted(dayIndex) {
+        return state.completedExercises[`day-${dayIndex}`] === true;
       }
 
       // ============================================
@@ -1344,6 +1377,7 @@
       function renderDayCard() {
         const dayData = TRAINING_DAYS[state.currentDay - 1];
         const guitarist = GUITARISTS[dayData.guitarist];
+        const isCompleted = isDayCompleted(state.currentDay - 1);
 
         // Calculate date for this day
         const dayDate = new Date(START_DATE);
@@ -1353,42 +1387,64 @@
           month: "short",
         });
 
-        const exercisesHTML = dayData.exercises
-          .map((ex, i) => {
-            const isCompleted =
-              state.completedExercises[`${state.currentDay - 1}-${i}`];
-            return `
-                <li class="exercise-item" onclick="toggleExercise(${state.currentDay - 1}, ${i})">
-                    <div class="exercise-checkbox ${isCompleted ? "checked" : ""}"></div>
-                    <div class="exercise-content">
-                        <div class="exercise-title">${ex.title}</div>
-                        <div class="exercise-desc">${ex.desc}</div>
-                    </div>
-                    <div class="exercise-xp">+${ex.xp} XP</div>
-                </li>
-            `;
-          })
+        // Calculate week number
+        const weekNum = Math.ceil(dayData.day / 6);
+
+        // Warmup section
+        const warmupHTML = dayData.warmup
+          .map((item) => `<li>${item}</li>`)
+          .join("");
+
+        // Technique focus section
+        const techniqueHTML = dayData.techniqueFocus
+          .map((item) => `<li>${item}</li>`)
           .join("");
 
         document.getElementById("day-card").innerHTML = `
             <div class="day-header">
                 <div>
                     <div class="day-number">DAG ${dayData.day}</div>
-                    <div class="day-date">${dateStr} • Vecka ${dayData.week}</div>
+                    <div class="day-date">${dateStr} • Vecka ${weekNum}</div>
                 </div>
-                <div class="guitarist-badge">
+                <div class="guitarist-badge" style="border-color: ${guitarist.color}">
                     <div class="guitarist-avatar">${guitarist.emoji}</div>
-                    <div class="guitarist-name">${guitarist.name}</div>
+                    <div class="guitarist-name" style="color: ${guitarist.color}">${guitarist.name}</div>
                 </div>
             </div>
             <h3 class="day-title">${dayData.title}</h3>
-            <ul class="exercises-list">
-                ${exercisesHTML}
-            </ul>
+
+            <div class="training-section">
+                <div class="training-section-title">🔥 Uppvärmning</div>
+                <ul class="training-list">
+                    ${warmupHTML}
+                </ul>
+            </div>
+
+            <div class="training-section">
+                <div class="training-section-title">🎯 Teknikfokus</div>
+                <ul class="training-list">
+                    ${techniqueHTML}
+                </ul>
+            </div>
+
+            <div class="training-section">
+                <div class="training-section-title">🎸 Dagens Lick</div>
+                <div class="lick-section">
+                    <pre class="lick-tab">${dayData.lick}</pre>
+                </div>
+            </div>
+
             <div class="quote-section">
                 <p class="quote-text">"${dayData.quote}"</p>
-                <p class="quote-author">— ${dayData.quoteAuthor}</p>
+                <p class="quote-author">— ${guitarist.name}</p>
             </div>
+
+            <button class="complete-day-btn ${isCompleted ? "completed" : "incomplete"}"
+                    onclick="toggleDayComplete(${state.currentDay - 1})"
+                    ${isCompleted ? "disabled" : ""}>
+                ${isCompleted ? "✓ DAG AVKLARAD" : "MARKERA SOM AVKLARAD"}
+                <span class="xp-badge">+${DAY_XP} XP</span>
+            </button>
         `;
       }
 
@@ -1412,9 +1468,7 @@
           const dayDate = new Date(START_DATE);
           dayDate.setDate(dayDate.getDate() + i);
 
-          const isCompleted = day.exercises.every(
-            (_, j) => state.completedExercises[`${i}-${j}`],
-          );
+          const isCompleted = isDayCompleted(i);
           const isCurrent = i + 1 === state.currentDay;
           const isLocked = dayDate > today;
 
@@ -1514,7 +1568,7 @@
       }
 
       // Make functions global for onclick handlers
-      window.toggleExercise = toggleExercise;
+      window.toggleDayComplete = toggleDayComplete;
       window.selectDay = selectDay;
 
       // Start app
