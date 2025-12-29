@@ -973,10 +973,13 @@
       let timerRunning = false;
 
       // ============================================
-      // PIXI.JS FIRE BACKGROUND
+      // PIXI.JS ROARING FLAMES BACKGROUND
       // ============================================
       let pixiApp;
-      const particles = [];
+      const flames = [];
+      const embers = [];
+      let skullGuitarist;
+      let animTime = 0;
 
       function initPixi() {
         const container = document.getElementById("pixi-container");
@@ -989,107 +992,327 @@
         });
         container.appendChild(pixiApp.view);
 
-        // Create fire particles
-        for (let i = 0; i < 50; i++) {
-          createParticle();
+        // Create flame columns at bottom
+        const flameCount = Math.ceil(window.innerWidth / 40);
+        for (let i = 0; i < flameCount; i++) {
+          createFlameColumn(i * 40 + 20);
         }
 
-        // Create pixelated skulls
-        for (let i = 0; i < 5; i++) {
-          createSkull();
+        // Create rising embers
+        for (let i = 0; i < 80; i++) {
+          createEmber();
         }
 
-        pixiApp.ticker.add(updateParticles);
+        // Create skull guitarist in banner area
+        createSkullGuitarist();
+
+        pixiApp.ticker.add(updateAnimations);
 
         window.addEventListener("resize", () => {
           pixiApp.renderer.resize(window.innerWidth, window.innerHeight);
         });
       }
 
-      function createParticle() {
-        const particle = new PIXI.Graphics();
-        const size = Math.random() * 6 + 2;
-        const colors = [0xff4400, 0xff8800, 0xffcc00, 0xff2200];
+      function createFlameColumn(x) {
+        const flameGroup = new PIXI.Container();
+        flameGroup.x = x;
+        flameGroup.baseX = x;
+
+        // Multiple flame layers for depth
+        for (let layer = 0; layer < 3; layer++) {
+          const flame = new PIXI.Graphics();
+          const baseHeight = 150 + Math.random() * 100;
+
+          flame.layerIndex = layer;
+          flame.baseHeight = baseHeight;
+          flame.phase = Math.random() * Math.PI * 2;
+          flame.speed = 0.05 + Math.random() * 0.03;
+
+          flameGroup.addChild(flame);
+        }
+
+        flameGroup.y = window.innerHeight;
+        pixiApp.stage.addChild(flameGroup);
+        flames.push(flameGroup);
+      }
+
+      function drawFlame(flame, time) {
+        flame.clear();
+
+        const height =
+          flame.baseHeight + Math.sin(time * flame.speed + flame.phase) * 30;
+        const width = 25 + flame.layerIndex * 10;
+        const alpha = 0.6 - flame.layerIndex * 0.15;
+
+        // Gradient colors for fire
+        const colors = [
+          [0xffcc00, 0xff8800, 0xff4400, 0xff2200, 0x880000],
+          [0xffaa00, 0xff6600, 0xff3300, 0xcc1100, 0x660000],
+          [0xff8800, 0xff4400, 0xdd2200, 0x991100, 0x440000],
+        ][flame.layerIndex];
+
+        // Draw flame shape with multiple segments
+        const segments = 8;
+        for (let i = 0; i < segments; i++) {
+          const segHeight = height / segments;
+          const y = -i * segHeight;
+          const progress = i / segments;
+          const segWidth = width * (1 - progress * 0.7);
+          const wobble =
+            Math.sin(time * 0.1 + i + flame.phase) * (5 + progress * 10);
+
+          flame.beginFill(
+            colors[Math.min(i, colors.length - 1)],
+            alpha * (1 - progress * 0.5),
+          );
+          flame.drawEllipse(wobble, y - segHeight / 2, segWidth, segHeight);
+          flame.endFill();
+        }
+      }
+
+      function createEmber() {
+        const ember = new PIXI.Graphics();
+        const size = Math.random() * 4 + 2;
+        const colors = [0xff4400, 0xff8800, 0xffcc00, 0xffff00];
         const color = colors[Math.floor(Math.random() * colors.length)];
 
-        particle.beginFill(color, Math.random() * 0.5 + 0.2);
-        particle.drawRect(0, 0, size, size);
-        particle.endFill();
+        ember.beginFill(color, 0.8);
+        ember.drawCircle(0, 0, size);
+        ember.endFill();
 
-        particle.x = Math.random() * window.innerWidth;
-        particle.y = window.innerHeight + Math.random() * 100;
-        particle.vx = (Math.random() - 0.5) * 2;
-        particle.vy = -(Math.random() * 3 + 1);
-        particle.life = Math.random() * 100 + 50;
-        particle.maxLife = particle.life;
+        // Add glow
+        ember.beginFill(color, 0.3);
+        ember.drawCircle(0, 0, size * 2);
+        ember.endFill();
 
-        pixiApp.stage.addChild(particle);
-        particles.push(particle);
+        resetEmber(ember);
+        pixiApp.stage.addChild(ember);
+        embers.push(ember);
       }
 
-      function createSkull() {
-        const skull = new PIXI.Graphics();
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        const size = Math.random() * 20 + 15;
+      function resetEmber(ember) {
+        ember.x = Math.random() * window.innerWidth;
+        ember.y = window.innerHeight + Math.random() * 50;
+        ember.vx = (Math.random() - 0.5) * 3;
+        ember.vy = -(Math.random() * 4 + 2);
+        ember.life = Math.random() * 150 + 100;
+        ember.maxLife = ember.life;
+        ember.wobblePhase = Math.random() * Math.PI * 2;
+        ember.wobbleSpeed = Math.random() * 0.1 + 0.05;
+      }
 
-        // Pixelated skull shape
-        skull.beginFill(0x1a1010, 0.3);
-        // Head
-        skull.drawRect(x + size * 0.2, y, size * 0.6, size * 0.1);
-        skull.drawRect(x + size * 0.1, y + size * 0.1, size * 0.8, size * 0.1);
-        skull.drawRect(x, y + size * 0.2, size, size * 0.4);
-        // Eyes
-        skull.beginFill(0x0a0505, 0.5);
-        skull.drawRect(
-          x + size * 0.15,
-          y + size * 0.3,
-          size * 0.25,
-          size * 0.15,
-        );
-        skull.drawRect(
-          x + size * 0.6,
-          y + size * 0.3,
-          size * 0.25,
-          size * 0.15,
-        );
-        // Nose
-        skull.drawRect(x + size * 0.4, y + size * 0.5, size * 0.2, size * 0.1);
-        // Jaw
-        skull.beginFill(0x1a1010, 0.3);
-        skull.drawRect(x + size * 0.1, y + size * 0.6, size * 0.8, size * 0.2);
-        skull.drawRect(x + size * 0.2, y + size * 0.8, size * 0.6, size * 0.1);
+      function createSkullGuitarist() {
+        skullGuitarist = new PIXI.Container();
+        skullGuitarist.x = window.innerWidth / 2;
+        skullGuitarist.y = 100;
+
+        // Skull head
+        const skull = new PIXI.Graphics();
+
+        // Main skull shape
+        skull.beginFill(0xe8e0d0);
+        skull.drawEllipse(0, 0, 28, 32);
         skull.endFill();
 
-        skull.alpha = 0.15;
-        skull.vy = Math.random() * 0.3 + 0.1;
+        // Jaw
+        skull.beginFill(0xd8d0c0);
+        skull.drawEllipse(0, 28, 20, 12);
+        skull.endFill();
 
-        pixiApp.stage.addChild(skull);
-        particles.push(skull);
+        // Eye sockets
+        skull.beginFill(0x1a0a0a);
+        skull.drawEllipse(-10, -5, 8, 10);
+        skull.drawEllipse(10, -5, 8, 10);
+        skull.endFill();
+
+        // Glowing red eyes
+        const leftEye = new PIXI.Graphics();
+        leftEye.beginFill(0xff0000);
+        leftEye.drawCircle(-10, -5, 4);
+        leftEye.endFill();
+        leftEye.beginFill(0xff4400, 0.5);
+        leftEye.drawCircle(-10, -5, 6);
+        leftEye.endFill();
+
+        const rightEye = new PIXI.Graphics();
+        rightEye.beginFill(0xff0000);
+        rightEye.drawCircle(10, -5, 4);
+        rightEye.endFill();
+        rightEye.beginFill(0xff4400, 0.5);
+        rightEye.drawCircle(10, -5, 6);
+        rightEye.endFill();
+
+        // Nose hole
+        skull.beginFill(0x1a0a0a);
+        skull.drawPolygon([0, 8, -4, 16, 4, 16]);
+        skull.endFill();
+
+        // Teeth
+        skull.beginFill(0xffffff);
+        for (let i = -3; i <= 3; i++) {
+          skull.drawRect(i * 5 - 2, 22, 4, 8);
+        }
+        skull.endFill();
+
+        // Guitar body
+        const guitar = new PIXI.Graphics();
+        guitar.beginFill(0x8b0000);
+        // Guitar body (Flying V style)
+        guitar.drawPolygon([
+          0, 20, -25, 60, -20, 65, 0, 45, 20, 65, 25, 60, 0, 20,
+        ]);
+        guitar.endFill();
+
+        // Guitar neck
+        guitar.beginFill(0x4a3728);
+        guitar.drawRect(-4, -50, 8, 70);
+        guitar.endFill();
+
+        // Frets
+        guitar.beginFill(0xc0c0c0);
+        for (let i = 0; i < 6; i++) {
+          guitar.drawRect(-4, -45 + i * 10, 8, 1);
+        }
+        guitar.endFill();
+
+        // Headstock
+        guitar.beginFill(0x2a1a10);
+        guitar.drawRect(-6, -65, 12, 15);
+        guitar.endFill();
+
+        // Tuning pegs
+        guitar.beginFill(0xc0c0c0);
+        guitar.drawCircle(-8, -58, 3);
+        guitar.drawCircle(-8, -52, 3);
+        guitar.drawCircle(8, -58, 3);
+        guitar.drawCircle(8, -52, 3);
+        guitar.endFill();
+
+        // Strings
+        guitar.lineStyle(1, 0xc0c0c0, 0.8);
+        for (let i = -2; i <= 2; i++) {
+          guitar.moveTo(i * 1.5, -50);
+          guitar.lineTo(i * 1.5, 45);
+        }
+
+        // Position guitar
+        guitar.x = 35;
+        guitar.y = 30;
+        guitar.rotation = 0.4;
+
+        // Strumming hand
+        const hand = new PIXI.Graphics();
+        hand.beginFill(0xe8d0b0);
+        hand.drawEllipse(0, 0, 10, 6);
+        hand.endFill();
+        // Fingers
+        for (let i = 0; i < 4; i++) {
+          hand.beginFill(0xe8d0b0);
+          hand.drawEllipse(i * 4 - 6, 8, 2, 5);
+          hand.endFill();
+        }
+        hand.x = 48;
+        hand.y = 55;
+
+        // Fret hand
+        const fretHand = new PIXI.Graphics();
+        fretHand.beginFill(0xe8d0b0);
+        fretHand.drawEllipse(0, 0, 8, 5);
+        fretHand.endFill();
+        for (let i = 0; i < 4; i++) {
+          fretHand.beginFill(0xe8d0b0);
+          fretHand.drawEllipse(i * 3 - 4, -6, 2, 4);
+          fretHand.endFill();
+        }
+        fretHand.x = 30;
+        fretHand.y = 5;
+
+        skullGuitarist.addChild(guitar);
+        skullGuitarist.addChild(skull);
+        skullGuitarist.addChild(leftEye);
+        skullGuitarist.addChild(rightEye);
+        skullGuitarist.addChild(hand);
+        skullGuitarist.addChild(fretHand);
+
+        skullGuitarist.leftEye = leftEye;
+        skullGuitarist.rightEye = rightEye;
+        skullGuitarist.hand = hand;
+        skullGuitarist.fretHand = fretHand;
+        skullGuitarist.guitar = guitar;
+        skullGuitarist.baseY = 100;
+
+        pixiApp.stage.addChild(skullGuitarist);
       }
 
-      function updateParticles() {
-        particles.forEach((p, i) => {
-          if (p.life !== undefined) {
-            p.x += p.vx;
-            p.y += p.vy;
-            p.life--;
-            p.alpha = (p.life / p.maxLife) * 0.5;
+      function updateAnimations(delta) {
+        animTime += delta * 0.1;
 
-            if (p.life <= 0) {
-              p.x = Math.random() * window.innerWidth;
-              p.y = window.innerHeight + 20;
-              p.life = p.maxLife;
-              p.alpha = 0.5;
-            }
-          } else if (p.vy) {
-            p.y += p.vy;
-            if (p.y > window.innerHeight + 50) {
-              p.y = -50;
-              p.x = Math.random() * window.innerWidth;
-            }
+        // Update flames
+        flames.forEach((flameGroup, i) => {
+          flameGroup.children.forEach((flame) => {
+            drawFlame(flame, animTime + i * 0.5);
+          });
+          // Slight horizontal sway
+          flameGroup.x = flameGroup.baseX + Math.sin(animTime * 0.5 + i) * 3;
+        });
+
+        // Update embers
+        embers.forEach((ember) => {
+          ember.x += ember.vx + Math.sin(animTime + ember.wobblePhase) * 0.5;
+          ember.y += ember.vy;
+          ember.vy += 0.01; // Slight upward acceleration
+          ember.life--;
+          ember.alpha = ember.life / ember.maxLife;
+          ember.scale.set(ember.life / ember.maxLife);
+
+          if (ember.life <= 0 || ember.y < -50) {
+            resetEmber(ember);
           }
         });
+
+        // Animate skull guitarist
+        if (skullGuitarist) {
+          // Head bob
+          skullGuitarist.y = skullGuitarist.baseY + Math.sin(animTime * 2) * 5;
+          skullGuitarist.rotation = Math.sin(animTime * 2) * 0.05;
+
+          // Eye glow pulse
+          const eyeGlow = 0.8 + Math.sin(animTime * 3) * 0.2;
+          skullGuitarist.leftEye.alpha = eyeGlow;
+          skullGuitarist.rightEye.alpha = eyeGlow;
+
+          // Strumming hand animation
+          skullGuitarist.hand.y = 55 + Math.sin(animTime * 8) * 8;
+          skullGuitarist.hand.rotation = Math.sin(animTime * 8) * 0.3;
+
+          // Fret hand slides
+          skullGuitarist.fretHand.y = 5 + Math.sin(animTime * 1.5) * 15;
+        }
+      }
+
+      // Legacy function for particle burst on XP gain
+      function triggerParticleBurst() {
+        for (let i = 0; i < 30; i++) {
+          const ember = new PIXI.Graphics();
+          const size = Math.random() * 6 + 3;
+          const colors = [0xff4400, 0xff8800, 0xffcc00, 0xffff00];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+
+          ember.beginFill(color, 0.9);
+          ember.drawCircle(0, 0, size);
+          ember.endFill();
+
+          ember.x = window.innerWidth / 2;
+          ember.y = window.innerHeight / 2;
+          ember.vx = (Math.random() - 0.5) * 20;
+          ember.vy = (Math.random() - 0.5) * 20;
+          ember.life = 40;
+          ember.maxLife = 40;
+          ember.wobblePhase = 0;
+
+          pixiApp.stage.addChild(ember);
+          embers.push(ember);
+        }
       }
 
       // ============================================
