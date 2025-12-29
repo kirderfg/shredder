@@ -953,7 +953,7 @@
       // APP STATE
       // ============================================
       const STORAGE_KEY = "shredder_progress";
-      const START_DATE = new Date("2025-12-29");
+      const START_DATE = new Date("2025-12-30");
 
       let state = {
         currentDay: 1,
@@ -1470,7 +1470,20 @@
 
           const isCompleted = isDayCompleted(i);
           const isCurrent = i + 1 === state.currentDay;
-          const isLocked = dayDate > today;
+
+          // Check if all previous days are completed
+          const prevDaysCompleted =
+            i === 0
+              ? true
+              : Array.from({ length: i }, (_, j) => isDayCompleted(j)).every(
+                  Boolean,
+                );
+
+          // Day 1 can be accessed 1 day early, others need correct date
+          const dateUnlocked = i === 0 ? true : dayDate <= today;
+
+          // Locked if date not reached OR previous days not completed
+          const isLocked = !dateUnlocked || !prevDaysCompleted;
 
           return `
                 <button class="day-btn ${isCompleted ? "completed" : ""} ${isCurrent ? "current" : ""} ${isLocked ? "locked" : ""}"
@@ -1499,12 +1512,21 @@
 
       function nextDay() {
         const today = new Date();
-        const maxDay = Math.min(
-          30,
-          Math.floor((today - START_DATE) / (1000 * 60 * 60 * 24)) + 1,
-        );
+        const nextDayIndex = state.currentDay; // 0-indexed for next day
 
-        if (state.currentDay < maxDay) {
+        if (nextDayIndex >= 30) return;
+
+        // Check if next day's date is unlocked
+        const nextDayDate = new Date(START_DATE);
+        nextDayDate.setDate(nextDayDate.getDate() + nextDayIndex);
+        const dateUnlocked = nextDayDate <= today;
+
+        // Check if all previous days completed
+        const prevDaysCompleted = Array.from({ length: nextDayIndex }, (_, j) =>
+          isDayCompleted(j),
+        ).every(Boolean);
+
+        if (dateUnlocked && prevDaysCompleted) {
           state.currentDay++;
           renderDayCard();
         }
