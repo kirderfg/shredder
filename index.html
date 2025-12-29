@@ -95,6 +95,20 @@
         animation: flicker 0.5s ease-in-out infinite alternate;
       }
 
+      .logo-tm {
+        font-size: 10px;
+        letter-spacing: 1px;
+        vertical-align: super;
+        background: linear-gradient(
+          180deg,
+          var(--chrome) 0%,
+          var(--fire-orange) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-left: 2px;
+      }
+
       @keyframes flicker {
         0% {
           filter: brightness(1);
@@ -122,14 +136,15 @@
       .stat-box {
         background: linear-gradient(
           145deg,
-          rgba(26, 21, 21, 0.85),
-          rgba(10, 5, 5, 0.85)
+          rgba(26, 21, 21, 0.7),
+          rgba(10, 5, 5, 0.7)
         );
         border: 1px solid var(--blood-red);
         border-radius: 8px;
         padding: 10px 8px;
         text-align: center;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
       }
 
       .stat-icon {
@@ -155,14 +170,15 @@
       .level-section {
         background: linear-gradient(
           145deg,
-          rgba(26, 21, 21, 0.85),
-          rgba(10, 5, 5, 0.85)
+          rgba(26, 21, 21, 0.7),
+          rgba(10, 5, 5, 0.7)
         );
         border: 1px solid var(--blood-red);
         border-radius: 12px;
         padding: 12px;
         margin-bottom: 16px;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
       }
 
       .level-header {
@@ -230,8 +246,8 @@
       .day-card {
         background: linear-gradient(
           145deg,
-          rgba(42, 32, 32, 0.9),
-          rgba(26, 21, 21, 0.9)
+          rgba(42, 32, 32, 0.8),
+          rgba(26, 21, 21, 0.8)
         );
         border: 2px solid var(--blood-red);
         border-radius: 16px;
@@ -239,7 +255,8 @@
         margin-bottom: 16px;
         position: relative;
         overflow: hidden;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
       }
 
       .day-card::before {
@@ -448,15 +465,16 @@
       .timer-section {
         background: linear-gradient(
           145deg,
-          rgba(26, 21, 21, 0.85),
-          rgba(10, 5, 5, 0.85)
+          rgba(26, 21, 21, 0.7),
+          rgba(10, 5, 5, 0.7)
         );
         border: 2px solid var(--blood-red);
         border-radius: 16px;
         padding: 20px;
         margin-bottom: 16px;
         text-align: center;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
       }
 
       .timer-display {
@@ -835,7 +853,7 @@
 
     <div class="app-container">
       <header class="header">
-        <h1 class="logo">SHREDDER</h1>
+        <h1 class="logo">SHREDDER<sup class="logo-tm">LUKAS</sup></h1>
         <p class="subtitle">30 DAGARS GITARRTRÄNING</p>
       </header>
 
@@ -1136,9 +1154,9 @@
 
       function createSkullGuitarist() {
         skullGuitarist = new PIXI.Container();
-        skullGuitarist.x = 50;
-        skullGuitarist.y = 70;
-        skullGuitarist.scale.set(0.6);
+        skullGuitarist.x = 45;
+        skullGuitarist.y = 55;
+        skullGuitarist.scale.set(0.5);
 
         // Skull head
         const skull = new PIXI.Graphics();
@@ -1273,7 +1291,7 @@
         skullGuitarist.hand = hand;
         skullGuitarist.fretHand = fretHand;
         skullGuitarist.guitar = guitar;
-        skullGuitarist.baseY = 70;
+        skullGuitarist.baseY = 55;
 
         pixiApp.stage.addChild(skullGuitarist);
       }
