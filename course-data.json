@@ -1,0 +1,1166 @@
+{
+  "guitarists": {
+    "mustaine": {
+      "name": "Dave Mustaine",
+      "band": "Megadeth",
+      "emoji": "🎸",
+      "color": "#ff4400"
+    },
+    "friedman": {
+      "name": "Marty Friedman",
+      "band": "Megadeth",
+      "emoji": "🎵",
+      "color": "#ff8800"
+    },
+    "smith": {
+      "name": "Adrian Smith",
+      "band": "Iron Maiden",
+      "emoji": "⚔️",
+      "color": "#cc0000"
+    },
+    "murray": {
+      "name": "Dave Murray",
+      "band": "Iron Maiden",
+      "emoji": "🦾",
+      "color": "#880000"
+    },
+    "yngwie": {
+      "name": "Yngwie Malmsteen",
+      "band": "Rising Force",
+      "emoji": "⚡",
+      "color": "#ffcc00"
+    },
+    "zakk": {
+      "name": "Zakk Wylde",
+      "band": "BLS/Ozzy",
+      "emoji": "💀",
+      "color": "#666666"
+    },
+    "tommy": {
+      "name": "Tommy Johansson",
+      "band": "Sabaton",
+      "emoji": "🦅",
+      "color": "#1a1a8a"
+    }
+  },
+  "levels": [
+    { "level": 1, "xp": 0, "rank": "Nybörjare" },
+    { "level": 2, "xp": 100, "rank": "Gitarrnovice" },
+    { "level": 3, "xp": 250, "rank": "Riffmästare" },
+    { "level": 4, "xp": 500, "rank": "Solomästare" },
+    { "level": 5, "xp": 800, "rank": "Shredder" },
+    { "level": 6, "xp": 1200, "rank": "Gitarrkrigar" },
+    { "level": 7, "xp": 1700, "rank": "Metallegendar" },
+    { "level": 8, "xp": 2300, "rank": "Virtuos" },
+    { "level": 9, "xp": 3000, "rank": "Gitarrgud" }
+  ],
+  "achievements": [
+    {
+      "id": "first_day",
+      "emoji": "🎸",
+      "name": "Första Dagen",
+      "type": "daysCompleted",
+      "value": 1
+    },
+    {
+      "id": "week_1",
+      "emoji": "📅",
+      "name": "Vecka 1 Klar",
+      "type": "daysCompleted",
+      "value": 6
+    },
+    {
+      "id": "week_2",
+      "emoji": "🗓️",
+      "name": "Vecka 2 Klar",
+      "type": "daysCompleted",
+      "value": 12
+    },
+    {
+      "id": "streak_3",
+      "emoji": "🔥",
+      "name": "3 Dagars Streak",
+      "type": "maxStreak",
+      "value": 3
+    },
+    {
+      "id": "streak_7",
+      "emoji": "💥",
+      "name": "7 Dagars Streak",
+      "type": "maxStreak",
+      "value": 7
+    },
+    {
+      "id": "streak_14",
+      "emoji": "⚡",
+      "name": "14 Dagars Streak",
+      "type": "maxStreak",
+      "value": 14
+    },
+    {
+      "id": "streak_30",
+      "emoji": "🏆",
+      "name": "30 Dagars Streak",
+      "type": "maxStreak",
+      "value": 30
+    },
+    {
+      "id": "xp_500",
+      "emoji": "⭐",
+      "name": "500 XP",
+      "type": "totalXP",
+      "value": 500
+    },
+    {
+      "id": "xp_1000",
+      "emoji": "🌟",
+      "name": "1000 XP",
+      "type": "totalXP",
+      "value": 1000
+    },
+    {
+      "id": "xp_2000",
+      "emoji": "✨",
+      "name": "2000 XP",
+      "type": "totalXP",
+      "value": 2000
+    },
+    {
+      "id": "time_1h",
+      "emoji": "⏰",
+      "name": "1 Timme Övat",
+      "type": "totalMinutes",
+      "value": 60
+    },
+    {
+      "id": "time_5h",
+      "emoji": "⌛",
+      "name": "5 Timmar Övat",
+      "type": "totalMinutes",
+      "value": 300
+    },
+    {
+      "id": "time_10h",
+      "emoji": "🕐",
+      "name": "10 Timmar Övat",
+      "type": "totalMinutes",
+      "value": 600
+    },
+    {
+      "id": "half_way",
+      "emoji": "🎯",
+      "name": "Halvvägs",
+      "type": "daysCompleted",
+      "value": 15
+    },
+    {
+      "id": "complete",
+      "emoji": "👑",
+      "name": "Programmet Klart",
+      "type": "daysCompleted",
+      "value": 30
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "guitarist": "mustaine",
+      "title": "Grundläggande Alternate Picking",
+      "week": 1,
+      "exercises": [
+        {
+          "title": "Kromatisk övning",
+          "desc": "Spela 1-2-3-4 med vänsterhandens fingrar på varje band längs alla strängar",
+          "xp": 20
+        },
+        {
+          "title": "Öppen sträng-plockning",
+          "desc": "Spela låga E-strängen i jämn takt med växelvis ned- och uppslag",
+          "xp": 20
+        },
+        {
+          "title": "Enkla powerackord",
+          "desc": "Växla långsamt mellan E5 och G5 powerackord",
+          "xp": 15
+        },
+        {
+          "title": "Växelplockning med skala",
+          "desc": "Öva alternate picking med E-mollskala, börja 80 BPM",
+          "xp": 30
+        },
+        {
+          "title": "Palm muting & rytm",
+          "desc": "Sextondelar på öppen E med palm mute ~100 BPM",
+          "xp": 25
+        },
+        {
+          "title": "Spider chords",
+          "desc": "Öva Mustaines spindelackord-teknik för snabba powerackordsbyten",
+          "xp": 40
+        }
+      ],
+      "quote": "Precision går före tempo. Öva med metronom och öka hastigheten stegvis – ett tight riff i lägre fart slår slarvigt spel i warp-fart.",
+      "quoteAuthor": "Dave Mustaine"
+    },
+    {
+      "day": 2,
+      "guitarist": "friedman",
+      "title": "Legato & Expressiva Böjningar",
+      "week": 1,
+      "exercises": [
+        {
+          "title": "Legato-träning",
+          "desc": "Trills mellan 5:e och 7:e bandet på B-strängen, 8-10 reps",
+          "xp": 20
+        },
+        {
+          "title": "Böjningsövning",
+          "desc": "Böj toner långsamt och kontrollerat, fokusera på intonation",
+          "xp": 25
+        },
+        {
+          "title": "Skala med slides",
+          "desc": "Pentatonisk skala med slides för mjukare frasering",
+          "xp": 20
+        },
+        {
+          "title": "Legato-frasering",
+          "desc": "3-noter-per-sträng med hammer-on/pull-off, behåll jämn volym",
+          "xp": 35
+        },
+        {
+          "title": "Expressiva böjningar",
+          "desc": "Förböjningar och kvartsböjningar för exotiska nyanser",
+          "xp": 30
+        },
+        {
+          "title": "Marty-lick",
+          "desc": "Kombinera böjning med legato-sekvens i Friedman-stil",
+          "xp": 40
+        }
+      ],
+      "quote": "Tonens känsla är viktigare än antalet toner. Böj strängen som om du fick den att tala.",
+      "quoteAuthor": "Marty Friedman"
+    },
+    {
+      "day": 3,
+      "guitarist": "smith",
+      "title": "Gallop-komp & Melodisk Frasering",
+      "week": 1,
+      "exercises": [
+        {
+          "title": "Gallop-rytm",
+          "desc": "Öva Iron Maidens gallop: åttondel + två sextondelar",
+          "xp": 25
+        },
+        {
+          "title": "Diatonisk skala",
+          "desc": "E-mollskala över två oktaver med alternate picking",
+          "xp": 20
+        },
+        {
+          "title": "Galloperande komp",
+          "desc": "Palm-muted E5 powerackord med gallop-mönster",
+          "xp": 30
+        },
+        {
+          "title": "Melodislingor",
+          "desc": "Korta melodislingor med tydlig artikulation och vibrato",
+          "xp": 25
+        },
+        {
+          "title": "Harmoniskt riff",
+          "desc": "Kombinera gallop-komp med twin-gitarr melodislinga",
+          "xp": 40
+        }
+      ],
+      "quote": "Ett riff ska både driva och lyfta låten. Håll gallopen tajt – det är ryggraden i vår musik.",
+      "quoteAuthor": "Adrian Smith"
+    },
+    {
+      "day": 4,
+      "guitarist": "yngwie",
+      "title": "Växelplockning & Positionsskiften",
+      "week": 1,
+      "exercises": [
+        {
+          "title": "Skalpositioner",
+          "desc": "A-mollskalan över två oktaver, upp och ned med alternate picking",
+          "xp": 20
+        },
+        {
+          "title": "Snabbplocks-pulser",
+          "desc": "Plocka i olika subdivisioner: fjärdedelar, åttondelar, trioler, sextondelar",
+          "xp": 25
+        },
+        {
+          "title": "Strikt alternate picking",
+          "desc": "3-noter-per-sträng i E naturlig moll, ned-upp-ned konsekvent",
+          "xp": 35
+        },
+        {
+          "title": "Positionsskiften",
+          "desc": "Skifta från 7:e till 12:e läget mitt i frasen",
+          "xp": 30
+        },
+        {
+          "title": "Neoklassisk löpning",
+          "desc": "Snabb skalnedgång E-D-C på e-strängen, B-A-G på B-strängen",
+          "xp": 40
+        }
+      ],
+      "quote": "Kom ihåg: less is not more – more is more! Öva skoningslöst och snabbhet och precision går hand i hand.",
+      "quoteAuthor": "Yngwie Malmsteen"
+    },
+    {
+      "day": 5,
+      "guitarist": "zakk",
+      "title": "Snabb Pentatonik & Pinch Harmonics",
+      "week": 1,
+      "exercises": [
+        {
+          "title": "Pentatonisk box",
+          "desc": "E-mollpentaskalan i 12:e bandets position, kraftfulla slag",
+          "xp": 20
+        },
+        {
+          "title": "Vibrato-kontroll",
+          "desc": "Långsamt, bredt vibrato som gradvis ökar i hastighet",
+          "xp": 25
+        },
+        {
+          "title": "Snabba pentatoniska licks",
+          "desc": "15-12 på B och e-sträng i loop, öka tempo gradvis",
+          "xp": 35
+        },
+        {
+          "title": "Pinch harmonics",
+          "desc": "Öva nyp-harmonier med bestämt nedslag och tummens kant",
+          "xp": 40
+        },
+        {
+          "title": "Zakk squeal & shred",
+          "desc": "Kombinera snabb pentatonik med pinch harmonic-skrik",
+          "xp": 50
+        }
+      ],
+      "quote": "Få strängarna att S-K-R-I-K-A! Lägg in hela din attityd i spelet – varje ton ska kännas som ett knytnävsslag.",
+      "quoteAuthor": "Zakk Wylde"
+    },
+    {
+      "day": 6,
+      "guitarist": "tommy",
+      "title": "Hastighetsträning & Precision",
+      "week": 1,
+      "exercises": [
+        {
+          "title": "Hastighetsuthållighet",
+          "desc": "Sextondelar på palm-mutad E-sträng i 20 sek, vila 10 sek, upprepa",
+          "xp": 25
+        },
+        {
+          "title": "Skal-sekvens",
+          "desc": "E-F#-G-A sekvens på D och G-strängarna, flytta uppåt",
+          "xp": 20
+        },
+        {
+          "title": "Metronomstegring",
+          "desc": "Höj metronomen med 5 BPM åt gången tills du når gränsen",
+          "xp": 35
+        },
+        {
+          "title": "Precision före tempo",
+          "desc": "Dela upp snabba slingor i mindre delar, öva långsamt först",
+          "xp": 30
+        },
+        {
+          "title": "Melodisk speed-fras",
+          "desc": "Stigande skala över 2 oktaver med vibrato på toppnoten",
+          "xp": 40
+        }
+      ],
+      "quote": "Kom ihåg att njuta av musiken du spelar – det hörs i tonen. När det känns tufft, tänk på varför du började.",
+      "quoteAuthor": "Tommy Johansson"
+    },
+    {
+      "day": 7,
+      "guitarist": "mustaine",
+      "title": "Komplext Riffspel",
+      "week": 2,
+      "exercises": [
+        {
+          "title": "Downstroke-stamina",
+          "desc": "Palm-muted E-sträng med bara nedåtslag i 1 minut, 120 BPM",
+          "xp": 30
+        },
+        {
+          "title": "Synkoperingsövning",
+          "desc": "Betona off-beats istället för grundslagen",
+          "xp": 25
+        },
+        {
+          "title": "Off-beat-ackord",
+          "desc": "Placera accentuerade ackordslag på oväntade ställen",
+          "xp": 35
+        },
+        {
+          "title": "Kromatiska passager",
+          "desc": "Halvtonsteg: A5-A#5-B5 i åttondelstrioler",
+          "xp": 30
+        },
+        {
+          "title": "Komplext Mustaine-riff",
+          "desc": "Kombinera synkopering och kromatik i avancerat riff",
+          "xp": 50
+        }
+      ],
+      "quote": "När du kan lägga in överraskningar i dina riff – syncoper här, kromatiska toner där – då börjar du komma åt kärnan.",
+      "quoteAuthor": "Dave Mustaine"
+    },
+    {
+      "day": 8,
+      "guitarist": "friedman",
+      "title": "Exotiska Influenser",
+      "week": 2,
+      "exercises": [
+        {
+          "title": "Exotisk skala",
+          "desc": "Spela F# Phrygisk eller Hirajoshi-skala över två oktaver",
+          "xp": 25
+        },
+        {
+          "title": "Förböjningar",
+          "desc": "Böj ton i förväg, plocka, släpp ned - precision",
+          "xp": 30
+        },
+        {
+          "title": "Skalbyte",
+          "desc": "Växla mellan E naturlig moll och E harmonisk moll i samma fras",
+          "xp": 35
+        },
+        {
+          "title": "Avancerade bends",
+          "desc": "Pre-bends med vibrato och microtonala böjningar",
+          "xp": 40
+        },
+        {
+          "title": "Kreativ improvisation",
+          "desc": "Improvisera 4-8 takter över E-moll backing track",
+          "xp": 50
+        }
+      ],
+      "quote": "Det finns inget mer spännande än att skapa något eget. Våga bryta dig loss från skalmönstren.",
+      "quoteAuthor": "Marty Friedman"
+    },
+    {
+      "day": 9,
+      "guitarist": "murray",
+      "title": "Silkeslent Legato",
+      "week": 2,
+      "exercises": [
+        {
+          "title": "Trill-uthållighet",
+          "desc": "Trills på olika strängar, 20-30 sekunder per position",
+          "xp": 25
+        },
+        {
+          "title": "Legato-skala på en sträng",
+          "desc": "Hel skala med bara ett anslag på B-strängen",
+          "xp": 30
+        },
+        {
+          "title": "Långa legatolöpningar",
+          "desc": "E-moll över tre strängar, plocka bara första tonen per sträng",
+          "xp": 40
+        },
+        {
+          "title": "Pull-offs till öppna strängar",
+          "desc": "Legato med öppna strängar för snabba positionsbyten",
+          "xp": 35
+        },
+        {
+          "title": "Flygande Maiden-legato",
+          "desc": "Kaskad av toner från högt till lågt med minimalt plektrum",
+          "xp": 50
+        }
+      ],
+      "quote": "Hör du hur allt flyter? Det där är Iron Maiden-soundet! Hemligheten är att lita på din vänsterhand.",
+      "quoteAuthor": "Dave Murray"
+    },
+    {
+      "day": 10,
+      "guitarist": "yngwie",
+      "title": "Sweep Picking Grunder",
+      "week": 2,
+      "exercises": [
+        {
+          "title": "Arpeggio-rullning",
+          "desc": "Långsamma arpeggion med ett mjukt nedåt-svep",
+          "xp": 25
+        },
+        {
+          "title": "Ekonomisk plockning",
+          "desc": "Economy picking mellan strängar för minimal handrörelse",
+          "xp": 30
+        },
+        {
+          "title": "Tre-strängs svep nedåt",
+          "desc": "Am-ackord form, svep G-B-e med fingertrycksrulle",
+          "xp": 40
+        },
+        {
+          "title": "Tre-strängs svep uppåt",
+          "desc": "Svep e-B-G uppåt med mjuk handledsrörelse",
+          "xp": 40
+        },
+        {
+          "title": "Neoklassisk etyd",
+          "desc": "Kombinera svepat arpeggio med snabb skalruna",
+          "xp": 55
+        }
+      ],
+      "quote": "Fantastiskt! Känn kraften i de där arpeggiorna – som en symfoni på sex strängar.",
+      "quoteAuthor": "Yngwie Malmsteen"
+    },
+    {
+      "day": 11,
+      "guitarist": "zakk",
+      "title": "Dubbelbends & Brutalt Riffande",
+      "week": 2,
+      "exercises": [
+        {
+          "title": "Dubbelsträngs-vibrato",
+          "desc": "Vibrato på G och B-strängen samtidigt",
+          "xp": 25
+        },
+        {
+          "title": "Kromatisk pentatonik",
+          "desc": "Lägg in halvtoner mellan pentatonikpositioner",
+          "xp": 30
+        },
+        {
+          "title": "Unisonbends",
+          "desc": "Böj G-strängen tills den matchar B-strängens ton",
+          "xp": 45
+        },
+        {
+          "title": "Aggressiv pentatonik",
+          "desc": "Krydda med kromatik och pinch harmonics",
+          "xp": 35
+        },
+        {
+          "title": "Berserker solo",
+          "desc": "Snabb öppning, dubbelbend-klimax, squealing finale",
+          "xp": 55
+        }
+      ],
+      "quote": "Känn hur varje bend och squeal tar tag i publiken. Fortsätt ösa på med den energin!",
+      "quoteAuthor": "Zakk Wylde"
+    },
+    {
+      "day": 12,
+      "guitarist": "tommy",
+      "title": "Melodi Möter Shredding",
+      "week": 2,
+      "exercises": [
+        {
+          "title": "Fingerspann & hoppingar",
+          "desc": "E-molltreklang utspridd längs halsen",
+          "xp": 20
+        },
+        {
+          "title": "Burst-picking",
+          "desc": "Snabba burstar av sextondelar, 1 sek spel, 2 sek vila",
+          "xp": 30
+        },
+        {
+          "title": "Temposkift inom solot",
+          "desc": "Växla mellan melodiskt spel och shred i samma fras",
+          "xp": 40
+        },
+        {
+          "title": "Tapping-grunder",
+          "desc": "Tappa 12:e bandet med högerhandens pekfinger",
+          "xp": 35
+        },
+        {
+          "title": "Mini-solo med dynamik",
+          "desc": "8 takter med både melodi och snabba inslag",
+          "xp": 55
+        }
+      ],
+      "quote": "Hör du hur mycket mäktigare solot blir när man varvar feel och speed? Det är precis så vi gör i power metal.",
+      "quoteAuthor": "Tommy Johansson"
+    },
+    {
+      "day": 13,
+      "guitarist": "mustaine",
+      "title": "Solomotiv & Kromatik",
+      "week": 3,
+      "exercises": [
+        {
+          "title": "Skal-sekvens med variation",
+          "desc": "Kromatisk sekvens: 4 toner upp, backa en, upprepa",
+          "xp": 25
+        },
+        {
+          "title": "Muting-övning",
+          "desc": "Staccato-effekt med vänsterhandens fingertoppar",
+          "xp": 30
+        },
+        {
+          "title": "Repetitiva motiv",
+          "desc": "Repetera kort fras 4 gånger med små variationer",
+          "xp": 35
+        },
+        {
+          "title": "Kromatiska inslag",
+          "desc": "Lägg in icke-diatoniska toner i dina skallicks",
+          "xp": 40
+        },
+        {
+          "title": "Mustaine-solo á la Rust in Peace",
+          "desc": "8 takter i B-moll med tema, variation och crescendo",
+          "xp": 60
+        }
+      ],
+      "quote": "Märker du hur solot berättar en historia nu? Precis så tänker jag – ett solo ska bygga spänning och sedan leverera.",
+      "quoteAuthor": "Dave Mustaine"
+    },
+    {
+      "day": 14,
+      "guitarist": "friedman",
+      "title": "Personlig Stil & Improvisation",
+      "week": 3,
+      "exercises": [
+        {
+          "title": "Arpeggio-varianter",
+          "desc": "Spela ovanliga arpeggion som Dsus2",
+          "xp": 25
+        },
+        {
+          "title": "Pekfingervibrato",
+          "desc": "Öva vibrato med pekfingret - snabbt och långsamt",
+          "xp": 30
+        },
+        {
+          "title": "Bryt mönster",
+          "desc": "Börja fraser på off-beats istället för taktens 1",
+          "xp": 35
+        },
+        {
+          "title": "Lyssna & svara",
+          "desc": "Svara på ackordbakgrund melodiskt, lita på örat",
+          "xp": 40
+        },
+        {
+          "title": "Improvisationsjam",
+          "desc": "90 sekunders improvisation: melodi, intensitet, grand finale",
+          "xp": 60
+        }
+      ],
+      "quote": "Improvisation är personligt – det finns inget rätt eller fel, bara vad som låter coolt.",
+      "quoteAuthor": "Marty Friedman"
+    },
+    {
+      "day": 15,
+      "guitarist": "smith",
+      "title": "Längre Fraser & Harmonier",
+      "week": 3,
+      "exercises": [
+        {
+          "title": "Position-skift",
+          "desc": "Växla snabbt mellan 5:e och 12:e läget utan paus",
+          "xp": 25
+        },
+        {
+          "title": "Harmoniövning",
+          "desc": "Spela två meloditoner samtidigt i tredjeintervall",
+          "xp": 30
+        },
+        {
+          "title": "Långa melodiska löpningar",
+          "desc": "Skala-fras över flera takter utan avbrott",
+          "xp": 40
+        },
+        {
+          "title": "Tvåstämmiga idéer",
+          "desc": "Spela melodi, sen samma en ters upp - simulera dubbel",
+          "xp": 35
+        },
+        {
+          "title": "Adrian Smith-solo cover",
+          "desc": "Spela ett känt Adrian-solo i sin helhet",
+          "xp": 60
+        }
+      ],
+      "quote": "Grymt jobbat! Men kom ihåg, syftet är inte att bara kopiera – använd det du lär dig för att skapa egna episka melodier.",
+      "quoteAuthor": "Adrian Smith"
+    },
+    {
+      "day": 16,
+      "guitarist": "yngwie",
+      "title": "Virtuosa Mönster",
+      "week": 3,
+      "exercises": [
+        {
+          "title": "Sekvensövning",
+          "desc": "Yngwie-sekvens: fyra toner upp, backa två, upprepa",
+          "xp": 30
+        },
+        {
+          "title": "Diminished-pekkning",
+          "desc": "Brutet dim-ackord med strikt alternate picking",
+          "xp": 35
+        },
+        {
+          "title": "Diminished-runs",
+          "desc": "Symmetrisk dim-skala, flytta mönster 3 band åt gången",
+          "xp": 45
+        },
+        {
+          "title": "Sweep+slide-arpeggion",
+          "desc": "Position shifts mitt i svepet",
+          "xp": 50
+        },
+        {
+          "title": "Arpeggio from Hell",
+          "desc": "Sextondelssekvens + arpeggio-kaskad + avslutande slinga",
+          "xp": 70
+        }
+      ],
+      "quote": "Du spelar nu i princip på shred-gud-nivå! Vila inte på lagrarna – fortsätt öva, fortsätt tänja gränser.",
+      "quoteAuthor": "Yngwie Malmsteen"
+    },
+    {
+      "day": 17,
+      "guitarist": "zakk",
+      "title": "Wide-open Shredding",
+      "week": 3,
+      "exercises": [
+        {
+          "title": "Box-hopp",
+          "desc": "Växla snabbt mellan pentatonikbox 7:e och 12:e position",
+          "xp": 25
+        },
+        {
+          "title": "Tremolo-picking",
+          "desc": "Tremolo på en ton i 10 sekunders burstar",
+          "xp": 30
+        },
+        {
+          "title": "Positionsförflyttning",
+          "desc": "Länka ihop alla fem pentatonikboxarna i E-moll",
+          "xp": 45
+        },
+        {
+          "title": "Double-stop riffing",
+          "desc": "Tungt double-stop-riff med pinch harmonics",
+          "xp": 40
+        },
+        {
+          "title": "Zakk Attack jam",
+          "desc": "Bluesig grund, öka intensitet, vilda grepp, grand finale",
+          "xp": 60
+        }
+      ],
+      "quote": "Du river av det som om du stod på scen i Madison Square Garden! Fortsätt med den elden.",
+      "quoteAuthor": "Zakk Wylde"
+    },
+    {
+      "day": 18,
+      "guitarist": "tommy",
+      "title": "Tapping & Showmanship",
+      "week": 3,
+      "exercises": [
+        {
+          "title": "3-oktaverskala",
+          "desc": "Durskala över tre oktaver utan paus",
+          "xp": 30
+        },
+        {
+          "title": "Tap-hammering",
+          "desc": "Grundläggande tapping: 12-5-öppen som pull-off",
+          "xp": 35
+        },
+        {
+          "title": "Tvåhands-arpeggio",
+          "desc": "E-moll arpeggio med både händer",
+          "xp": 45
+        },
+        {
+          "title": "Scenisk teknik",
+          "desc": "Vibratosvaj med svajarmen eller showmoves",
+          "xp": 30
+        },
+        {
+          "title": "Gitarrsolo-duell",
+          "desc": "Spela in gitarrduell där du tar båda rollerna",
+          "xp": 70
+        }
+      ],
+      "quote": "Jag älskar sådana där dueller – man sporrar varandra att bli bättre. Du har alla verktygen nu!",
+      "quoteAuthor": "Tommy Johansson"
+    },
+    {
+      "day": 19,
+      "guitarist": "mustaine",
+      "title": "Rytmiskt Avancerat",
+      "week": 4,
+      "exercises": [
+        {
+          "title": "7/8-riff",
+          "desc": "Palm-mutade åttondelar på E men räkna 7 istället för 8",
+          "xp": 35
+        },
+        {
+          "title": "Accentspridning",
+          "desc": "Accentuera var första, sen var tredje, sen var femte slag",
+          "xp": 30
+        },
+        {
+          "title": "Udda taktart-riff",
+          "desc": "Skriv kort riff i 5/4 eller 7/8",
+          "xp": 45
+        },
+        {
+          "title": "Odd+straight grupp",
+          "desc": "Växla mellan polyrtmiska och raka fraser",
+          "xp": 50
+        },
+        {
+          "title": "Megadeth-riffsektion",
+          "desc": "Komponera versriff + brygga + refrängriff",
+          "xp": 70
+        }
+      ],
+      "quote": "Att komponera och spela går hand i hand. De där riffen thrashar rejält! Vem vet, nästa Rust in Peace kanske kommer från dig?",
+      "quoteAuthor": "Dave Mustaine"
+    },
+    {
+      "day": 20,
+      "guitarist": "friedman",
+      "title": "Musikalisk Fulländning",
+      "week": 4,
+      "exercises": [
+        {
+          "title": "Improvisationsskalor",
+          "desc": "Jamma fritt i A-moll i 5 min med olika moder",
+          "xp": 30
+        },
+        {
+          "title": "Teknikcheck",
+          "desc": "Spela igenom favoritlick från tidigare dagar",
+          "xp": 25
+        },
+        {
+          "title": "Känslo-dynamik",
+          "desc": "Spela samma lick pianissimo, mezzo, forte, crescendo",
+          "xp": 40
+        },
+        {
+          "title": "Förskjutna betoningar",
+          "desc": "Lägg frasens början på olika ställen i takten",
+          "xp": 45
+        },
+        {
+          "title": "Skriv eget solo",
+          "desc": "16 takter med alla tekniker - din musikaliska statement",
+          "xp": 80
+        }
+      ],
+      "quote": "Att höra dig spela ditt eget solo – det är höjdpunkten. Du har fått din egen röst på instrumentet.",
+      "quoteAuthor": "Marty Friedman"
+    },
+    {
+      "day": 21,
+      "guitarist": "murray",
+      "title": "Ultimat Legato & Show",
+      "week": 4,
+      "exercises": [
+        {
+          "title": "Legato-maraton",
+          "desc": "Non-stop legato i 1 minut utan plektrumslag",
+          "xp": 35
+        },
+        {
+          "title": "Trill-switchar",
+          "desc": "10 sek trills per fingerkombination",
+          "xp": 30
+        },
+        {
+          "title": "Tapping legato",
+          "desc": "Tappa med högerhand mitt i legatofras",
+          "xp": 40
+        },
+        {
+          "title": "Stage moves",
+          "desc": "Spela medan du går i sidled eller over-the-neck",
+          "xp": 30
+        },
+        {
+          "title": "Live solo one-take",
+          "desc": "2 minuter improviserat solo i ett tagning",
+          "xp": 85
+        }
+      ],
+      "quote": "Oj, två minuter flög förbi – magiskt spelat! Du kan kalla dig en fullfjädrad leadgitarrist!",
+      "quoteAuthor": "Dave Murray"
+    },
+    {
+      "day": 22,
+      "guitarist": "yngwie",
+      "title": "Neoklassisk Virtuositet",
+      "week": 4,
+      "exercises": [
+        {
+          "title": "24-band kromatisk",
+          "desc": "Kromatisk skala från öppet E till 24:e bandet och tillbaka",
+          "xp": 35
+        },
+        {
+          "title": "Styrkeposering",
+          "desc": "Spela snabb skala med Yngwies hand-i-luften move",
+          "xp": 20
+        },
+        {
+          "title": "Arpeggio+skal-kedjor",
+          "desc": "Länka sweep direkt med skala direkt med nästa sweep",
+          "xp": 55
+        },
+        {
+          "title": "Max tempo-experiment",
+          "desc": "Pusha 5 BPM över din gräns",
+          "xp": 45
+        },
+        {
+          "title": "Yngwie-solo fullständig",
+          "desc": "Lär in Far Beyond the Sun eller Black Star solo",
+          "xp": 95
+        }
+      ],
+      "quote": "Du vågade anta utmaningen – bara det kräver cojones! Fortsätt erövra greppbrädan. Play Loud!",
+      "quoteAuthor": "Yngwie Malmsteen"
+    },
+    {
+      "day": 23,
+      "guitarist": "zakk",
+      "title": "Full Berserker Mode",
+      "week": 4,
+      "exercises": [
+        {
+          "title": "All-technique warmup",
+          "desc": "15 sek vardera: picking, legato, sweep, tapping, bends, vibrato",
+          "xp": 30
+        },
+        {
+          "title": "Riff med wah",
+          "desc": "Enkelt riff och gunga på wah-pedalen i takt",
+          "xp": 25
+        },
+        {
+          "title": "Mixolydisk shred",
+          "desc": "Improvisera snabbt lick i E mixolydisk",
+          "xp": 40
+        },
+        {
+          "title": "Pinch harmonic control",
+          "desc": "Pinch harmonic på varje band på G-strängen",
+          "xp": 50
+        },
+        {
+          "title": "BLS-låtbit",
+          "desc": "Komponera tungt riff i drop D med solo-sektion",
+          "xp": 85
+        }
+      ],
+      "quote": "Dude, det där var massive! Exakt så ska det låta: tungt, smutsigt och skitbra. Du är en riktig Berserker på gitarr nu!",
+      "quoteAuthor": "Zakk Wylde"
+    },
+    {
+      "day": 24,
+      "guitarist": "tommy",
+      "title": "Konsertförberedelse",
+      "week": 4,
+      "exercises": [
+        {
+          "title": "Maraton-låt",
+          "desc": "Spela igenom en hel Sabaton-låt från start till mål",
+          "xp": 35
+        },
+        {
+          "title": "Stretch & shake",
+          "desc": "Handleds- och fingerstretch för ergonomi",
+          "xp": 15
+        },
+        {
+          "title": "Setlist-övning",
+          "desc": "Spela 3-4 solos i rad för att simulera trötthet",
+          "xp": 50
+        },
+        {
+          "title": "Mentalt scensnack",
+          "desc": "Presentera nästa låt högt framför spegel",
+          "xp": 25
+        },
+        {
+          "title": "Konsertdags",
+          "desc": "Framför 2-3 stycken för publik eller kamera",
+          "xp": 95
+        }
+      ],
+      "quote": "Stående ovationer! Att höra dig spela med sådan passion – det är precis därför jag älskar att lära ut gitarr.",
+      "quoteAuthor": "Tommy Johansson"
+    },
+    {
+      "day": 25,
+      "guitarist": "mustaine",
+      "title": "Reflektion & Nästa Mål",
+      "week": 5,
+      "exercises": [
+        {
+          "title": "Repetera spindelackord",
+          "desc": "Jämför med dag 1 - se din utveckling!",
+          "xp": 30
+        },
+        {
+          "title": "Skriv nytt riff",
+          "desc": "Thrashriff utan att tänka på Mustaine - låt kreativiteten leda",
+          "xp": 50
+        },
+        {
+          "title": "Dokumentera framsteg",
+          "desc": "Spela in dig själv och jämför med tidigt i programmet",
+          "xp": 30
+        }
+      ],
+      "quote": "Fortsätt skriva musik. Teknik är medlet, inte målet. Keep it heavy!",
+      "quoteAuthor": "Dave Mustaine"
+    },
+    {
+      "day": 26,
+      "guitarist": "friedman",
+      "title": "Hör Din Utveckling",
+      "week": 5,
+      "exercises": [
+        {
+          "title": "Jämför inspelningar",
+          "desc": "Lyssna på solo från dag 8 eller 20, spela in igen",
+          "xp": 35
+        },
+        {
+          "title": "Exotisk jam",
+          "desc": "Välj ny exotisk skala, jamma 15 min",
+          "xp": 40
+        },
+        {
+          "title": "Identifiera svagheter",
+          "desc": "Notera vad du fortfarande vill förbättra",
+          "xp": 25
+        }
+      ],
+      "quote": "Var inte en klon – var dig själv. Fortsätt utmana ditt öra och spela från hjärtat.",
+      "quoteAuthor": "Marty Friedman"
+    },
+    {
+      "day": 27,
+      "guitarist": "smith",
+      "title": "Twin-lead & Uthållighet",
+      "week": 5,
+      "exercises": [
+        {
+          "title": "Twin-lead projekt",
+          "desc": "Spela in båda stämmorna av en Iron Maiden-harmoni",
+          "xp": 50
+        },
+        {
+          "title": "Gallop endurance",
+          "desc": "Max-tempo gallop så länge du kan, slå rekord",
+          "xp": 40
+        },
+        {
+          "title": "Planera samspel",
+          "desc": "Jamma med andra eller planera bandprojekt",
+          "xp": 20
+        }
+      ],
+      "quote": "Glöm aldrig melodin. Det handlar alltid om låten. Up the irons!",
+      "quoteAuthor": "Adrian Smith"
+    },
+    {
+      "day": 28,
+      "guitarist": "yngwie",
+      "title": "Nya Hastighetsmål",
+      "week": 5,
+      "exercises": [
+        {
+          "title": "Metronom-check",
+          "desc": "Gå tillbaka till etyder från vecka 1-2, notera BPM-framsteg",
+          "xp": 35
+        },
+        {
+          "title": "Klassisk utmaning",
+          "desc": "Transkribera kort stycke Bach eller Paganini till elgitarr",
+          "xp": 55
+        },
+        {
+          "title": "Sätt nya mål",
+          "desc": "Skriv upp hastighetsmål för kommande 6 månader",
+          "xp": 20
+        }
+      ],
+      "quote": "Du har speeden och kontrollen – glöm inte musiken. May the fury be with you!",
+      "quoteAuthor": "Yngwie Malmsteen"
+    },
+    {
+      "day": 29,
+      "guitarist": "zakk",
+      "title": "Scenerfarenhet",
+      "week": 5,
+      "exercises": [
+        {
+          "title": "Jam på scen",
+          "desc": "Sätt upp litet framträdande - öppen mic eller band",
+          "xp": 60
+        },
+        {
+          "title": "Variera genrer",
+          "desc": "Applicera shred-skills i andra stilar: country, blues",
+          "xp": 40
+        },
+        {
+          "title": "Bara för kul",
+          "desc": "Jamma utan mål, bara för att det är roligt",
+          "xp": 20
+        }
+      ],
+      "quote": "Practice hard, play harder. Och glöm inte att ha kul på vägen! Keep shreddin!",
+      "quoteAuthor": "Zakk Wylde"
+    },
+    {
+      "day": 30,
+      "guitarist": "tommy",
+      "title": "GRATULATIONER!",
+      "week": 5,
+      "exercises": [
+        {
+          "title": "Favorite licks",
+          "desc": "Gå igenom alla dagar och spela favoritövningar",
+          "xp": 40
+        },
+        {
+          "title": "Planera vidare",
+          "desc": "Skriv upp 2-3 nya mål för kommande månader",
+          "xp": 30
+        },
+        {
+          "title": "Fira!",
+          "desc": "Spela för nöjets skull - du har förtjänat det!",
+          "xp": 100
+        }
+      ],
+      "quote": "STORT GRATTIS till 30 dagar väl genomfört! Detta är bara början på ditt gitarräventyr. Rock on!",
+      "quoteAuthor": "Tommy Johansson"
+    }
+  ]
+}
