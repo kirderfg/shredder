@@ -1,28 +1,102 @@
 {
+  "courseIntro": {
+    "title": "30-dagars fokuserad elgitarrkurs",
+    "subtitle": "1-2 h/dag",
+    "goal": "Snabbhet + accuracy, bättre vänsterhand, alternate picking, enkel sweep picking, mer legato - med siktet på solon i stil med Creeping Death, Tornado of Souls och neoklassiska (Yngwie-aktiga) fraser.",
+    "structure": {
+      "description": "Du tränar ett huvudområde per dag (10 områden). De roterar i 10-dagarscykler och du gör 3 varv på 30 dagar:",
+      "phases": [
+        {
+          "phase": 1,
+          "days": "1-10",
+          "focus": "Teknik-mekanik + renhet",
+          "tempoGoal": "Hitta CT och stabilisera det (kvalitet > bpm)"
+        },
+        {
+          "phase": 2,
+          "days": "11-20",
+          "focus": "Tempoökning via bursts + längre fraser",
+          "tempoGoal": "Höj CT 2-6 bpm jämfört med varv 1, via bursts + längre fraser"
+        },
+        {
+          "phase": 3,
+          "days": "21-30",
+          "focus": "Performance-standard (närmre repertoar-tempo)",
+          "tempoGoal": "Närma dig repertoar-tempo i korta chunks och behåll renhet"
+        }
+      ]
+    },
+    "dailyStructure": [
+      { "time": "10 min", "activity": "Warm-up + synk (kontrollerat)" },
+      { "time": "35-55 min", "activity": "Dagens huvudfokus (metronom-protokoll)" },
+      { "time": "20-30 min", "activity": "Lick/riff/solo-chunk i dagens artists anda" },
+      { "time": "5-10 min", "activity": "Cooldown + logg (CT, 'var brast det?')" }
+    ],
+    "metronomeProtocol": {
+      "description": "För varje huvudövning sätter du en Clean Tempo (CT): tempo där du kan spela 3 perfekta repetitioner (rent, i time, utan extra strängbrus).",
+      "zones": [
+        { "name": "Accuracy", "tempo": "CT - 20 bpm", "duration": "2 min" },
+        { "name": "Build", "tempo": "CT", "duration": "3 x 1 min, 30 s vila" },
+        { "name": "Bursts", "tempo": "CT + 15-25 bpm", "duration": "8-12 korta bursts" },
+        { "name": "Endurance", "tempo": "CT - 10 bpm", "duration": "2-3 min utan att spänna dig" }
+      ],
+      "rule": "Om renheten faller -> backa 5-10 bpm, bygg om."
+    },
+    "techniqueRules": [
+      "Små pickrörelser (tänk 'mini-strokes')",
+      "Minimal vänsterhandspress (bara så mycket att tonen blir ren)",
+      "Dämpning är en teknik (öva även med gain för att avslöja brus)",
+      "Spela in 30-60 s flera dagar/vecka och notera 1 sak att förbättra"
+    ]
+  },
   "guitarists": {
+    "mustaine": {
+      "name": "Dave Mustaine",
+      "band": "Megadeth",
+      "emoji": "🎸",
+      "color": "#ff4400"
+    },
+    "hetfield": {
+      "name": "James Hetfield",
+      "band": "Metallica",
+      "emoji": "🤘",
+      "color": "#1a1a8a"
+    },
     "friedman": {
       "name": "Marty Friedman",
       "band": "Megadeth",
       "emoji": "🎵",
       "color": "#ff8800"
     },
-    "yngwie": {
-      "name": "Yngwie Malmsteen",
-      "band": "Rising Force",
-      "emoji": "⚡",
-      "color": "#ffcc00"
-    },
     "zakk": {
       "name": "Zakk Wylde",
-      "band": "BLS/Ozzy",
+      "band": "Ozzy/BLS",
       "emoji": "💀",
       "color": "#666666"
     },
-    "mustaine": {
-      "name": "Dave Mustaine",
-      "band": "Megadeth",
-      "emoji": "🎸",
-      "color": "#ff4400"
+    "duplantier": {
+      "name": "Joe Duplantier",
+      "band": "Gojira",
+      "emoji": "🐋",
+      "color": "#2a5a4a"
+    },
+    "yngwie": {
+      "name": "Yngwie Malmsteen",
+      "band": "Solo (Neoclassical)",
+      "emoji": "⚡",
+      "color": "#ffcc00"
+    },
+    "smith": {
+      "name": "Adrian Smith",
+      "band": "Iron Maiden",
+      "emoji": "⚔️",
+      "color": "#cc0000"
+    },
+    "dimebag": {
+      "name": "Dimebag Darrell",
+      "band": "Pantera",
+      "emoji": "🔥",
+      "color": "#ff6600"
     },
     "tommy": {
       "name": "Tommy Johansson",
@@ -30,11 +104,11 @@
       "emoji": "🦅",
       "color": "#1a1a8a"
     },
-    "smith": {
-      "name": "Adrian Smith",
-      "band": "Iron Maiden",
-      "emoji": "⚔️",
-      "color": "#cc0000"
+    "hammett": {
+      "name": "Kirk Hammett",
+      "band": "Metallica",
+      "emoji": "🎶",
+      "color": "#8b0000"
     }
   },
   "levels": [
@@ -49,562 +123,1372 @@
     { "level": 9, "xp": 3000, "rank": "Gitarrgud" }
   ],
   "achievements": [
-    {
-      "id": "first_day",
-      "emoji": "🎸",
-      "name": "Första Dagen",
-      "type": "daysCompleted",
-      "value": 1
-    },
-    {
-      "id": "week_1",
-      "emoji": "📅",
-      "name": "Vecka 1 Klar",
-      "type": "daysCompleted",
-      "value": 6
-    },
-    {
-      "id": "week_2",
-      "emoji": "🗓️",
-      "name": "Vecka 2 Klar",
-      "type": "daysCompleted",
-      "value": 12
-    },
-    {
-      "id": "streak_3",
-      "emoji": "🔥",
-      "name": "3 Dagars Streak",
-      "type": "maxStreak",
-      "value": 3
-    },
-    {
-      "id": "streak_7",
-      "emoji": "💥",
-      "name": "7 Dagars Streak",
-      "type": "maxStreak",
-      "value": 7
-    },
-    {
-      "id": "streak_14",
-      "emoji": "⚡",
-      "name": "14 Dagars Streak",
-      "type": "maxStreak",
-      "value": 14
-    },
-    {
-      "id": "streak_30",
-      "emoji": "🏆",
-      "name": "30 Dagars Streak",
-      "type": "maxStreak",
-      "value": 30
-    },
-    {
-      "id": "xp_500",
-      "emoji": "⭐",
-      "name": "500 XP",
-      "type": "totalXP",
-      "value": 500
-    },
-    {
-      "id": "xp_1000",
-      "emoji": "🌟",
-      "name": "1000 XP",
-      "type": "totalXP",
-      "value": 1000
-    },
-    {
-      "id": "xp_2000",
-      "emoji": "✨",
-      "name": "2000 XP",
-      "type": "totalXP",
-      "value": 2000
-    },
-    {
-      "id": "time_1h",
-      "emoji": "⏰",
-      "name": "1 Timme Övat",
-      "type": "totalMinutes",
-      "value": 60
-    },
-    {
-      "id": "time_5h",
-      "emoji": "⌛",
-      "name": "5 Timmar Övat",
-      "type": "totalMinutes",
-      "value": 300
-    },
-    {
-      "id": "time_10h",
-      "emoji": "🕐",
-      "name": "10 Timmar Övat",
-      "type": "totalMinutes",
-      "value": 600
-    },
-    {
-      "id": "half_way",
-      "emoji": "🎯",
-      "name": "Halvvägs",
-      "type": "daysCompleted",
-      "value": 15
-    },
-    {
-      "id": "complete",
-      "emoji": "👑",
-      "name": "Programmet Klart",
-      "type": "daysCompleted",
-      "value": 30
-    }
+    { "id": "first_day", "emoji": "🎸", "name": "Första Dagen", "type": "daysCompleted", "value": 1 },
+    { "id": "week_1", "emoji": "📅", "name": "Vecka 1 Klar", "type": "daysCompleted", "value": 6 },
+    { "id": "week_2", "emoji": "🗓️", "name": "Vecka 2 Klar", "type": "daysCompleted", "value": 12 },
+    { "id": "streak_3", "emoji": "🔥", "name": "3 Dagars Streak", "type": "maxStreak", "value": 3 },
+    { "id": "streak_7", "emoji": "💥", "name": "7 Dagars Streak", "type": "maxStreak", "value": 7 },
+    { "id": "streak_14", "emoji": "⚡", "name": "14 Dagars Streak", "type": "maxStreak", "value": 14 },
+    { "id": "streak_30", "emoji": "🏆", "name": "30 Dagars Streak", "type": "maxStreak", "value": 30 },
+    { "id": "xp_500", "emoji": "⭐", "name": "500 XP", "type": "totalXP", "value": 500 },
+    { "id": "xp_1000", "emoji": "🌟", "name": "1000 XP", "type": "totalXP", "value": 1000 },
+    { "id": "xp_2000", "emoji": "✨", "name": "2000 XP", "type": "totalXP", "value": 2000 },
+    { "id": "time_1h", "emoji": "⏰", "name": "1 Timme Övat", "type": "totalMinutes", "value": 60 },
+    { "id": "time_5h", "emoji": "⌛", "name": "5 Timmar Övat", "type": "totalMinutes", "value": 300 },
+    { "id": "time_10h", "emoji": "🕐", "name": "10 Timmar Övat", "type": "totalMinutes", "value": 600 },
+    { "id": "half_way", "emoji": "🎯", "name": "Halvvägs", "type": "daysCompleted", "value": 15 },
+    { "id": "complete", "emoji": "👑", "name": "Programmet Klart", "type": "daysCompleted", "value": 30 }
   ],
   "days": [
     {
       "day": 1,
-      "guitarist": "friedman",
-      "title": "Melodisk Precision",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "mustaine",
+      "title": "Alternate Picking: Synk + 3NPS",
+      "theme": "Alternate picking: synk + 3NPS (3 notes per sträng)",
+      "phaseGoal": "Grund: mekanik, renhet och stabilt time. Bygg en pålitlig bas.",
+      "why": "Du bygger 'motorn' för metal-leads och snabba runs (t.ex. Megadeth-linjer).",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Synk-warmup",
+          "time": "10 min",
+          "description": "Chromatik över 2-3 strängar (rakt, utan stress). Metronom: 8-delar -> 16-delar. Fokus: exakt samtidigt anslag + grepp (inga 'flam'-ljud)."
+        },
+        {
+          "section": "B",
+          "name": "3NPS",
+          "time": "25-35 min",
+          "description": "Välj 1 skala (t.ex. Aeolian i E). Spela upp/ner, strikt alternate (D U D / U D U över strängbyten). Kör metronom-protokollet. Extra: isolera G<->B-strängbytet (loop 2 strängar)."
+        },
+        {
+          "section": "C",
+          "name": "Bursts",
+          "time": "10-15 min",
+          "description": "1 takt lugn (CT-15), 1 beat burst (CT+20), resten av takten lugn. 8-12 reps. Burst ska kännas 'lätt'."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Mustaine-flavour",
+          "time": "20-30 min",
+          "description": "Ta en snabb Megadeth-fras (kort lick) och chunk:a 1 takt. Spela 10 perfekta reps på CT innan du höjer."
+        }
       ],
-      "techniqueFocus": [
-        "Alternate picking i ovanliga tonarter (Phrygian Dominant)",
-        "Blanda legato med alternate picking för melodisk känsla"
+      "tabs": [
+        {
+          "name": "Synk-warmup chromatik",
+          "tab": "e|-------------------------------------------------|\nB|-------------------------------------------------|\nG|-------------------------------------------------|\nD|-----------------1-2-3-4-------------------------|\nA|-------1-2-3-4---------------1-2-3-4-------------|\nE|-1-2-3-4---------------------------------1-2-3-4-|"
+        },
+        {
+          "name": "3NPS Aeolian/minor-fragment",
+          "tab": "e|---------------------------5-7-8-|\nB|-------------------5-6-8---------|\nG|-----------4-5-7-----------------|\nD|---4-5-7-------------------------|\nA|-5-------------------------------|\nE|---------------------------------|\nPicka strikt alternate. Fokusera extra på G<->B-strängbytet."
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Melodisk Precision är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Aggressiv attack är okej - men bara om time och renhet är kompromisslösa.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 2,
-      "guitarist": "yngwie",
-      "title": "Neoklassisk Eld",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "hetfield",
+      "title": "Tight Rytm: Palm Mute + Downpicking",
+      "theme": "Tight rytm: palm mute + downpicking/alt, metronom-tightness",
+      "phaseGoal": "Grund: mekanik, renhet och stabilt time. Bygg en pålitlig bas.",
+      "why": "Rytmhandens stabilitet gör att lead känns 'pro'. Hetfield-nivå = maskin.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Palm mute-tightness",
+          "time": "10 min",
+          "description": "2 min 8-delar, 1 min 16-delar (låg tempo). Fokus: samma dämpning och attack varje slag."
+        },
+        {
+          "section": "B",
+          "name": "Downpicking-builder",
+          "time": "20-30 min",
+          "description": "16-delar på en ton: 1 takt on, 1 takt vila. 6-10 set. Mål: små rörelser, avslappnad handled."
+        },
+        {
+          "section": "C",
+          "name": "Alternate i rytm",
+          "time": "15-20 min",
+          "description": "Samma mönster men alternate. Låter det annorlunda? Justera tills det låter lika tight."
+        },
+        {
+          "section": "D",
+          "name": "Grid/Accent",
+          "time": "10 min",
+          "description": "Spela 16-delar men accentuera 1, e, &, a (en accent per takt)."
+        },
+        {
+          "section": "E",
+          "name": "Applicera - Metallica-flavour",
+          "time": "20-30 min",
+          "description": "Chunka 2-4 takter ur Creeping Death (eller annat tight riff). Kör CT-20 -> CT -> bursts CT+10 (1 takt)."
+        }
       ],
-      "techniqueFocus": [
-        "Sweep picking (3-strängs och 5-strängs arpeggios)",
-        "Neoklassisk legato i harmonisk moll"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Neoklassisk Eld är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Om det inte låter som en maskin: sänk tempo och bygg maskinen.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 3,
-      "guitarist": "zakk",
-      "title": "Attack och Vibrato",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "friedman",
+      "title": "Vänsterhand: Snabbhet + Positionbyten",
+      "theme": "Vänsterhand: snabbhet, positionbyten, 'awkward' frasering",
+      "phaseGoal": "Grund: mekanik, renhet och stabilt time. Bygg en pålitlig bas.",
+      "why": "Många missar i snabba solon är egentligen 'landningar' med vänsterhanden.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up med skift",
+          "time": "10 min",
+          "description": "1-2-3-4 på en sträng, flytta position var 4:e rep (t.ex. 5->7->9)."
+        },
+        {
+          "section": "B",
+          "name": "Shift-drills",
+          "time": "25-35 min",
+          "description": "Figur: 5-7-8-7, flytta upp 2 band, upprepa. Metronom: 8-delar -> 16-delar. Nyckel: skiftet ska vara tyst och exakt."
+        },
+        {
+          "section": "C",
+          "name": "Independence",
+          "time": "10-15 min",
+          "description": "Trill-sets: 1-2, 1-3, 1-4, 2-3, 2-4, 3-4 (30 s per par)."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Friedman-flavour",
+          "time": "20-30 min",
+          "description": "Ta en enkel pentaton-fras och lägg in ett positionsskift mitt i frasen. Målet är 'udda' men kontrollerat: frasering först, tempo sen."
+        }
       ],
-      "techniqueFocus": [
-        "Vibrato med bred rörelse",
-        "Pinch harmonics och snabba pentatoniska licks"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Attack och Vibrato är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Snabbhet = exakta landningar. Våga flytta handen utan att tveka.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 4,
-      "guitarist": "mustaine",
-      "title": "Riff Precision och Speed",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "zakk",
+      "title": "Legato: Hammer-ons/Pull-offs",
+      "theme": "Legato: hammer-ons/pull-offs + kontroll ('no extra noise')",
+      "phaseGoal": "Grund: mekanik, renhet och stabilt time. Bygg en pålitlig bas.",
+      "why": "Legato ger snabbhet med mindre pick-belastning och låter 'flytande' om du håller det rent.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Triplet-legato",
+          "time": "10 min",
+          "description": "1 pick per sträng, resten hammer-ons. Håll tonstyrka jämn."
+        },
+        {
+          "section": "B",
+          "name": "3-noters legato per sträng",
+          "time": "25-35 min",
+          "description": "5h7h8 upp/ner på två strängar. Metronom-protokoll: bygg CT + bursts."
+        },
+        {
+          "section": "C",
+          "name": "Legato + strängbyte",
+          "time": "10-15 min",
+          "description": "B<->E-sträng i loop. Mål: noll oavsiktliga öppna strängar."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Zakk-flavour",
+          "time": "20-30 min",
+          "description": "Bygg en pentaton-fras där du spelar 1 pickad ton och resten legato. Avsluta med en hård vibrato på toppnoten (Zakk-signatur)."
+        }
       ],
-      "techniqueFocus": [
-        "Riffbaserad alternate picking med gallops",
-        "Förflyttningar i låga E- och A-strängar"
+      "tabs": [
+        {
+          "name": "Legato-tripletter",
+          "tab": "e|-----------------------------|\nB|-5h7h8---5h7h8---5h7h8-------|\nG|-----------------------------|\n   ^ pick   HO HO   (repetera)"
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Riff Precision och Speed är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Legato ska låta lika aggressivt som picking. Jämn volym och brutal kontroll.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 5,
-      "guitarist": "tommy",
-      "title": "Power Metal Finesse",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "duplantier",
+      "title": "Stamina: Tremolo Picking + Tracking",
+      "theme": "Stamina: tremolo picking + strängspårning (tracking)",
+      "phaseGoal": "Grund: mekanik, renhet och stabilt time. Bygg en pålitlig bas.",
+      "why": "Du tränar 16-delars uthållighet och strängspårning - centralt för modern metal.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Tremolo-jämnhet",
+          "time": "8-10 min",
+          "description": "Tremolo på en ton, fokus på jämn puls."
+        },
+        {
+          "section": "B",
+          "name": "Stamina blocks",
+          "time": "25-35 min",
+          "description": "4 x 60 s tremolo (16-delar), 30 s vila. Byt sträng varje set (E->A->D->G). Håll rörelsen minimal, spänn inte."
+        },
+        {
+          "section": "C",
+          "name": "Tracking: två-strängs",
+          "time": "10-15 min",
+          "description": "2 takter tremolo på E, 2 takter på A, växla. Mål: bytet ska vara 'osynligt'."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Gojira-flavour",
+          "time": "20-30 min",
+          "description": "Lägg accenter (t.ex. varje kvartsslag) medan du tremolo-pickar. Fokus: percussiv precision och total tystnad i pauser."
+        }
       ],
-      "techniqueFocus": [
-        "Snabba melodiska skalor i power metal-stil",
-        "Sweep arpeggios med delay-effekt (tänk Sabaton intro-solon)"
+      "tabs": [
+        {
+          "name": "Tremolo stamina",
+          "tab": "e|-----------------------------|\nB|-----------------------------|\nG|-----------------------------|\nD|-----------------------------|\nA|-----------------------------|\nE|-0-0-0-0-0-0-0-0-0-0-0-0-----|\n   D U D U ... (16-delar)"
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Power Metal Finesse är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Det ska kännas som en motor som bara går. Om den hackar: mindre rörelse, mer avslappning.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 6,
-      "guitarist": "smith",
-      "title": "Twin Harmony och Flow",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "yngwie",
+      "title": "Enkel Sweep: 3-strängs Arpeggio",
+      "theme": "Enkel sweep: 3-strängs-arp + dämpning (muting)",
+      "phaseGoal": "Grund: mekanik, renhet och stabilt time. Bygg en pålitlig bas.",
+      "why": "Sweep avslöjar direkt om dämpning och timing inte sitter. Vi prioriterar 'clean'.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Sweep-rörelsen utan toner",
+          "time": "10 min",
+          "description": "Lägg vänsterhanden löst på strängarna (muted) och gör långsamma downstrokes G->B->E, sedan upp tillbaka. Fokus: en jämn 'strum'-rörelse."
+        },
+        {
+          "section": "B",
+          "name": "3-strängs minor-sweep",
+          "time": "25-35 min",
+          "description": "Spela arpeggiot långsamt. Bara en ton får ringa åt gången. Metronom-protokoll men med konservativa bursts (kvalitet först)."
+        },
+        {
+          "section": "C",
+          "name": "Timing-control",
+          "time": "10-15 min",
+          "description": "Samma arpeggio som 8-delar -> trioler -> 16-delar (samma tempo). Bygger kontroll och timing."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Yngwie-flavour",
+          "time": "20-30 min",
+          "description": "Efter sweep: lägg till en kort harmonic minor-run (3NPS) eller en snabb mordent-liknande trill. Mål: 'neoklassisk' fras som låter musikalisk, inte mekanisk."
+        }
       ],
-      "techniqueFocus": [
-        "Dubbla harmonier (3:e- och 6:e-intervall)",
-        "Legato-runs i E Dorian eller A Minor"
+      "tabs": [
+        {
+          "name": "3-strängs Am sweep",
+          "tab": "e|---------5-8-5---------|\nB|-------5-----5---------|\nG|-----5---------5-------|\n    D   D   D   U   U\nTips: 'strumma' igenom strängarna - men bara en ton ska ringa åt gången."
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Twin Harmony och Flow är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Sweep är inte 'hastighet'. Det är dämpning + kontroll som råkar gå fort.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 7,
-      "guitarist": "friedman",
-      "title": "Melodisk Precision",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "smith",
+      "title": "String Skipping + Gallop",
+      "theme": "String skipping: precision + gallop/harmonier",
+      "phaseGoal": "Grund: mekanik, renhet och stabilt time. Bygg en pålitlig bas.",
+      "why": "String-skips och gallops bygger 'advanced' precision och clean articulation.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up",
+          "time": "10 min",
+          "description": "1-2-3-4 på E-strängen, hoppa till D, tillbaka (utan att träffa mellansträngar). Dämpning: palm + lätt vänsterhand-touch."
+        },
+        {
+          "section": "B",
+          "name": "Skip-sekvenser",
+          "time": "25-35 min",
+          "description": "Skapa ett 2-strängsmönster: E<->D eller A<->G. 16-delar med strict alternate. Metronom-protokoll."
+        },
+        {
+          "section": "C",
+          "name": "Gallop-control",
+          "time": "10-15 min",
+          "description": "Gallop: lång-kort-kort (t.ex. 8-del + två 16-delar). 2 takter gallop, 2 takter raka 16-delar, växla."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Iron Maiden-flavour",
+          "time": "20-30 min",
+          "description": "Maiden: melodiska linjer och harmonier. Spela samma lick i två lägen (t.ex. 5:e och 7:e) för 'harmoni-känsla'."
+        }
       ],
-      "techniqueFocus": [
-        "Alternate picking i ovanliga tonarter (Phrygian Dominant)",
-        "Blanda legato med alternate picking för melodisk känsla"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Melodisk Precision är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Varje hopp är en landing. Landa mjukt, exakt, och fortsätt i time.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 8,
-      "guitarist": "yngwie",
-      "title": "Neoklassisk Eld",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "dimebag",
+      "title": "Speed Riffs: Alt Picking i Hög Fart",
+      "theme": "Speed riffs: alt picking i hög fart + rakt time",
+      "phaseGoal": "Grund: mekanik, renhet och stabilt time. Bygg en pålitlig bas.",
+      "why": "Speed-riffs kräver både fart och disciplin - och avslöjar direkt om time drar iväg.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up",
+          "time": "10 min",
+          "description": "16-delar alternate på en ton: 60 s on, 30 s vila x 3."
+        },
+        {
+          "section": "B",
+          "name": "Riff-loop",
+          "time": "25-35 min",
+          "description": "Välj ett 2-takts mönster (enkla toner/powerchords). Metronom-protokoll med extra fokus på beat 1 (tydlig accent)."
+        },
+        {
+          "section": "C",
+          "name": "Strängbyte i fart",
+          "time": "10-15 min",
+          "description": "Växla E<->A i ett rytmiskt mönster (t.ex. 2+2+4 slag) utan att 'svaja'."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Pantera-flavour",
+          "time": "20-30 min",
+          "description": "Bygg en aggressiv riff-loop där pauser är stenhårt tysta. Lägg in 1-2 snabba 'bursts' per loop och håll resten tight."
+        }
       ],
-      "techniqueFocus": [
-        "Sweep picking (3-strängs och 5-strängs arpeggios)",
-        "Neoklassisk legato i harmonisk moll"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Neoklassisk Eld är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Attacken får vara brutal - men bara om pauserna är lika kontrollerade som anslagen.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 9,
-      "guitarist": "zakk",
-      "title": "Attack och Vibrato",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "tommy",
+      "title": "Muting/Accuracy: Högerhandens Kontroll",
+      "theme": "Muting/accuracy: högerhandens dämpning + attack-konsistens",
+      "phaseGoal": "Grund: mekanik, renhet och stabilt time. Bygg en pålitlig bas.",
+      "why": "När du ökar bpm är det ofta muting som faller först. Du tränar 'pro'-tystnad.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Staccato-control",
+          "time": "10 min",
+          "description": "Spela 8-delar på låg sträng, stoppa varje slag (kort, knivskarpt)."
+        },
+        {
+          "section": "B",
+          "name": "Mute matrix",
+          "time": "25-35 min",
+          "description": "4 x 60 s: 1) Tung palm mute, 2) Lätt palm mute, 3) Öppet men vänsterhand-dämp direkt efter tonen, 4) Varannan ton muted/öppen. Fokus: samma time, samma attack."
+        },
+        {
+          "section": "C",
+          "name": "Precision bursts",
+          "time": "10-15 min",
+          "description": "1 beat burst (16-delar) + 3 beats staccato-kontroll. 12-16 reps."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Sabaton-flavour",
+          "time": "20-30 min",
+          "description": "Välj en snabb melodisk passage ur Soldier of Heaven (eller annat Sabaton-solo) och gör: 10 perfekta reps på CT-20, 10 reps på CT, bursts CT+15 på halva frasen. Mål: melodin ska vara tydlig även i fart."
+        }
       ],
-      "techniqueFocus": [
-        "Vibrato med bred rörelse",
-        "Pinch harmonics och snabba pentatoniska licks"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Attack och Vibrato är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Snabbt är meningslöst om det är gröt. Gör melodin kristallklar först.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 10,
-      "guitarist": "mustaine",
-      "title": "Riff Precision och Speed",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "hammett",
+      "title": "Repertoar-dag: Solo-chunking",
+      "theme": "Repertoar-dag: solo-chunking + performance-run (musikalisk integration)",
+      "phaseGoal": "Grund: mekanik, renhet och stabilt time. Bygg en pålitlig bas.",
+      "why": "Tekniken måste bli musik. Idag bygger du riktiga solo-chunks till 'performance standard'.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up",
+          "time": "10 min",
+          "description": "2 min chromatik + 2 min 3NPS + 2 min legato + 2 min tremolo (kort, kontrollerat)."
+        },
+        {
+          "section": "B",
+          "name": "Solo-chunking",
+          "time": "35-55 min",
+          "description": "Välj 1 passage (1-2 takter) från: Creeping Death (Metallica), Tornado of Souls (Megadeth), Soldier of Heaven (Sabaton), eller 'Yngwie-fras' (3-strängs sweep + harmonic minor-run). Metod: 1) Karta: sjung rytmen, 2) Slow perfect: CT-20, 10 reps, 3) CT: 10 reps, 4) Bursts: CT+20 i halva chunken, 5) Sätt ihop: hela chunken CT-10 -> CT."
+        },
+        {
+          "section": "C",
+          "name": "Performance-run",
+          "time": "10-15 min",
+          "description": "Spela chunken 3 gånger i rad utan stopp. Om du missar: skriv ner varför (strängbyte? vänsterhand? muting?)."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Hammett-flavour",
+          "time": "20-30 min",
+          "description": "Lägg till vibrato och bends där det passar. Målet är att det låter som ett solo (frasering) även vid lägre tempo."
+        }
       ],
-      "techniqueFocus": [
-        "Riffbaserad alternate picking med gallops",
-        "Förflyttningar i låga E- och A-strängar"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Riff Precision och Speed är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Det ska låta bra långsamt. När det låter bra kommer hastigheten.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 11,
-      "guitarist": "tommy",
-      "title": "Power Metal Finesse",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "mustaine",
+      "title": "Alternate Picking: Synk + 3NPS",
+      "theme": "Alternate picking: synk + 3NPS (3 notes per sträng)",
+      "phaseGoal": "Mellan: öka tempo med kontrollerade bursts och längre fraser.",
+      "why": "Du bygger 'motorn' för metal-leads och snabba runs (t.ex. Megadeth-linjer).",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Synk-warmup",
+          "time": "10 min",
+          "description": "Chromatik över 2-3 strängar (rakt, utan stress). Metronom: 8-delar -> 16-delar. Fokus: exakt samtidigt anslag + grepp (inga 'flam'-ljud)."
+        },
+        {
+          "section": "B",
+          "name": "3NPS",
+          "time": "25-35 min",
+          "description": "Välj 1 skala (t.ex. Aeolian i E). Spela upp/ner, strikt alternate (D U D / U D U över strängbyten). Kör metronom-protokollet. Extra: isolera G<->B-strängbytet (loop 2 strängar)."
+        },
+        {
+          "section": "C",
+          "name": "Bursts",
+          "time": "10-15 min",
+          "description": "1 takt lugn (CT-15), 1 beat burst (CT+20), resten av takten lugn. 8-12 reps. Burst ska kännas 'lätt'."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Mustaine-flavour",
+          "time": "20-30 min",
+          "description": "Ta en snabb Megadeth-fras (kort lick) och chunk:a 1 takt. Spela 10 perfekta reps på CT innan du höjer."
+        }
       ],
-      "techniqueFocus": [
-        "Snabba melodiska skalor i power metal-stil",
-        "Sweep arpeggios med delay-effekt (tänk Sabaton intro-solon)"
+      "tabs": [
+        {
+          "name": "Synk-warmup chromatik",
+          "tab": "e|-------------------------------------------------|\nB|-------------------------------------------------|\nG|-------------------------------------------------|\nD|-----------------1-2-3-4-------------------------|\nA|-------1-2-3-4---------------1-2-3-4-------------|\nE|-1-2-3-4---------------------------------1-2-3-4-|"
+        },
+        {
+          "name": "3NPS Aeolian/minor-fragment",
+          "tab": "e|---------------------------5-7-8-|\nB|-------------------5-6-8---------|\nG|-----------4-5-7-----------------|\nD|---4-5-7-------------------------|\nA|-5-------------------------------|\nE|---------------------------------|\nPicka strikt alternate. Fokusera extra på G<->B-strängbytet."
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Power Metal Finesse är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Aggressiv attack är okej - men bara om time och renhet är kompromisslösa.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 12,
-      "guitarist": "smith",
-      "title": "Twin Harmony och Flow",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "hetfield",
+      "title": "Tight Rytm: Palm Mute + Downpicking",
+      "theme": "Tight rytm: palm mute + downpicking/alt, metronom-tightness",
+      "phaseGoal": "Mellan: öka tempo med kontrollerade bursts och längre fraser.",
+      "why": "Rytmhandens stabilitet gör att lead känns 'pro'. Hetfield-nivå = maskin.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Palm mute-tightness",
+          "time": "10 min",
+          "description": "2 min 8-delar, 1 min 16-delar (låg tempo). Fokus: samma dämpning och attack varje slag."
+        },
+        {
+          "section": "B",
+          "name": "Downpicking-builder",
+          "time": "20-30 min",
+          "description": "16-delar på en ton: 1 takt on, 1 takt vila. 6-10 set. Mål: små rörelser, avslappnad handled."
+        },
+        {
+          "section": "C",
+          "name": "Alternate i rytm",
+          "time": "15-20 min",
+          "description": "Samma mönster men alternate. Låter det annorlunda? Justera tills det låter lika tight."
+        },
+        {
+          "section": "D",
+          "name": "Grid/Accent",
+          "time": "10 min",
+          "description": "Spela 16-delar men accentuera 1, e, &, a (en accent per takt)."
+        },
+        {
+          "section": "E",
+          "name": "Applicera - Metallica-flavour",
+          "time": "20-30 min",
+          "description": "Chunka 2-4 takter ur Creeping Death (eller annat tight riff). Kör CT-20 -> CT -> bursts CT+10 (1 takt)."
+        }
       ],
-      "techniqueFocus": [
-        "Dubbla harmonier (3:e- och 6:e-intervall)",
-        "Legato-runs i E Dorian eller A Minor"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Twin Harmony och Flow är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Om det inte låter som en maskin: sänk tempo och bygg maskinen.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 13,
       "guitarist": "friedman",
-      "title": "Melodisk Precision",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "title": "Vänsterhand: Snabbhet + Positionbyten",
+      "theme": "Vänsterhand: snabbhet, positionbyten, 'awkward' frasering",
+      "phaseGoal": "Mellan: öka tempo med kontrollerade bursts och längre fraser.",
+      "why": "Många missar i snabba solon är egentligen 'landningar' med vänsterhanden.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up med skift",
+          "time": "10 min",
+          "description": "1-2-3-4 på en sträng, flytta position var 4:e rep (t.ex. 5->7->9)."
+        },
+        {
+          "section": "B",
+          "name": "Shift-drills",
+          "time": "25-35 min",
+          "description": "Figur: 5-7-8-7, flytta upp 2 band, upprepa. Metronom: 8-delar -> 16-delar. Nyckel: skiftet ska vara tyst och exakt."
+        },
+        {
+          "section": "C",
+          "name": "Independence",
+          "time": "10-15 min",
+          "description": "Trill-sets: 1-2, 1-3, 1-4, 2-3, 2-4, 3-4 (30 s per par)."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Friedman-flavour",
+          "time": "20-30 min",
+          "description": "Ta en enkel pentaton-fras och lägg in ett positionsskift mitt i frasen. Målet är 'udda' men kontrollerat: frasering först, tempo sen."
+        }
       ],
-      "techniqueFocus": [
-        "Alternate picking i ovanliga tonarter (Phrygian Dominant)",
-        "Blanda legato med alternate picking för melodisk känsla"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Melodisk Precision är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Snabbhet = exakta landningar. Våga flytta handen utan att tveka.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 14,
-      "guitarist": "yngwie",
-      "title": "Neoklassisk Eld",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "zakk",
+      "title": "Legato: Hammer-ons/Pull-offs",
+      "theme": "Legato: hammer-ons/pull-offs + kontroll ('no extra noise')",
+      "phaseGoal": "Mellan: öka tempo med kontrollerade bursts och längre fraser.",
+      "why": "Legato ger snabbhet med mindre pick-belastning och låter 'flytande' om du håller det rent.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Triplet-legato",
+          "time": "10 min",
+          "description": "1 pick per sträng, resten hammer-ons. Håll tonstyrka jämn."
+        },
+        {
+          "section": "B",
+          "name": "3-noters legato per sträng",
+          "time": "25-35 min",
+          "description": "5h7h8 upp/ner på två strängar. Metronom-protokoll: bygg CT + bursts."
+        },
+        {
+          "section": "C",
+          "name": "Legato + strängbyte",
+          "time": "10-15 min",
+          "description": "B<->E-sträng i loop. Mål: noll oavsiktliga öppna strängar."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Zakk-flavour",
+          "time": "20-30 min",
+          "description": "Bygg en pentaton-fras där du spelar 1 pickad ton och resten legato. Avsluta med en hård vibrato på toppnoten (Zakk-signatur)."
+        }
       ],
-      "techniqueFocus": [
-        "Sweep picking (3-strängs och 5-strängs arpeggios)",
-        "Neoklassisk legato i harmonisk moll"
+      "tabs": [
+        {
+          "name": "Legato-tripletter",
+          "tab": "e|-----------------------------|\nB|-5h7h8---5h7h8---5h7h8-------|\nG|-----------------------------|\n   ^ pick   HO HO   (repetera)"
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Neoklassisk Eld är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Legato ska låta lika aggressivt som picking. Jämn volym och brutal kontroll.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 15,
-      "guitarist": "zakk",
-      "title": "Attack och Vibrato",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "duplantier",
+      "title": "Stamina: Tremolo Picking + Tracking",
+      "theme": "Stamina: tremolo picking + strängspårning (tracking)",
+      "phaseGoal": "Mellan: öka tempo med kontrollerade bursts och längre fraser.",
+      "why": "Du tränar 16-delars uthållighet och strängspårning - centralt för modern metal.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Tremolo-jämnhet",
+          "time": "8-10 min",
+          "description": "Tremolo på en ton, fokus på jämn puls."
+        },
+        {
+          "section": "B",
+          "name": "Stamina blocks",
+          "time": "25-35 min",
+          "description": "4 x 60 s tremolo (16-delar), 30 s vila. Byt sträng varje set (E->A->D->G). Håll rörelsen minimal, spänn inte."
+        },
+        {
+          "section": "C",
+          "name": "Tracking: två-strängs",
+          "time": "10-15 min",
+          "description": "2 takter tremolo på E, 2 takter på A, växla. Mål: bytet ska vara 'osynligt'."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Gojira-flavour",
+          "time": "20-30 min",
+          "description": "Lägg accenter (t.ex. varje kvartsslag) medan du tremolo-pickar. Fokus: percussiv precision och total tystnad i pauser."
+        }
       ],
-      "techniqueFocus": [
-        "Vibrato med bred rörelse",
-        "Pinch harmonics och snabba pentatoniska licks"
+      "tabs": [
+        {
+          "name": "Tremolo stamina",
+          "tab": "e|-----------------------------|\nB|-----------------------------|\nG|-----------------------------|\nD|-----------------------------|\nA|-----------------------------|\nE|-0-0-0-0-0-0-0-0-0-0-0-0-----|\n   D U D U ... (16-delar)"
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Attack och Vibrato är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Det ska kännas som en motor som bara går. Om den hackar: mindre rörelse, mer avslappning.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 16,
-      "guitarist": "mustaine",
-      "title": "Riff Precision och Speed",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "yngwie",
+      "title": "Enkel Sweep: 3-strängs Arpeggio",
+      "theme": "Enkel sweep: 3-strängs-arp + dämpning (muting)",
+      "phaseGoal": "Mellan: öka tempo med kontrollerade bursts och längre fraser.",
+      "why": "Sweep avslöjar direkt om dämpning och timing inte sitter. Vi prioriterar 'clean'.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Sweep-rörelsen utan toner",
+          "time": "10 min",
+          "description": "Lägg vänsterhanden löst på strängarna (muted) och gör långsamma downstrokes G->B->E, sedan upp tillbaka. Fokus: en jämn 'strum'-rörelse."
+        },
+        {
+          "section": "B",
+          "name": "3-strängs minor-sweep",
+          "time": "25-35 min",
+          "description": "Spela arpeggiot långsamt. Bara en ton får ringa åt gången. Metronom-protokoll men med konservativa bursts (kvalitet först)."
+        },
+        {
+          "section": "C",
+          "name": "Timing-control",
+          "time": "10-15 min",
+          "description": "Samma arpeggio som 8-delar -> trioler -> 16-delar (samma tempo). Bygger kontroll och timing."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Yngwie-flavour",
+          "time": "20-30 min",
+          "description": "Efter sweep: lägg till en kort harmonic minor-run (3NPS) eller en snabb mordent-liknande trill. Mål: 'neoklassisk' fras som låter musikalisk, inte mekanisk."
+        }
       ],
-      "techniqueFocus": [
-        "Riffbaserad alternate picking med gallops",
-        "Förflyttningar i låga E- och A-strängar"
+      "tabs": [
+        {
+          "name": "3-strängs Am sweep",
+          "tab": "e|---------5-8-5---------|\nB|-------5-----5---------|\nG|-----5---------5-------|\n    D   D   D   U   U\nTips: 'strumma' igenom strängarna - men bara en ton ska ringa åt gången."
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Riff Precision och Speed är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Sweep är inte 'hastighet'. Det är dämpning + kontroll som råkar gå fort.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 17,
-      "guitarist": "tommy",
-      "title": "Power Metal Finesse",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "smith",
+      "title": "String Skipping + Gallop",
+      "theme": "String skipping: precision + gallop/harmonier",
+      "phaseGoal": "Mellan: öka tempo med kontrollerade bursts och längre fraser.",
+      "why": "String-skips och gallops bygger 'advanced' precision och clean articulation.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up",
+          "time": "10 min",
+          "description": "1-2-3-4 på E-strängen, hoppa till D, tillbaka (utan att träffa mellansträngar). Dämpning: palm + lätt vänsterhand-touch."
+        },
+        {
+          "section": "B",
+          "name": "Skip-sekvenser",
+          "time": "25-35 min",
+          "description": "Skapa ett 2-strängsmönster: E<->D eller A<->G. 16-delar med strict alternate. Metronom-protokoll."
+        },
+        {
+          "section": "C",
+          "name": "Gallop-control",
+          "time": "10-15 min",
+          "description": "Gallop: lång-kort-kort (t.ex. 8-del + två 16-delar). 2 takter gallop, 2 takter raka 16-delar, växla."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Iron Maiden-flavour",
+          "time": "20-30 min",
+          "description": "Maiden: melodiska linjer och harmonier. Spela samma lick i två lägen (t.ex. 5:e och 7:e) för 'harmoni-känsla'."
+        }
       ],
-      "techniqueFocus": [
-        "Snabba melodiska skalor i power metal-stil",
-        "Sweep arpeggios med delay-effekt (tänk Sabaton intro-solon)"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Power Metal Finesse är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Varje hopp är en landing. Landa mjukt, exakt, och fortsätt i time.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 18,
-      "guitarist": "smith",
-      "title": "Twin Harmony och Flow",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "dimebag",
+      "title": "Speed Riffs: Alt Picking i Hög Fart",
+      "theme": "Speed riffs: alt picking i hög fart + rakt time",
+      "phaseGoal": "Mellan: öka tempo med kontrollerade bursts och längre fraser.",
+      "why": "Speed-riffs kräver både fart och disciplin - och avslöjar direkt om time drar iväg.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up",
+          "time": "10 min",
+          "description": "16-delar alternate på en ton: 60 s on, 30 s vila x 3."
+        },
+        {
+          "section": "B",
+          "name": "Riff-loop",
+          "time": "25-35 min",
+          "description": "Välj ett 2-takts mönster (enkla toner/powerchords). Metronom-protokoll med extra fokus på beat 1 (tydlig accent)."
+        },
+        {
+          "section": "C",
+          "name": "Strängbyte i fart",
+          "time": "10-15 min",
+          "description": "Växla E<->A i ett rytmiskt mönster (t.ex. 2+2+4 slag) utan att 'svaja'."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Pantera-flavour",
+          "time": "20-30 min",
+          "description": "Bygg en aggressiv riff-loop där pauser är stenhårt tysta. Lägg in 1-2 snabba 'bursts' per loop och håll resten tight."
+        }
       ],
-      "techniqueFocus": [
-        "Dubbla harmonier (3:e- och 6:e-intervall)",
-        "Legato-runs i E Dorian eller A Minor"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Twin Harmony och Flow är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Attacken får vara brutal - men bara om pauserna är lika kontrollerade som anslagen.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 19,
-      "guitarist": "friedman",
-      "title": "Melodisk Precision",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "tommy",
+      "title": "Muting/Accuracy: Högerhandens Kontroll",
+      "theme": "Muting/accuracy: högerhandens dämpning + attack-konsistens",
+      "phaseGoal": "Mellan: öka tempo med kontrollerade bursts och längre fraser.",
+      "why": "När du ökar bpm är det ofta muting som faller först. Du tränar 'pro'-tystnad.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Staccato-control",
+          "time": "10 min",
+          "description": "Spela 8-delar på låg sträng, stoppa varje slag (kort, knivskarpt)."
+        },
+        {
+          "section": "B",
+          "name": "Mute matrix",
+          "time": "25-35 min",
+          "description": "4 x 60 s: 1) Tung palm mute, 2) Lätt palm mute, 3) Öppet men vänsterhand-dämp direkt efter tonen, 4) Varannan ton muted/öppen. Fokus: samma time, samma attack."
+        },
+        {
+          "section": "C",
+          "name": "Precision bursts",
+          "time": "10-15 min",
+          "description": "1 beat burst (16-delar) + 3 beats staccato-kontroll. 12-16 reps."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Sabaton-flavour",
+          "time": "20-30 min",
+          "description": "Välj en snabb melodisk passage ur Soldier of Heaven (eller annat Sabaton-solo) och gör: 10 perfekta reps på CT-20, 10 reps på CT, bursts CT+15 på halva frasen. Mål: melodin ska vara tydlig även i fart."
+        }
       ],
-      "techniqueFocus": [
-        "Alternate picking i ovanliga tonarter (Phrygian Dominant)",
-        "Blanda legato med alternate picking för melodisk känsla"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Melodisk Precision är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Snabbt är meningslöst om det är gröt. Gör melodin kristallklar först.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 20,
-      "guitarist": "yngwie",
-      "title": "Neoklassisk Eld",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "hammett",
+      "title": "Repertoar-dag: Solo-chunking",
+      "theme": "Repertoar-dag: solo-chunking + performance-run (musikalisk integration)",
+      "phaseGoal": "Mellan: öka tempo med kontrollerade bursts och längre fraser.",
+      "why": "Tekniken måste bli musik. Idag bygger du riktiga solo-chunks till 'performance standard'.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up",
+          "time": "10 min",
+          "description": "2 min chromatik + 2 min 3NPS + 2 min legato + 2 min tremolo (kort, kontrollerat)."
+        },
+        {
+          "section": "B",
+          "name": "Solo-chunking",
+          "time": "35-55 min",
+          "description": "Välj 1 passage (1-2 takter) från: Creeping Death (Metallica), Tornado of Souls (Megadeth), Soldier of Heaven (Sabaton), eller 'Yngwie-fras' (3-strängs sweep + harmonic minor-run). Metod: 1) Karta: sjung rytmen, 2) Slow perfect: CT-20, 10 reps, 3) CT: 10 reps, 4) Bursts: CT+20 i halva chunken, 5) Sätt ihop: hela chunken CT-10 -> CT."
+        },
+        {
+          "section": "C",
+          "name": "Performance-run",
+          "time": "10-15 min",
+          "description": "Spela chunken 3 gånger i rad utan stopp. Om du missar: skriv ner varför (strängbyte? vänsterhand? muting?)."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Hammett-flavour",
+          "time": "20-30 min",
+          "description": "Lägg till vibrato och bends där det passar. Målet är att det låter som ett solo (frasering) även vid lägre tempo."
+        }
       ],
-      "techniqueFocus": [
-        "Sweep picking (3-strängs och 5-strängs arpeggios)",
-        "Neoklassisk legato i harmonisk moll"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Neoklassisk Eld är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Det ska låta bra långsamt. När det låter bra kommer hastigheten.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 21,
-      "guitarist": "zakk",
-      "title": "Attack och Vibrato",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "mustaine",
+      "title": "Alternate Picking: Synk + 3NPS",
+      "theme": "Alternate picking: synk + 3NPS (3 notes per sträng)",
+      "phaseGoal": "Avancerat: integrera tekniker i riktiga fraser + 'performance standard'.",
+      "why": "Du bygger 'motorn' för metal-leads och snabba runs (t.ex. Megadeth-linjer).",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Synk-warmup",
+          "time": "10 min",
+          "description": "Chromatik över 2-3 strängar (rakt, utan stress). Metronom: 8-delar -> 16-delar. Fokus: exakt samtidigt anslag + grepp (inga 'flam'-ljud)."
+        },
+        {
+          "section": "B",
+          "name": "3NPS",
+          "time": "25-35 min",
+          "description": "Välj 1 skala (t.ex. Aeolian i E). Spela upp/ner, strikt alternate (D U D / U D U över strängbyten). Kör metronom-protokollet. Extra: isolera G<->B-strängbytet (loop 2 strängar)."
+        },
+        {
+          "section": "C",
+          "name": "Bursts",
+          "time": "10-15 min",
+          "description": "1 takt lugn (CT-15), 1 beat burst (CT+20), resten av takten lugn. 8-12 reps. Burst ska kännas 'lätt'."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Mustaine-flavour",
+          "time": "20-30 min",
+          "description": "Ta en snabb Megadeth-fras (kort lick) och chunk:a 1 takt. Spela 10 perfekta reps på CT innan du höjer."
+        }
       ],
-      "techniqueFocus": [
-        "Vibrato med bred rörelse",
-        "Pinch harmonics och snabba pentatoniska licks"
+      "tabs": [
+        {
+          "name": "Synk-warmup chromatik",
+          "tab": "e|-------------------------------------------------|\nB|-------------------------------------------------|\nG|-------------------------------------------------|\nD|-----------------1-2-3-4-------------------------|\nA|-------1-2-3-4---------------1-2-3-4-------------|\nE|-1-2-3-4---------------------------------1-2-3-4-|"
+        },
+        {
+          "name": "3NPS Aeolian/minor-fragment",
+          "tab": "e|---------------------------5-7-8-|\nB|-------------------5-6-8---------|\nG|-----------4-5-7-----------------|\nD|---4-5-7-------------------------|\nA|-5-------------------------------|\nE|---------------------------------|\nPicka strikt alternate. Fokusera extra på G<->B-strängbytet."
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Attack och Vibrato är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Aggressiv attack är okej - men bara om time och renhet är kompromisslösa.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 22,
-      "guitarist": "mustaine",
-      "title": "Riff Precision och Speed",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "hetfield",
+      "title": "Tight Rytm: Palm Mute + Downpicking",
+      "theme": "Tight rytm: palm mute + downpicking/alt, metronom-tightness",
+      "phaseGoal": "Avancerat: integrera tekniker i riktiga fraser + 'performance standard'.",
+      "why": "Rytmhandens stabilitet gör att lead känns 'pro'. Hetfield-nivå = maskin.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Palm mute-tightness",
+          "time": "10 min",
+          "description": "2 min 8-delar, 1 min 16-delar (låg tempo). Fokus: samma dämpning och attack varje slag."
+        },
+        {
+          "section": "B",
+          "name": "Downpicking-builder",
+          "time": "20-30 min",
+          "description": "16-delar på en ton: 1 takt on, 1 takt vila. 6-10 set. Mål: små rörelser, avslappnad handled."
+        },
+        {
+          "section": "C",
+          "name": "Alternate i rytm",
+          "time": "15-20 min",
+          "description": "Samma mönster men alternate. Låter det annorlunda? Justera tills det låter lika tight."
+        },
+        {
+          "section": "D",
+          "name": "Grid/Accent",
+          "time": "10 min",
+          "description": "Spela 16-delar men accentuera 1, e, &, a (en accent per takt)."
+        },
+        {
+          "section": "E",
+          "name": "Applicera - Metallica-flavour",
+          "time": "20-30 min",
+          "description": "Chunka 2-4 takter ur Creeping Death (eller annat tight riff). Kör CT-20 -> CT -> bursts CT+10 (1 takt)."
+        }
       ],
-      "techniqueFocus": [
-        "Riffbaserad alternate picking med gallops",
-        "Förflyttningar i låga E- och A-strängar"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Riff Precision och Speed är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Om det inte låter som en maskin: sänk tempo och bygg maskinen.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 23,
-      "guitarist": "tommy",
-      "title": "Power Metal Finesse",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "friedman",
+      "title": "Vänsterhand: Snabbhet + Positionbyten",
+      "theme": "Vänsterhand: snabbhet, positionbyten, 'awkward' frasering",
+      "phaseGoal": "Avancerat: integrera tekniker i riktiga fraser + 'performance standard'.",
+      "why": "Många missar i snabba solon är egentligen 'landningar' med vänsterhanden.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up med skift",
+          "time": "10 min",
+          "description": "1-2-3-4 på en sträng, flytta position var 4:e rep (t.ex. 5->7->9)."
+        },
+        {
+          "section": "B",
+          "name": "Shift-drills",
+          "time": "25-35 min",
+          "description": "Figur: 5-7-8-7, flytta upp 2 band, upprepa. Metronom: 8-delar -> 16-delar. Nyckel: skiftet ska vara tyst och exakt."
+        },
+        {
+          "section": "C",
+          "name": "Independence",
+          "time": "10-15 min",
+          "description": "Trill-sets: 1-2, 1-3, 1-4, 2-3, 2-4, 3-4 (30 s per par)."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Friedman-flavour",
+          "time": "20-30 min",
+          "description": "Ta en enkel pentaton-fras och lägg in ett positionsskift mitt i frasen. Målet är 'udda' men kontrollerat: frasering först, tempo sen."
+        }
       ],
-      "techniqueFocus": [
-        "Snabba melodiska skalor i power metal-stil",
-        "Sweep arpeggios med delay-effekt (tänk Sabaton intro-solon)"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Power Metal Finesse är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Snabbhet = exakta landningar. Våga flytta handen utan att tveka.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 24,
-      "guitarist": "smith",
-      "title": "Twin Harmony och Flow",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "zakk",
+      "title": "Legato: Hammer-ons/Pull-offs",
+      "theme": "Legato: hammer-ons/pull-offs + kontroll ('no extra noise')",
+      "phaseGoal": "Avancerat: integrera tekniker i riktiga fraser + 'performance standard'.",
+      "why": "Legato ger snabbhet med mindre pick-belastning och låter 'flytande' om du håller det rent.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Triplet-legato",
+          "time": "10 min",
+          "description": "1 pick per sträng, resten hammer-ons. Håll tonstyrka jämn."
+        },
+        {
+          "section": "B",
+          "name": "3-noters legato per sträng",
+          "time": "25-35 min",
+          "description": "5h7h8 upp/ner på två strängar. Metronom-protokoll: bygg CT + bursts."
+        },
+        {
+          "section": "C",
+          "name": "Legato + strängbyte",
+          "time": "10-15 min",
+          "description": "B<->E-sträng i loop. Mål: noll oavsiktliga öppna strängar."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Zakk-flavour",
+          "time": "20-30 min",
+          "description": "Bygg en pentaton-fras där du spelar 1 pickad ton och resten legato. Avsluta med en hård vibrato på toppnoten (Zakk-signatur)."
+        }
       ],
-      "techniqueFocus": [
-        "Dubbla harmonier (3:e- och 6:e-intervall)",
-        "Legato-runs i E Dorian eller A Minor"
+      "tabs": [
+        {
+          "name": "Legato-tripletter",
+          "tab": "e|-----------------------------|\nB|-5h7h8---5h7h8---5h7h8-------|\nG|-----------------------------|\n   ^ pick   HO HO   (repetera)"
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Twin Harmony och Flow är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Legato ska låta lika aggressivt som picking. Jämn volym och brutal kontroll.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 25,
-      "guitarist": "friedman",
-      "title": "Melodisk Precision",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "duplantier",
+      "title": "Stamina: Tremolo Picking + Tracking",
+      "theme": "Stamina: tremolo picking + strängspårning (tracking)",
+      "phaseGoal": "Avancerat: integrera tekniker i riktiga fraser + 'performance standard'.",
+      "why": "Du tränar 16-delars uthållighet och strängspårning - centralt för modern metal.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Tremolo-jämnhet",
+          "time": "8-10 min",
+          "description": "Tremolo på en ton, fokus på jämn puls."
+        },
+        {
+          "section": "B",
+          "name": "Stamina blocks",
+          "time": "25-35 min",
+          "description": "4 x 60 s tremolo (16-delar), 30 s vila. Byt sträng varje set (E->A->D->G). Håll rörelsen minimal, spänn inte."
+        },
+        {
+          "section": "C",
+          "name": "Tracking: två-strängs",
+          "time": "10-15 min",
+          "description": "2 takter tremolo på E, 2 takter på A, växla. Mål: bytet ska vara 'osynligt'."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Gojira-flavour",
+          "time": "20-30 min",
+          "description": "Lägg accenter (t.ex. varje kvartsslag) medan du tremolo-pickar. Fokus: percussiv precision och total tystnad i pauser."
+        }
       ],
-      "techniqueFocus": [
-        "Alternate picking i ovanliga tonarter (Phrygian Dominant)",
-        "Blanda legato med alternate picking för melodisk känsla"
+      "tabs": [
+        {
+          "name": "Tremolo stamina",
+          "tab": "e|-----------------------------|\nB|-----------------------------|\nG|-----------------------------|\nD|-----------------------------|\nA|-----------------------------|\nE|-0-0-0-0-0-0-0-0-0-0-0-0-----|\n   D U D U ... (16-delar)"
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Melodisk Precision är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Det ska kännas som en motor som bara går. Om den hackar: mindre rörelse, mer avslappning.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 26,
       "guitarist": "yngwie",
-      "title": "Neoklassisk Eld",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "title": "Enkel Sweep: 3-strängs Arpeggio",
+      "theme": "Enkel sweep: 3-strängs-arp + dämpning (muting)",
+      "phaseGoal": "Avancerat: integrera tekniker i riktiga fraser + 'performance standard'.",
+      "why": "Sweep avslöjar direkt om dämpning och timing inte sitter. Vi prioriterar 'clean'.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Sweep-rörelsen utan toner",
+          "time": "10 min",
+          "description": "Lägg vänsterhanden löst på strängarna (muted) och gör långsamma downstrokes G->B->E, sedan upp tillbaka. Fokus: en jämn 'strum'-rörelse."
+        },
+        {
+          "section": "B",
+          "name": "3-strängs minor-sweep",
+          "time": "25-35 min",
+          "description": "Spela arpeggiot långsamt. Bara en ton får ringa åt gången. Metronom-protokoll men med konservativa bursts (kvalitet först)."
+        },
+        {
+          "section": "C",
+          "name": "Timing-control",
+          "time": "10-15 min",
+          "description": "Samma arpeggio som 8-delar -> trioler -> 16-delar (samma tempo). Bygger kontroll och timing."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Yngwie-flavour",
+          "time": "20-30 min",
+          "description": "Efter sweep: lägg till en kort harmonic minor-run (3NPS) eller en snabb mordent-liknande trill. Mål: 'neoklassisk' fras som låter musikalisk, inte mekanisk."
+        }
       ],
-      "techniqueFocus": [
-        "Sweep picking (3-strängs och 5-strängs arpeggios)",
-        "Neoklassisk legato i harmonisk moll"
+      "tabs": [
+        {
+          "name": "3-strängs Am sweep",
+          "tab": "e|---------5-8-5---------|\nB|-------5-----5---------|\nG|-----5---------5-------|\n    D   D   D   U   U\nTips: 'strumma' igenom strängarna - men bara en ton ska ringa åt gången."
+        }
       ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Neoklassisk Eld är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "quote": "Sweep är inte 'hastighet'. Det är dämpning + kontroll som råkar gå fort.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 27,
-      "guitarist": "zakk",
-      "title": "Attack och Vibrato",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "smith",
+      "title": "String Skipping + Gallop",
+      "theme": "String skipping: precision + gallop/harmonier",
+      "phaseGoal": "Avancerat: integrera tekniker i riktiga fraser + 'performance standard'.",
+      "why": "String-skips och gallops bygger 'advanced' precision och clean articulation.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up",
+          "time": "10 min",
+          "description": "1-2-3-4 på E-strängen, hoppa till D, tillbaka (utan att träffa mellansträngar). Dämpning: palm + lätt vänsterhand-touch."
+        },
+        {
+          "section": "B",
+          "name": "Skip-sekvenser",
+          "time": "25-35 min",
+          "description": "Skapa ett 2-strängsmönster: E<->D eller A<->G. 16-delar med strict alternate. Metronom-protokoll."
+        },
+        {
+          "section": "C",
+          "name": "Gallop-control",
+          "time": "10-15 min",
+          "description": "Gallop: lång-kort-kort (t.ex. 8-del + två 16-delar). 2 takter gallop, 2 takter raka 16-delar, växla."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Iron Maiden-flavour",
+          "time": "20-30 min",
+          "description": "Maiden: melodiska linjer och harmonier. Spela samma lick i två lägen (t.ex. 5:e och 7:e) för 'harmoni-känsla'."
+        }
       ],
-      "techniqueFocus": [
-        "Vibrato med bred rörelse",
-        "Pinch harmonics och snabba pentatoniska licks"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Attack och Vibrato är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Varje hopp är en landing. Landa mjukt, exakt, och fortsätt i time.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 28,
-      "guitarist": "mustaine",
-      "title": "Riff Precision och Speed",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "dimebag",
+      "title": "Speed Riffs: Alt Picking i Hög Fart",
+      "theme": "Speed riffs: alt picking i hög fart + rakt time",
+      "phaseGoal": "Avancerat: integrera tekniker i riktiga fraser + 'performance standard'.",
+      "why": "Speed-riffs kräver både fart och disciplin - och avslöjar direkt om time drar iväg.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up",
+          "time": "10 min",
+          "description": "16-delar alternate på en ton: 60 s on, 30 s vila x 3."
+        },
+        {
+          "section": "B",
+          "name": "Riff-loop",
+          "time": "25-35 min",
+          "description": "Välj ett 2-takts mönster (enkla toner/powerchords). Metronom-protokoll med extra fokus på beat 1 (tydlig accent)."
+        },
+        {
+          "section": "C",
+          "name": "Strängbyte i fart",
+          "time": "10-15 min",
+          "description": "Växla E<->A i ett rytmiskt mönster (t.ex. 2+2+4 slag) utan att 'svaja'."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Pantera-flavour",
+          "time": "20-30 min",
+          "description": "Bygg en aggressiv riff-loop där pauser är stenhårt tysta. Lägg in 1-2 snabba 'bursts' per loop och håll resten tight."
+        }
       ],
-      "techniqueFocus": [
-        "Riffbaserad alternate picking med gallops",
-        "Förflyttningar i låga E- och A-strängar"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Riff Precision och Speed är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Attacken får vara brutal - men bara om pauserna är lika kontrollerade som anslagen.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 29,
       "guitarist": "tommy",
-      "title": "Power Metal Finesse",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "title": "Muting/Accuracy: Högerhandens Kontroll",
+      "theme": "Muting/accuracy: högerhandens dämpning + attack-konsistens",
+      "phaseGoal": "Avancerat: integrera tekniker i riktiga fraser + 'performance standard'.",
+      "why": "När du ökar bpm är det ofta muting som faller först. Du tränar 'pro'-tystnad.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Staccato-control",
+          "time": "10 min",
+          "description": "Spela 8-delar på låg sträng, stoppa varje slag (kort, knivskarpt)."
+        },
+        {
+          "section": "B",
+          "name": "Mute matrix",
+          "time": "25-35 min",
+          "description": "4 x 60 s: 1) Tung palm mute, 2) Lätt palm mute, 3) Öppet men vänsterhand-dämp direkt efter tonen, 4) Varannan ton muted/öppen. Fokus: samma time, samma attack."
+        },
+        {
+          "section": "C",
+          "name": "Precision bursts",
+          "time": "10-15 min",
+          "description": "1 beat burst (16-delar) + 3 beats staccato-kontroll. 12-16 reps."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Sabaton-flavour",
+          "time": "20-30 min",
+          "description": "Välj en snabb melodisk passage ur Soldier of Heaven (eller annat Sabaton-solo) och gör: 10 perfekta reps på CT-20, 10 reps på CT, bursts CT+15 på halva frasen. Mål: melodin ska vara tydlig även i fart."
+        }
       ],
-      "techniqueFocus": [
-        "Snabba melodiska skalor i power metal-stil",
-        "Sweep arpeggios med delay-effekt (tänk Sabaton intro-solon)"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Power Metal Finesse är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Snabbt är meningslöst om det är gröt. Gör melodin kristallklar först.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     },
     {
       "day": 30,
-      "guitarist": "smith",
-      "title": "Twin Harmony och Flow",
-      "warmup": [
-        "Kromatiska eller skalbaserade övningar i metronom (100–140 BPM)",
-        "Fingerstretch eller tremolo-picking beroende på fokus"
+      "guitarist": "hammett",
+      "title": "Repertoar-dag: Solo-chunking",
+      "theme": "Repertoar-dag: solo-chunking + performance-run (musikalisk integration)",
+      "phaseGoal": "Avancerat: integrera tekniker i riktiga fraser + 'performance standard'.",
+      "why": "Tekniken måste bli musik. Idag bygger du riktiga solo-chunks till 'performance standard'.",
+      "exercises": [
+        {
+          "section": "A",
+          "name": "Warm-up",
+          "time": "10 min",
+          "description": "2 min chromatik + 2 min 3NPS + 2 min legato + 2 min tremolo (kort, kontrollerat)."
+        },
+        {
+          "section": "B",
+          "name": "Solo-chunking",
+          "time": "35-55 min",
+          "description": "Välj 1 passage (1-2 takter) från: Creeping Death (Metallica), Tornado of Souls (Megadeth), Soldier of Heaven (Sabaton), eller 'Yngwie-fras' (3-strängs sweep + harmonic minor-run). Metod: 1) Karta: sjung rytmen, 2) Slow perfect: CT-20, 10 reps, 3) CT: 10 reps, 4) Bursts: CT+20 i halva chunken, 5) Sätt ihop: hela chunken CT-10 -> CT."
+        },
+        {
+          "section": "C",
+          "name": "Performance-run",
+          "time": "10-15 min",
+          "description": "Spela chunken 3 gånger i rad utan stopp. Om du missar: skriv ner varför (strängbyte? vänsterhand? muting?)."
+        },
+        {
+          "section": "D",
+          "name": "Applicera - Hammett-flavour",
+          "time": "20-30 min",
+          "description": "Lägg till vibrato och bends där det passar. Målet är att det låter som ett solo (frasering) även vid lägre tempo."
+        }
       ],
-      "techniqueFocus": [
-        "Dubbla harmonier (3:e- och 6:e-intervall)",
-        "Legato-runs i E Dorian eller A Minor"
-      ],
-      "lick": "e|--12-14-15-14-12-----------|\nB|----------------15-14-12---|\nG|------------------------14-|",
-      "quote": "Twin Harmony och Flow är inte bara teknik – det är känsla, kontroll och att våga tänja gränser."
+      "tabs": [],
+      "quote": "Det ska låta bra långsamt. När det låter bra kommer hastigheten.",
+      "checklist": [
+        "Jag loggade CT för dagens huvudövning (bpm)",
+        "Jag gjorde minst 10 perfekta reps på CT innan tempoökning",
+        "Jag körde bursts utan att spänna mig",
+        "Jag spelade in 30-60 s och noterade 1 förbättringspunkt"
+      ]
     }
   ]
 }

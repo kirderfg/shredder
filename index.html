@@ -909,6 +909,288 @@
         background: var(--blood-red);
         border-radius: 2px;
       }
+
+      /* Info Button */
+      .info-btn {
+        position: absolute;
+        top: calc(var(--safe-top) + 10px);
+        right: 16px;
+        background: var(--metal-dark);
+        border: 1px solid var(--blood-red);
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .info-btn:active {
+        transform: scale(0.95);
+        background: var(--blood-red);
+      }
+
+      .header {
+        position: relative;
+      }
+
+      /* Intro Modal Content */
+      .intro-modal-content {
+        max-height: 85vh;
+        max-width: 400px;
+      }
+
+      .intro-section {
+        margin-bottom: 16px;
+      }
+
+      .intro-section-title {
+        font-family: "Metal", Impact, sans-serif;
+        font-size: 14px;
+        color: var(--fire-orange);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .intro-goal {
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--skull-white);
+        background: rgba(10, 5, 5, 0.8);
+        padding: 12px;
+        border-radius: 8px;
+        border-left: 3px solid var(--fire-orange);
+      }
+
+      .phase-card {
+        background: rgba(10, 5, 5, 0.8);
+        border: 1px solid var(--blood-red);
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 8px;
+      }
+
+      .phase-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+
+      .phase-number {
+        font-family: "Metal", Impact, sans-serif;
+        font-size: 12px;
+        color: var(--fire-orange);
+      }
+
+      .phase-days {
+        font-size: 10px;
+        color: var(--chrome);
+        background: var(--metal-dark);
+        padding: 2px 8px;
+        border-radius: 10px;
+      }
+
+      .phase-focus {
+        font-size: 11px;
+        color: var(--skull-white);
+        margin-bottom: 4px;
+      }
+
+      .phase-tempo {
+        font-size: 10px;
+        color: var(--chrome);
+        font-style: italic;
+      }
+
+      .zone-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+
+      .zone-card {
+        background: rgba(10, 5, 5, 0.8);
+        border: 1px solid var(--blood-red);
+        border-radius: 6px;
+        padding: 8px;
+        text-align: center;
+      }
+
+      .zone-name {
+        font-family: "Metal", Impact, sans-serif;
+        font-size: 10px;
+        color: var(--fire-orange);
+        margin-bottom: 4px;
+      }
+
+      .zone-tempo {
+        font-size: 10px;
+        color: var(--skull-white);
+      }
+
+      .zone-duration {
+        font-size: 9px;
+        color: var(--chrome);
+      }
+
+      .rule-list {
+        list-style: none;
+        background: rgba(10, 5, 5, 0.8);
+        border-radius: 8px;
+        padding: 10px;
+      }
+
+      .rule-list li {
+        font-size: 11px;
+        line-height: 1.4;
+        padding: 4px 0;
+        padding-left: 16px;
+        position: relative;
+        color: var(--skull-white);
+      }
+
+      .rule-list li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--fire-orange);
+      }
+
+      /* Exercise Cards */
+      .exercise-card {
+        background: rgba(10, 5, 5, 0.8);
+        border: 1px solid var(--blood-red);
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 8px;
+      }
+
+      .exercise-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+
+      .exercise-section {
+        font-family: "Metal", Impact, sans-serif;
+        font-size: 11px;
+        color: var(--fire-orange);
+        background: var(--metal-dark);
+        padding: 2px 8px;
+        border-radius: 10px;
+      }
+
+      .exercise-time {
+        font-size: 10px;
+        color: var(--chrome);
+      }
+
+      .exercise-name {
+        font-family: "Metal", Impact, sans-serif;
+        font-size: 12px;
+        color: var(--skull-white);
+        margin-bottom: 6px;
+      }
+
+      .exercise-desc {
+        font-size: 11px;
+        line-height: 1.4;
+        color: var(--chrome);
+      }
+
+      /* Tab Section */
+      .tab-card {
+        background: rgba(10, 5, 5, 0.85);
+        border: 1px solid var(--blood-red);
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 8px;
+      }
+
+      .tab-name {
+        font-size: 11px;
+        color: var(--fire-orange);
+        margin-bottom: 6px;
+      }
+
+      .tab-content {
+        font-family: "Courier New", monospace;
+        font-size: 10px;
+        line-height: 1.3;
+        color: var(--fire-yellow);
+        white-space: pre;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* Checklist */
+      .checklist {
+        list-style: none;
+        background: rgba(10, 5, 5, 0.8);
+        border-radius: 8px;
+        padding: 10px;
+      }
+
+      .checklist li {
+        font-size: 11px;
+        line-height: 1.4;
+        padding: 6px 0;
+        padding-left: 24px;
+        position: relative;
+        color: var(--skull-white);
+        border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+      }
+
+      .checklist li:last-child {
+        border-bottom: none;
+      }
+
+      .checklist li::before {
+        content: "☐";
+        position: absolute;
+        left: 0;
+        color: var(--fire-orange);
+        font-size: 14px;
+      }
+
+      /* Why Section */
+      .why-section {
+        background: linear-gradient(145deg, rgba(42, 32, 32, 0.6), rgba(26, 21, 21, 0.6));
+        border-left: 3px solid var(--fire-yellow);
+        padding: 10px 12px;
+        border-radius: 0 8px 8px 0;
+        margin-bottom: 12px;
+      }
+
+      .why-title {
+        font-size: 10px;
+        color: var(--fire-yellow);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+      }
+
+      .why-text {
+        font-size: 12px;
+        line-height: 1.4;
+        color: var(--skull-white);
+      }
+
+      /* Phase Goal Badge */
+      .phase-goal-badge {
+        display: inline-block;
+        font-size: 10px;
+        color: var(--chrome);
+        background: var(--metal-dark);
+        padding: 4px 10px;
+        border-radius: 12px;
+        border: 1px solid var(--blood-red);
+        margin-bottom: 12px;
+      }
     </style>
   </head>
   <body>
@@ -918,6 +1200,7 @@
       <header class="header">
         <h1 class="logo">SHREDDER<sup class="logo-tm">LUKAS</sup></h1>
         <p class="subtitle">30 DAGARS GITARRTRÄNING</p>
+        <button class="info-btn" id="show-intro-btn" title="Kursinfo">ℹ️</button>
       </header>
 
       <div class="stats-bar">
@@ -1037,6 +1320,19 @@
       <div class="level-up-rank" id="new-rank">Gitarrkrigar</div>
     </div>
 
+    <!-- Course Intro Modal -->
+    <div class="modal-overlay" id="intro-modal">
+      <div class="modal-content intro-modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Kursöversikt</h3>
+          <button class="modal-close" id="intro-modal-close">×</button>
+        </div>
+        <div id="intro-content">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </div>
+
     <script>
       // ============================================
       // COURSE DATA - Loaded from JSON file
@@ -1045,6 +1341,7 @@
       let TRAINING_DAYS = [];
       let LEVELS = [];
       let ACHIEVEMENTS = [];
+      let COURSE_INTRO = null;
 
       // Load course data from JSON file
       async function loadCourseData() {
@@ -1058,6 +1355,7 @@
           GUITARISTS = data.guitarists;
           TRAINING_DAYS = data.days;
           LEVELS = data.levels;
+          COURSE_INTRO = data.courseIntro;
 
           // Create achievements with condition functions
           ACHIEVEMENTS = data.achievements.map((ach) => ({
@@ -2122,24 +2420,63 @@
           month: "short",
         });
 
-        // Calculate week number
-        const weekNum = Math.ceil(dayData.day / 6);
+        // Calculate week/phase number
+        const phaseNum = Math.ceil(dayData.day / 10);
 
-        // Warmup section
-        const warmupHTML = dayData.warmup
-          .map((item) => `<li>${item}</li>`)
+        // Build exercises HTML
+        const exercisesHTML = dayData.exercises
+          .map(
+            (ex) => `
+            <div class="exercise-card">
+              <div class="exercise-header">
+                <span class="exercise-section">${ex.section}</span>
+                <span class="exercise-time">${ex.time}</span>
+              </div>
+              <div class="exercise-name">${ex.name}</div>
+              <div class="exercise-desc">${ex.description}</div>
+            </div>
+          `
+          )
           .join("");
 
-        // Technique focus section
-        const techniqueHTML = dayData.techniqueFocus
-          .map((item) => `<li>${item}</li>`)
-          .join("");
+        // Build tabs HTML
+        const tabsHTML =
+          dayData.tabs && dayData.tabs.length > 0
+            ? `
+            <div class="training-section">
+              <div class="training-section-title">🎸 Tabs</div>
+              ${dayData.tabs
+                .map(
+                  (tab) => `
+                <div class="tab-card">
+                  <div class="tab-name">${tab.name}</div>
+                  <pre class="tab-content">${tab.tab}</pre>
+                </div>
+              `
+                )
+                .join("")}
+            </div>
+          `
+            : "";
+
+        // Build checklist HTML
+        const checklistHTML =
+          dayData.checklist && dayData.checklist.length > 0
+            ? `
+            <div class="training-section">
+              <div class="training-section-title">✅ Dagens Checklist</div>
+              <ul class="checklist">
+                ${dayData.checklist.map((item) => `<li>${item}</li>`).join("")}
+              </ul>
+            </div>
+          `
+            : "";
 
         document.getElementById("day-card").innerHTML = `
             <div class="day-header">
                 <div>
                     <div class="day-number">DAG ${dayData.day}</div>
-                    <div class="day-date">${dateStr} • Vecka ${weekNum}</div>
+                    <div class="day-date">${dateStr} • Fas ${phaseNum}</div>
                 </div>
                 <div class="guitarist-badge" style="border-color: ${guitarist.color}">
                     <div class="guitarist-avatar">${guitarist.emoji}</div>
@@ -2148,26 +2485,27 @@
             </div>
             <h3 class="day-title">${dayData.title}</h3>
 
-            <div class="training-section">
-                <div class="training-section-title">🔥 Uppvärmning</div>
-                <ul class="training-list">
-                    ${warmupHTML}
-                </ul>
+            ${dayData.phaseGoal ? `<div class="phase-goal-badge">📍 ${dayData.phaseGoal}</div>` : ""}
+
+            ${
+              dayData.why
+                ? `
+            <div class="why-section">
+              <div class="why-title">Varför detta?</div>
+              <div class="why-text">${dayData.why}</div>
             </div>
+            `
+                : ""
+            }
 
             <div class="training-section">
-                <div class="training-section-title">🎯 Teknikfokus</div>
-                <ul class="training-list">
-                    ${techniqueHTML}
-                </ul>
+                <div class="training-section-title">🔥 Övningar</div>
+                ${exercisesHTML}
             </div>
 
-            <div class="training-section">
-                <div class="training-section-title">🎸 Dagens Lick</div>
-                <div class="lick-section">
-                    <pre class="lick-tab">${dayData.lick}</pre>
-                </div>
-            </div>
+            ${tabsHTML}
+
+            ${checklistHTML}
 
             <div class="quote-section">
                 <p class="quote-text">"${dayData.quote}"</p>
@@ -2181,6 +2519,92 @@
                 <span class="xp-badge">+${DAY_XP} XP</span>
             </button>
         `;
+      }
+
+      function renderIntroModal() {
+        if (!COURSE_INTRO) return;
+
+        const phasesHTML = COURSE_INTRO.structure.phases
+          .map(
+            (p) => `
+            <div class="phase-card">
+              <div class="phase-header">
+                <span class="phase-number">FAS ${p.phase}</span>
+                <span class="phase-days">Dag ${p.days}</span>
+              </div>
+              <div class="phase-focus">${p.focus}</div>
+              <div class="phase-tempo">${p.tempoGoal}</div>
+            </div>
+          `
+          )
+          .join("");
+
+        const zonesHTML = COURSE_INTRO.metronomeProtocol.zones
+          .map(
+            (z) => `
+            <div class="zone-card">
+              <div class="zone-name">${z.name}</div>
+              <div class="zone-tempo">${z.tempo}</div>
+              <div class="zone-duration">${z.duration}</div>
+            </div>
+          `
+          )
+          .join("");
+
+        const rulesHTML = COURSE_INTRO.techniqueRules
+          .map((r) => `<li>${r}</li>`)
+          .join("");
+
+        const dailyHTML = COURSE_INTRO.dailyStructure
+          .map((d) => `<li><strong>${d.time}</strong> - ${d.activity}</li>`)
+          .join("");
+
+        document.getElementById("intro-content").innerHTML = `
+          <div class="intro-section">
+            <div class="intro-section-title">🎯 Mål</div>
+            <div class="intro-goal">${COURSE_INTRO.goal}</div>
+          </div>
+
+          <div class="intro-section">
+            <div class="intro-section-title">📅 3-Fas Struktur</div>
+            <p style="font-size: 11px; color: var(--chrome); margin-bottom: 8px;">${COURSE_INTRO.structure.description}</p>
+            ${phasesHTML}
+          </div>
+
+          <div class="intro-section">
+            <div class="intro-section-title">⏱️ Daglig Struktur</div>
+            <ul class="rule-list">
+              ${dailyHTML}
+            </ul>
+          </div>
+
+          <div class="intro-section">
+            <div class="intro-section-title">🎚️ Metronom-Protokoll</div>
+            <p style="font-size: 11px; color: var(--chrome); margin-bottom: 8px;">${COURSE_INTRO.metronomeProtocol.description}</p>
+            <div class="zone-grid">
+              ${zonesHTML}
+            </div>
+            <p style="font-size: 10px; color: var(--fire-orange); margin-top: 8px; font-style: italic;">
+              ${COURSE_INTRO.metronomeProtocol.rule}
+            </p>
+          </div>
+
+          <div class="intro-section">
+            <div class="intro-section-title">⚡ Teknik-Regler</div>
+            <ul class="rule-list">
+              ${rulesHTML}
+            </ul>
+          </div>
+        `;
+      }
+
+      function openIntroModal() {
+        renderIntroModal();
+        document.getElementById("intro-modal").classList.add("active");
+      }
+
+      function closeIntroModal() {
+        document.getElementById("intro-modal").classList.remove("active");
       }
 
       function renderAchievements() {
@@ -2339,6 +2763,18 @@
         document
           .getElementById("reset-btn")
           .addEventListener("click", resetCourse);
+
+        // Intro modal
+        document
+          .getElementById("show-intro-btn")
+          .addEventListener("click", openIntroModal);
+        document
+          .getElementById("intro-modal-close")
+          .addEventListener("click", closeIntroModal);
+        document.getElementById("intro-modal").addEventListener("click", (e) => {
+          if (e.target === document.getElementById("intro-modal"))
+            closeIntroModal();
+        });
       }
 
       // Make functions global for onclick handlers
