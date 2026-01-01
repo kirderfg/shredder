@@ -125,6 +125,33 @@
         margin-top: 4px;
       }
 
+      .dev-mode-toggle {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        cursor: pointer;
+        opacity: 0.5;
+        transition: opacity 0.2s;
+      }
+
+      .dev-mode-toggle:hover {
+        opacity: 1;
+      }
+
+      .dev-mode-toggle input {
+        display: none;
+      }
+
+      .dev-mode-label {
+        font-size: 18px;
+        filter: grayscale(1);
+        transition: filter 0.2s;
+      }
+
+      .dev-mode-toggle input:checked + .dev-mode-label {
+        filter: grayscale(0);
+      }
+
       /* Stats Bar */
       .stats-bar {
         display: grid;
@@ -1159,7 +1186,11 @@
 
       /* Why Section */
       .why-section {
-        background: linear-gradient(145deg, rgba(42, 32, 32, 0.6), rgba(26, 21, 21, 0.6));
+        background: linear-gradient(
+          145deg,
+          rgba(42, 32, 32, 0.6),
+          rgba(26, 21, 21, 0.6)
+        );
         border-left: 3px solid var(--fire-yellow);
         padding: 10px 12px;
         border-radius: 0 8px 8px 0;
@@ -1200,7 +1231,17 @@
       <header class="header">
         <h1 class="logo">SHREDDER<sup class="logo-tm">LUKAS</sup></h1>
         <p class="subtitle">30 DAGARS GITARRTRÄNING</p>
-        <button class="info-btn" id="show-intro-btn" title="Kursinfo">ℹ️</button>
+        <label class="dev-mode-toggle" title="Lås upp alla dagar">
+          <input
+            type="checkbox"
+            id="dev-mode-checkbox"
+            onchange="toggleDevMode(this.checked)"
+          />
+          <span class="dev-mode-label">🔓</span>
+        </label>
+        <button class="info-btn" id="show-intro-btn" title="Kursinfo">
+          ℹ️
+        </button>
       </header>
 
       <div class="stats-bar">
@@ -1403,6 +1444,20 @@
       let timerInterval = null;
       let timerSeconds = 0;
       let timerRunning = false;
+      let devMode = false; // Bypass date locking when true
+
+      // ============================================
+      // TEST UTILITIES
+      // ============================================
+      // Use ?testDate=YYYY-MM-DD in URL to override the current date for testing
+      function getEffectiveDate() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const testDate = urlParams.get("testDate");
+        if (testDate) {
+          return new Date(testDate + "T12:00:00"); // Noon to avoid timezone issues
+        }
+        return new Date();
+      }
 
       // Metronome state
       let metronomeBPM = 120;
@@ -2042,16 +2097,30 @@
         }
 
         // Calculate current day based on date
-        const today = new Date();
+        const today = getEffectiveDate();
         const daysDiff =
           Math.floor((today - START_DATE) / (1000 * 60 * 60 * 24)) + 1;
         state.currentDay = Math.max(1, Math.min(30, daysDiff));
+
+        // Recalculate daysCompleted from actual completedExercises (in case of data corruption)
+        const actualCompleted = Object.keys(state.completedExercises).filter(
+          (key) => key.startsWith("day-") && state.completedExercises[key],
+        ).length;
+        if (state.daysCompleted !== actualCompleted) {
+          state.daysCompleted = actualCompleted;
+          // Save corrected state
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          } catch (e) {
+            console.error("Failed to save corrected state:", e);
+          }
+        }
 
         // Check streak
         checkStreak();
 
         // Load today's timer
-        const todayKey = getDateKey(new Date());
+        const todayKey = getDateKey(getEffectiveDate());
         timerSeconds = (state.dailyPracticeTime[todayKey] || 0) * 60;
       }
 
@@ -2061,6 +2130,11 @@
         } catch (e) {
           console.error("Failed to save state:", e);
         }
+      }
+
+      function toggleDevMode(enabled) {
+        devMode = enabled;
+        renderDaysGrid();
       }
 
       function resetCourse() {
@@ -2095,8 +2169,11 @@
       }
 
       function checkStreak() {
-        const today = getDateKey(new Date());
-        const yesterday = getDateKey(new Date(Date.now() - 86400000));
+        const effectiveDate = getEffectiveDate();
+        const today = getDateKey(effectiveDate);
+        const yesterday = getDateKey(
+          new Date(effectiveDate.getTime() - 86400000),
+        );
 
         if (state.lastPracticeDate === today) {
           // Already practiced today
@@ -2232,7 +2309,7 @@
         timerSeconds = 0;
         updateTimerDisplay();
 
-        const todayKey = getDateKey(new Date());
+        const todayKey = getDateKey(getEffectiveDate());
         state.dailyPracticeTime[todayKey] = 0;
         saveState();
       }
@@ -2245,7 +2322,7 @@
       }
 
       function savePracticeTime() {
-        const todayKey = getDateKey(new Date());
+        const todayKey = getDateKey(getEffectiveDate());
         const minutes = Math.floor(timerSeconds / 60);
 
         state.dailyPracticeTime[todayKey] = minutes;
@@ -2435,7 +2512,7 @@
               <div class="exercise-name">${ex.name}</div>
               <div class="exercise-desc">${ex.description}</div>
             </div>
-          `
+          `,
           )
           .join("");
 
@@ -2452,7 +2529,7 @@
                   <div class="tab-name">${tab.name}</div>
                   <pre class="tab-content">${tab.tab}</pre>
                 </div>
-              `
+              `,
                 )
                 .join("")}
             </div>
@@ -2535,7 +2612,7 @@
               <div class="phase-focus">${p.focus}</div>
               <div class="phase-tempo">${p.tempoGoal}</div>
             </div>
-          `
+          `,
           )
           .join("");
 
@@ -2547,7 +2624,7 @@
               <div class="zone-tempo">${z.tempo}</div>
               <div class="zone-duration">${z.duration}</div>
             </div>
-          `
+          `,
           )
           .join("");
 
@@ -2621,7 +2698,7 @@
 
       function renderDaysGrid() {
         const grid = document.getElementById("days-grid");
-        const today = new Date();
+        const today = getEffectiveDate();
 
         grid.innerHTML = TRAINING_DAYS.map((day, i) => {
           const dayDate = new Date(START_DATE);
@@ -2639,9 +2716,9 @@
                 );
 
           // Day 1 can be accessed 1 day early, others need correct date
-          const dateUnlocked = i === 0 ? true : dayDate <= today;
+          const dateUnlocked = devMode || i === 0 ? true : dayDate <= today;
 
-          // Locked if date not reached OR previous days not completed
+          // Locked if date not reached OR previous days not completed (devMode bypasses date lock)
           const isLocked = !dateUnlocked || !prevDaysCompleted;
 
           return `
@@ -2670,7 +2747,7 @@
       }
 
       function nextDay() {
-        const today = new Date();
+        const today = getEffectiveDate();
         const nextDayIndex = state.currentDay; // 0-indexed for next day
 
         if (nextDayIndex >= 30) return;
@@ -2678,7 +2755,7 @@
         // Check if next day's date is unlocked
         const nextDayDate = new Date(START_DATE);
         nextDayDate.setDate(nextDayDate.getDate() + nextDayIndex);
-        const dateUnlocked = nextDayDate <= today;
+        const dateUnlocked = devMode || nextDayDate <= today;
 
         // Check if all previous days completed
         const prevDaysCompleted = Array.from({ length: nextDayIndex }, (_, j) =>
@@ -2771,10 +2848,12 @@
         document
           .getElementById("intro-modal-close")
           .addEventListener("click", closeIntroModal);
-        document.getElementById("intro-modal").addEventListener("click", (e) => {
-          if (e.target === document.getElementById("intro-modal"))
-            closeIntroModal();
-        });
+        document
+          .getElementById("intro-modal")
+          .addEventListener("click", (e) => {
+            if (e.target === document.getElementById("intro-modal"))
+              closeIntroModal();
+          });
       }
 
       // Make functions global for onclick handlers
